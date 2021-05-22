@@ -1,0 +1,2 @@
+rootProject.name = "aioRestaurants"
+include ':app'
