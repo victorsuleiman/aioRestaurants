@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">aioRestaurants</string>
+    <string name="cashier">Cashier</string>
+    <string name="profile">User Profile</string>
+    <string name="sales">Sales</string>
+    <string name="add_menu_item">Add Menu Item</string>
+    <string name="delete_menu_item">Delete Menu Item</string>
+    <string name="edit_menu_item">Edit Menu Item</string>
 </resources>
