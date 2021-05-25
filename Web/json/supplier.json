@@ -1,0 +1,241 @@
+[
+    {
+        "supplierId":1,
+        "supplierName":"Shufflebeat",
+        "contactName":"Dehlia Gullan",
+        "address":"42 Nobel Avenue",
+        "city":"Qingshi",
+        "country":"China",
+        "phone":"657-487-6964",
+        "email":"dgullan0@pagesperso-orange.fr",
+        "products": [
+            {
+                "productId":"66-126-5853",
+                "productName":"Flower - Commercial Bronze",
+                "unity":"cl",
+                "price":367.83
+            },
+            {
+                "productId":"32-145-4771",
+                "productName":"Oil - Cooking Spray",
+                "unity":"bottle",
+                "price":339.18
+            },
+            {
+                "productId":"62-660-0246",
+                "productName":"Pasta - Agnolotti - Butternut",
+                "unity":"box",
+                "price":158.67
+            },
+            {
+                "productId":"83-735-3838",
+                "productName":"Crab Meat Claw Pasteurise",
+                "unity":"cl",
+                "price":103.22
+            }
+        ]
+    },
+    {
+        "supplierId":2,
+        "supplierName":"BlogXS",
+        "contactName":"Zerk Torrijos",
+        "address":"0487 Granby Center",
+        "city":"Washington",
+        "postalCode":"20226",
+        "country":"United States",
+        "phone":"202-357-6532",
+        "email":"ztorrijos1@mayoclinic.com",
+        "products":[
+            {
+                "productId":"32-145-4771",
+                "productName":"Oil - Cooking Spray",
+                "unity":"bottle",
+                "price":339.18
+            },
+            {
+                "productId":"78-524-5637",
+                "productName":"Prunes - Pitted",
+                "unity":"unt",
+                "price":385.11
+            },
+            {
+                "productId":"82-096-7586",
+                "productName":"Lettuce Romaine Chopped",
+                "unity":"lb",
+                "price":80.05
+            },
+            {
+                "productId":"89-762-0143",
+                "productName":"Nori Sea Weed - Gold Label",
+                "unity":"oz",
+                "price":69.58
+            }
+        ]
+    },
+    {
+        "supplierId":3,
+        "supplierName":"Twinte",
+        "contactName":"Brittaney Garnsworth",
+        "address":"282 Susan Center",
+        "city":"Kute",
+        "country":"Indonesia",
+        "phone":"313-136-4172",
+        "email":"bgarnsworth2@devhub.com",
+        "products":[
+            {
+                "productId":"15-670-5740",
+                "productName":"Orange - Blood",
+                "unity":"bag",
+                "price":281.55
+            },
+            {
+                "productId":"62-660-0246",
+                "productName":"Pasta - Agnolotti - Butternut",
+                "unity":"box",
+                "price":158.67
+            }
+        ]
+    },
+    {
+        "supplierId":4,
+        "supplierName":"Rhyzio",
+        "contactName":"Moll Vergo",
+        "address":"56 Knutson Road",
+        "city":"Brodósqui",
+        "postalCode":"64222-000",
+        "country":"Brazil",
+        "phone":"649-998-5182",
+        "email":"mvergo3@army.mil",
+        "products":[
+            {
+                "productId":"62-660-0246",
+                "productName":"Pasta - Agnolotti - Butternut",
+                "unity":"box",
+                "price":158.67
+            },
+            {
+                "productId":"15-670-5740",
+                "productName":"Orange - Blood",
+                "unity":"bag",
+                "price":281.55
+            },
+            {
+                "productId":"00-214-9921",
+                "productName":"Vinegar - Cider",
+                "unity":"box",
+                "price":325.97
+            }
+        ]
+    },
+    {
+        "supplierId":5,
+        "supplierName":"Vipe",
+        "contactName":"Frieda Mewett",
+        "address":"79631 Mayer Lane",
+        "city":"Mekarsari",
+        "country":"Indonesia",
+        "phone":"458-936-0747",
+        "email":"fmewett4@is.gd",
+        "products":[
+            {
+                "productId":"00-214-9921",
+                "productName":"Vinegar - Cider",
+                "unity":"box",
+                "price":325.97
+            },
+            {
+                "productId":"15-670-5740",
+                "productName":"Orange - Blood",
+                "unity":"bag",
+                "price":281.55
+            },
+            {
+                "productId":"62-660-0246",
+                "productName":"Pasta - Agnolotti - Butternut",
+                "unity":"box",
+                "price":158.67
+            }
+        ]
+    },
+    {
+        "supplierId":6,
+        "supplierName":"Babbleset",
+        "contactName":"Karyl Lumsdon",
+        "address":"81370 Morning Road",
+        "city":"Lile",
+        "country":"China",
+        "phone":"322-999-1772",
+        "email":"klumsdon5@redcross.org",
+        "products":{
+        "productId":"83-735-3838",
+        "productName":"Crab Meat Claw Pasteurise",
+        "unity":"cl",
+        "price":103.22
+        }
+    },
+    {
+        "supplierId":7,
+        "supplierName":"Dabfeed",
+        "contactName":"Teresita Skilbeck",
+        "address":"36369 Evergreen Way",
+        "city":"Barreiro",
+        "postalCode":"4950-642",
+        "country":"Portugal",
+        "phone":"697-868-8142",
+        "email":"tskilbeck6@tripadvisor.com",
+        "products":[
+            {
+                "productId":"39-955-8738",
+                "productName":"Lamb - Rack",
+                "unity":"can",
+                "price":366.98
+            },
+            {
+                "productId":"01-027-1655",
+                "productName":"Isomalt",
+                "unity":"Kg",
+                "price":58.56
+            }
+        ]
+    },
+    {
+        "supplierId":8,
+        "supplierName":"Yakidoo",
+        "contactName":"Eveline Klimus",
+        "address":"1042 Corscot Park",
+        "city":"Uzda",
+        "country":"Belarus",
+        "phone":"222-489-7496",
+        "email":"eklimus7@sciencedirect.com",
+        "products":[
+            {
+                "productId":"78-524-5637",
+                "productName":"Prunes - Pitted",
+                "unity":"unt",
+                "price":385.11
+            },
+            {
+                "productId":"73-824-0404",
+                "productName":"Cookie Choc",
+                "unity":"cl",
+                "price":115.52
+            }
+        ]
+    },
+    {
+        "supplierId":9,
+        "supplierName":"Yombu",
+        "contactName":"Claribel Toffanini",
+        "address":"468 Boyd Plaza",
+        "city":"Lawepakam",
+        "country":"Indonesia",
+        "phone":"240-212-5862",
+        "email":"ctoffanini8@mail.ru",
+        "products":{
+            "productId":"87-517-2967",
+            "productName":"Wine - Cave Springs Dry Riesling",
+            "unity":"unt",
+            "price":247.05
+        }
+    }
+ ]

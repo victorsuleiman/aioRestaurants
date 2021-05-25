@@ -1,0 +1,83 @@
+[
+    {
+       "shipperId":1,
+       "shipperName":"Pixoboo",
+       "contactName":"Genny MacNally",
+       "address":"33089 Menomonie Hill",
+       "city":"Viļāni",
+       "country":"Latvia",
+       "phone":"327-692-0146",
+       "email":"gmacnally0@vk.com"
+    },
+    {
+       "shipperId":2,
+       "shipperName":"Riffpedia",
+       "contactName":"Mead Shane",
+       "address":"79106 Debra Plaza",
+       "city":"Nova Odesa",
+       "country":"Ukraine",
+       "phone":"529-199-7782",
+       "email":"mshane1@t-online.de"
+    },
+    {
+       "shipperId":3,
+       "shipperName":"Jaloo",
+       "contactName":"Nonnah Heberden",
+       "address":"0182 Erie Plaza",
+       "city":"Bao’an",
+       "country":"China",
+       "phone":"814-201-8246",
+       "email":"nheberden2@moonfruit.com"
+    },
+    {
+       "shipperId":4,
+       "shipperName":"Flashpoint",
+       "contactName":"Templeton Baldinotti",
+       "address":"9 Corben Court",
+       "city":"Cucuyagua",
+       "country":"Honduras",
+       "phone":"938-880-5298",
+       "email":"tbaldinotti3@independent.co.uk"
+    },
+    {
+       "shipperId":5,
+       "shipperName":"Jabbercube",
+       "contactName":"Agneta Broek",
+       "address":"2829 Green Point",
+       "city":"Xiaomei",
+       "country":"China",
+       "phone":"554-838-0739",
+       "email":"abroek4@yolasite.com"
+    },
+    {
+       "shipperId":6,
+       "shipperName":"Brainverse",
+       "contactName":"Breanne Ebi",
+       "address":"370 Nobel Parkway",
+       "city":"Jadi",
+       "country":"Indonesia",
+       "phone":"393-245-1664",
+       "email":"bebi5@naver.com"
+    },
+    {
+       "shipperId":7,
+       "shipperName":"Meembee",
+       "contactName":"Krystyna Coyte",
+       "address":"938 Tony Junction",
+       "city":"Březová",
+       "postalCode":"747 44",
+       "country":"Czech Republic",
+       "phone":"435-345-8348",
+       "email":"kcoyte6@uiuc.edu"
+    },
+    {
+       "shipperId":8,
+       "shipperName":"Skipstorm",
+       "contactName":"Ted Anten",
+       "address":"60 Garrison Court",
+       "city":"Longxi",
+       "country":"China",
+       "phone":"843-985-9576",
+       "email":"tanten7@opera.com"
+    }
+ ]
