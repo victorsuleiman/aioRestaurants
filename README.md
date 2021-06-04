@@ -10,7 +10,9 @@ We will try to make it as complete as possible, but each business can require so
 We are currently working on the backend and layout for this project.
 
 Eduardo Geisel Peres
+
 Gustavo Bruno Pereira de Freitas
+
 Victor Correa Suleiman
 
 <img src="https://raw.githubusercontent.com/eduardogeisel/aioRestaurants/7be8a8fd369f4999c5d3e6262ea497ca1edc5f90/Mobile/app/src/main/res/drawable/aiologo.jpg">
