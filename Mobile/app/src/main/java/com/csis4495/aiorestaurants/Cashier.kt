@@ -39,6 +39,13 @@ class Cashier : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDrinks).commit()
         }
 
+        //changing fragment to desserts menu
+        val fragmentMenuDesserts = FragmentMenuDesserts()
+        val btnDesserts: Button = findViewById(R.id.btnDesserts)
+        btnDesserts.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDesserts).commit()
+        }
+
 
 
 
