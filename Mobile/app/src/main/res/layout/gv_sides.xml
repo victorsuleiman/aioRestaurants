@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <GridView
-        android:id="@+id/gvPizza2"
+        android:id="@+id/gvSides2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false"
