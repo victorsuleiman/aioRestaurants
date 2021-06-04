@@ -13,4 +13,4 @@ Eduardo Geisel Peres
 Gustavo Bruno Pereira de Freitas
 Victor Correa Suleiman
 
-https://raw.githubusercontent.com/eduardogeisel/aioRestaurants/7be8a8fd369f4999c5d3e6262ea497ca1edc5f90/Mobile/app/src/main/res/drawable/aiologo.jpg
+<img src="https://raw.githubusercontent.com/eduardogeisel/aioRestaurants/7be8a8fd369f4999c5d3e6262ea497ca1edc5f90/Mobile/app/src/main/res/drawable/aiologo.jpg">
