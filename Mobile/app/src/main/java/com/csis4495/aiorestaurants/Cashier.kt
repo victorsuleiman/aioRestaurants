@@ -11,11 +11,29 @@ class Cashier : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cashier)
 
+        //going back to home page when clicking on home image
         val imgHome: ImageView = findViewById(R.id.imageViewHome)
         imgHome.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent);
         }
+
+        //changing fragment to pizza menu
+        val fragmentMenuPizza = FragmentMenuPizza()
+        val btnPizza: Button = findViewById(R.id.btnPizzas)
+        btnPizza.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuPizza).commit()
+        }
+
+        //changing fragment to sides menu
+        val fragmentMenuSides = FragmentMenuSides()
+        val btnSides: Button = findViewById(R.id.btnSides)
+        btnSides.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuSides).commit()
+        }
+
+
+
 
     }
 }
