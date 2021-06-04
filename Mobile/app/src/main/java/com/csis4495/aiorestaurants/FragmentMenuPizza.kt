@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
+import com.csis4495.aiorestaurants.adapters.AdapterPizza
+import com.csis4495.aiorestaurants.classes.ItemPizza
 
 class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
 
     private var gridView: GridView? = null
     private var arrayList: ArrayList<ItemPizza> ? = null
-    private var adapterPizza: AdapterPizza ? = null
+    private var adapterPizza: AdapterPizza? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +79,7 @@ class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        var itemPizza:ItemPizza = arrayList!![position]
+        var itemPizza: ItemPizza = arrayList!![position]
         Toast.makeText(context, itemPizza.name, Toast.LENGTH_LONG).show()
     }
 }

@@ -1,10 +1,12 @@
-package com.csis4495.aiorestaurants
+package com.csis4495.aiorestaurants.adapters
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.csis4495.aiorestaurants.classes.ItemPizza
+import com.csis4495.aiorestaurants.R
 
 class AdapterPizza(var context: Context, var arrayList: ArrayList<ItemPizza>): BaseAdapter() {
     override fun getCount(): Int {

@@ -1,4 +1,4 @@
-package com.csis4495.aiorestaurants
+package com.csis4495.aiorestaurants.classes
 
 class ItemPizza {
 
