@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayoutSidesMenu"
         android:layout_width="110dp"
-        android:layout_height="90dp"
+        android:layout_height="110dp"
         android:layout_margin="4dp"
         android:background="@drawable/button_dark_yellow">
 
