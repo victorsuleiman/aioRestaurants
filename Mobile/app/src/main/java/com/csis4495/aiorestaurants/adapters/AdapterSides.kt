@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.csis4495.aiorestaurants.classes.ItemPizza
 import com.csis4495.aiorestaurants.R
 import com.csis4495.aiorestaurants.classes.ItemSides
 

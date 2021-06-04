@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
-import com.csis4495.aiorestaurants.classes.ItemPizza
+import com.csis4495.aiorestaurants.adapters.AdapterSides
 import com.csis4495.aiorestaurants.classes.ItemSides
 
 class FragmentMenuSides : Fragment(), AdapterView.OnItemClickListener {
