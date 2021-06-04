@@ -36,7 +36,7 @@ class FragmentMenuDrinks : Fragment(), AdapterView.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var gridView:GridView ? = view.findViewById(R.id.gvDrinks2)
+        var gridView:GridView ? = view.findViewById(R.id.gvDrinks)
         arrayList = ArrayList()
         arrayList = setDataList()
         adapterDrinks = context?.let { AdapterDrinks(it, arrayList!!) }
