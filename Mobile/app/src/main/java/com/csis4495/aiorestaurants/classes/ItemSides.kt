@@ -2,12 +2,12 @@ package com.csis4495.aiorestaurants.classes
 
 class ItemSides {
 
-    var sidesName:String ? = null
-    var sidesPrice:String ? = null
+    var name:String ? = null
+    var price:String ? = null
 
-    constructor(sidesName: String?, sidesPrice: String?) {
-        this.sidesName = sidesName
-        this.sidesPrice = sidesPrice
+    constructor(name: String?, price: String?) {
+        this.name = name
+        this.price = price
     }
 
 }
