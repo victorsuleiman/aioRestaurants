@@ -2,7 +2,16 @@ from flask import Flask, render_template,  request, escape
 from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 import os
-import pytest
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    
 
 load_dotenv()
 
@@ -32,8 +41,15 @@ def mainTest():
 
     products = getProducts()
 
-    for ingredient in getDishes()['ingredients']:
-        assert products.count(ingredient['name']) == 1
+    for dish in getDishes():
+        print(f"Checking ingredient matches for dish {dish['name']} ")
+        for ingredient in dish['ingredients']:
+            
+            if products.count(ingredient['name']) == 1:
+                print (f"Ingredient {ingredient['name']} : Passed!")
+            else: 
+                print (f"{bcolors.FAIL}Ingredient {ingredient['name']} : Not Passed.{bcolors.ENDC}")
+        print("---------------------------------------------------------------------------------------------")
 
         
 
@@ -41,7 +57,7 @@ def mainTest():
 #     for ingredient in dish['ingredients']:
 #         return productList.count(ingredient['name']) == 1
 
-
+mainTest()
 
 # print(getProducts())
 # print(getProducts().count("Beef"))
