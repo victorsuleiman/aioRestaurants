@@ -1,0 +1,12 @@
+{
+    "server": "Philip",
+    "employeeId": 4,
+    "dishes": [
+        "Hawaiian Pizza - Large",
+        "Canadian Pizza - Small"
+    ],
+    "taxes": 1.45,
+    "total": 30.43,
+    "paymentType": "Credit Card",
+    "date": "2020-11-21"
+}

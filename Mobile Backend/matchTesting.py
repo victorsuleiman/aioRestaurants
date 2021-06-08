@@ -16,12 +16,8 @@ class bcolors:
 load_dotenv()
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = os.getenv('MONGO_URI') # replace the URI with your own connection
+app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
-
-# @app.route('/')
-# def init():                            
-#     return '<h1> {} </h1>'.format(__name__)
 
 def getProducts():
     products = list()
@@ -51,19 +47,5 @@ def mainTest():
                 print (f"{bcolors.FAIL}Ingredient {ingredient['name']} : Not Passed.{bcolors.ENDC}")
         print("---------------------------------------------------------------------------------------------")
 
-        
-
-# def testProductMatch(productList, dish):
-#     for ingredient in dish['ingredients']:
-#         return productList.count(ingredient['name']) == 1
-
 mainTest()
-
-# print(getProducts())
-# print(getProducts().count("Beef"))
-# dishes = list(getDishes())
-# print(dishes[0]['ingredients'][6]['name'])
-
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0',debug=True)
 
