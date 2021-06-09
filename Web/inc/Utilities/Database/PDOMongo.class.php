@@ -24,6 +24,9 @@ Executar a query e setar a coleção
         //MONGO URL CONNECTION
         private static $mongoUrl = DEFAULT_URL;
 
+        //Counter
+        private static $counter;
+
         //Validation variables
         private static $currentCollection = "";
         private static $collectionKeys = [];
@@ -38,6 +41,7 @@ Executar a query e setar a coleção
             self::defineMongoConnection();
             self::setCollectionList();
             self::setCollection($collection);
+            self::setCounter();
         }
 
         public static function setCollection($collection = ""){
@@ -68,7 +72,7 @@ Executar a query e setar a coleção
                 
                 self::$mongoUrl = "mongodb+srv://";
                 self::$mongoUrl .= self::$mongoUser.":".self::$mongoPass;
-                self::$mongoUrl .= self::$mongoHost;
+                self::$mongoUrl .= self::$mongoHost."/";
                 self::$mongoUrl .= self::$mongoName."?retryWrites=true&w=majority";
 
                 //Test connection with the MongoDB
@@ -159,11 +163,13 @@ Executar a query e setar a coleção
         //This method will set the returned fields from the collection
         //Using this method will return selected fields from the collection
         private static function setQueryFields($elements){
+            
             try{
                 
                 if(is_array($elements)){
 
                     if(!empty($elements)){
+
                         $projection = [];
 
                         for($i = 0; $i < count($elements); $i++){
@@ -280,7 +286,8 @@ Executar a query e setar a coleção
                     self::$mongoName.".".self::$currentCollection,
                     $bulk
                 );
-
+                
+                self::addCounter();
                 return $cursorInsert->getInsertedCount();
 
                 if(!self::testConnection()){
@@ -353,5 +360,62 @@ Executar a query e setar a coleção
                 echo $errorMessage->getMessage();
             }
             
+        }
+
+        private static function setCounter(){
+            $mongoManager = new Manager(self::$mongoUrl);
+
+            $query = new Query([]);
+            $cursor = $mongoManager->executeQuery(
+                self::$mongoName.".counter",
+                $query
+            );
+            self::$counter = $cursor->toArray()[0];  
+        }
+
+        public function getCounter(){
+
+            $autoIncrementId = json_decode(
+                json_encode(
+                    self::$counter
+                ),true
+            )[self::$currentCollection];
+            
+            return $autoIncrementId;
+        }
+
+        private static function addCounter(){
+            $newEntry = json_decode(
+                json_encode(
+                    self::$counter
+                ),true
+            );
+            
+            $newId = $newEntry[self::$currentCollection];
+            $newId++;
+            
+            $newEntry[self::$currentCollection] = $newId;
+
+            $bulkCounter = new BulkWrite();
+                $bulkCounter->update(
+                    ["_id" => $newEntry->_id],
+                    ['$set' => json_decode(
+                            json_encode(
+                                $newEntry        
+                            )
+                        )
+                    ],
+                    ['multi' => false, 'upsert' => false]
+                );
+
+                $mongoManager = new Manager(self::$mongoUrl);
+
+                $cursorUpdate = $mongoManager->executeBulkWrite(
+                    self::$mongoName.".counter",
+                    $bulkCounter
+                );
+
+                return $cursorUpdate->getInsertedCount();
+
         }
     }
