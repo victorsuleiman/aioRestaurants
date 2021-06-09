@@ -1,8 +1,9 @@
+from dotenv import load_dotenv
+import os
 from flask import Flask, render_template,  request, escape
 from flask_pymongo import PyMongo
 from flask_socketio import SocketIO, emit
-from dotenv import load_dotenv
-import os
+from bson.json_util import dumps, loads 
 import json
 
 load_dotenv()
@@ -45,10 +46,27 @@ def submitReceipt(data):
     
     mongo.db.receipt.insert_one(receipt)
 
-f = open('mockReceipt.json')
+# @socketio.on('authenticateUser')
+def fetchUsername(data):
+    username = data['username']
+    print("Looking for username {} to login".format(username))
+    usernameToFind = mongo.db.employee.find_one({'username':username})
+
+    if usernameToFind == None:
+        print("Username not found.")
+        # emit('usernameSearchResult',False)
+    else:
+        print("Username found.")
+        print(usernameToFind)
+        # emit('usernameSearchResult',True)
+
+f = open('mockUser.json')
 data = json.load(f)
-submitReceipt(data)
-print("receipt submitted.")
+fetchUsername(data)
+
+    # json_data = dumps(usernameToFind)
+    # emit('usernameSearchForLogin', json_data)
+
 
 
 # if __name__ == '__main__':
