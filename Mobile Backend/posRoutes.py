@@ -18,6 +18,20 @@ socketio = SocketIO(app)
 def init():                            
     return '<h1> {} </h1>'.format(__name__)
 
+# @socketio.on('authenticateUser')
+def fetchUsername(data):
+    username = data['username']
+    print("Looking for username {} to login".format(username))
+    usernameToFind = mongo.db.employee.find_one({'username':username})
+
+    if usernameToFind == None:
+        print("Username not found.")
+        # emit('usernameSearchResult',False)
+    else:
+        print("Username found.")
+        # json_data = dumps(usernameToFind)
+        # emit('usernameSearchForLogin', json_data)
+
 def getProducts():
     products = list()
 
@@ -41,31 +55,37 @@ def submitReceipt(data):
     paymentType = data['paymentType']
     date = data['date']
 
+    updateInventory(data['dishes'])
+
     receipt = {'server' : server , 'employeeId' : employeeId, 'dishes' : dishes, 'taxes' : taxes, 'total' : total, 
         'paymentType' : paymentType, 'date' : date}
     
-    mongo.db.receipt.insert_one(receipt)
+    # mongo.db.receipt.insert_one(receipt)
 
-# @socketio.on('authenticateUser')
-def fetchUsername(data):
-    username = data['username']
-    print("Looking for username {} to login".format(username))
-    usernameToFind = mongo.db.employee.find_one({'username':username})
+def updateInventory(dishes):
+    print(f"Updating inventory qty's for dishes {dishes} in receipt")
 
-    if usernameToFind == None:
-        print("Username not found.")
-        # emit('usernameSearchResult',False)
-    else:
-        print("Username found.")
-        print(usernameToFind)
-        # emit('usernameSearchResult',True)
+    for dish in dishes:
+        ingredients = mongo.db.dish.find_one({'name' : dish})['ingredients']
+        for ingredient in ingredients:
+            name = ingredient['name']
+            qty = ingredient['qty']
 
-f = open('mockUser.json')
+            mongo.db.productInventory.update_one(
+                {'productName':name},
+                {
+                    '$inc' : {'qty' : -qty}
+                }
+            )
+    
+    print("done.")
+
+
+f = open('mockReceipt.json')
 data = json.load(f)
-fetchUsername(data)
+submitReceipt(data)
 
-    # json_data = dumps(usernameToFind)
-    # emit('usernameSearchForLogin', json_data)
+    
 
 
 
