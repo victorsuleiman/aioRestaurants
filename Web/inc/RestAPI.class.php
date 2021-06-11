@@ -56,31 +56,26 @@ require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
                 case "employee":
                     EmployeeDAO::startDb();
                     EmployeeDAO::insert($collection);
-                    self::toastAdded();
                     break;
 
                 case "shipper":
                     ShipperDAO::startDb();
                     ShipperDAO::insert($collection);
-                    self::toastAdded();
                     break;
                 
                 case "productinventory":
                     ProductInventoryDAO::startDb();
                     ProductInventoryDAO::insert($collection);
-                    self::toastAdded();
                     break;
 
                 case "order":
                     OrderDAO::startDb();
                     OrderDAO::insert($collection);
-                    self::toastAdded();
                     break;
 
                 case "supplier":
                     SupplierDAO::startDb();
                     SupplierDAO::insert($collection);
-                    self::toastAdded();
                     break;
             }
         }
@@ -92,31 +87,26 @@ require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
                 case "employee":
                     EmployeeDAO::startDb();
                     EmployeeDAO::delete($collection);
-                    self::toastDeleted();
                     break;
 
                 case "shipper":
                     ShipperDAO::startDb();
                     ShipperDAO::delete($collection);
-                    self::toastDeleted();
                     break;
                 
                 case "productinventory":
                     ProductInventoryDAO::startDb();
                     ProductInventoryDAO::delete($collection);
-                    self::toastDeleted();
                     break;
 
                 case "order":
                     OrderDAO::startDb();
                     OrderDAO::delete($collection);
-                    self::toastDeleted();
                     break;
 
                 case "supplier":
                     SupplierDAO::startDb();
                     SupplierDAO::delete($collection);
-                    self::toastDeleted();
                     break;
             }
         }
@@ -128,78 +118,27 @@ require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
                 case "employee":
                     EmployeeDAO::startDb();
                     EmployeeDAO::update($collection);
-                    self::toastUpdate();
                     break;
 
                 case "shipper":
                     ShipperDAO::startDb();
                     ShipperDAO::update($collection);
-                    self::toastUpdate();
                     break;
                 
                 case "productinventory":
                     ProductInventoryDAO::startDb();
                     ProductInventoryDAO::update($collection);
-                    self::toastUpdate();
                     break;
 
                 case "order":
                     OrderDAO::startDb();
                     OrderDAO::update($collection);
-                    self::toastUpdate();
                     break;
 
                 case "supplier":
                     SupplierDAO::startDb();
                     SupplierDAO::update($collection);
-                    self::toastUpdate();
                     break;
             }
-        }
-
-
-        private static function toastAdded(){
-            $toast = '
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                    <div class="mt-2 pt-2 border-top">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
-                            Data added successfully!
-                        </button>
-                    </div>
-                </div>
-            </div>
-            ';
-        }
-
-        private static function toastUpdate(){
-            $toast = '
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                    <div class="mt-2 pt-2 border-top">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
-                            Data updated successfully!
-                        </button>
-                    </div>
-                </div>
-            </div>
-            ';
-        }
-
-        private static function toastDeleted(){
-            $toast = '
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                    <div class="mt-2 pt-2 border-top">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
-                            Data deleted successfully!
-                        </button>
-                    </div>
-                </div>
-            </div>
-            ';
         }
     }
