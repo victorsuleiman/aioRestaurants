@@ -3,6 +3,7 @@
 
     class ProductInventory extends Product{
         private $_id;
+        private $supplierId;
         private $orderId;
         private $quantity;
         private $sellPrice;
@@ -12,16 +13,15 @@
 
         public function ProductInventory(
             $id,$name,$un,
-            $orderId,$qty,$price,$category,
-            $inDate, $outDate
+            $supplierId,$qty,$price,$category,
+            $inDate
         ){
             parent::Product($id,$name,$un);
-            $this->orderId   = $orderId;
-            $this->quantity  = $qty;
-            $this->sellPrice = $price;
-            $this->category  = $category;
-            $this->entryDate = $inDate;
-            $this->outDate   = $outDate;
+            $this->supplierId = $supplierId;
+            $this->quantity   = $qty;
+            $this->sellPrice  = $price;
+            $this->category   = $category;
+            $this->entryDate  = $inDate;
         }
 
         public function getId(){
@@ -30,6 +30,9 @@
 
         public function getOrderId(){
             return $this->orderId;
+        }
+        public function getSupplierId(){
+            return $this->supplierId;
         }
         public function getQuantity(){
             return $this->quantity;
@@ -46,7 +49,6 @@
         public function getOutDate(){
             return $this->outDate;
         }
-
         public function getPrice(){
             return $this->sellPrice;
         }
@@ -57,6 +59,9 @@
         
         public function setOrderId($id){
             $this->orderId = $id;
+        }
+        public function setSupplierId($id){
+            $this->supplierId = $id;
         }
         public function setQuantity($qty){
             $this->quantity = $qty;

@@ -11,14 +11,14 @@
         private $shipperId;
         private $products = [];
 
-        public function Order(
-            $id,
+        public function __construct(
+            $id = 0,
             $supId,
             $date,
             $deliveryDate,
             $empId,
             $shipId,
-            $nProducts = null
+            $nProducts = []
         ){
             $this->orderId              = $id;
             $this->supplierId           = $supId;
@@ -62,20 +62,42 @@
         }
 
         public function setProducts($nProducts){
-            $errorMessage = "";
 
-            for($i = 0; $i < count($nProducts); $i++){
+            try{
 
-                if(get_class($nProducts[$i]) == "ProductOrder"){
-                    array_push($this->products,$nProducts[$i]);
+                if(is_array($nProducts)){
+
+                    for($i = 0; $i < count($nProducts); $i++){
+    
+                        if(get_class($nProducts[$i]) == "ProductOrder"){
+                            array_push($this->products,$nProducts[$i]);
+                        } else {
+                            throw new Exception(
+                                "Product position $i it is not a ProductOrder object\n"
+                            );
+                        }
+                        
+                    }
                 } else {
-                    $errorMessage .= "Product position $i it is not a ProductOrder object\n";
+                    array_push($this->products,$nProducts);
                 }
-                
+            } catch(Exception $errorMessage) {
+                echo $errorMessage->getMessage();
             }
         }
 
         public function getProducts(){
             return $this->products;
+        }
+
+        public function getTotalOrder(){
+
+            $total = 0;
+            
+            for($i = 0; $i < count($this->products); $i++){
+                $total += $this->products[$i]->getPrice() * $this->products[$i]->getQuantity();
+            }
+
+            return $total;
         }
     }

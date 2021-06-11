@@ -16,4 +16,8 @@
         public function setQuantity($qty){
             $this->quantity = $qty;
         }
+
+        public function getTotal(){
+            return $this->quantity * parent::getPrice();
+        }
     }

@@ -14,25 +14,25 @@
         private $price;
 
         public function __construct(
-            $id,
+            $id = 0,
             $name,
             $contact,
             $nAddress,
             $nCity,
-            //$nPostalCode = "",
             $nCountry,
             $nPhone,
-            $nEmail
+            $nEmail,
+            $nPrice
         ){
             $this->shipperId    = $id;
             $this->shipperName  = $name;
             $this->contactName  = $contact;
             $this->address      = $nAddress;
             $this->city         = $nCity;
-            //$this->postalCode   = $nPostalCode;
             $this->country      = $nCountry;
             $this->phone        = $nPhone;
             $this->email        = $nEmail;
+            $this->price        = $nPrice;
         }
 
         public function getId(){

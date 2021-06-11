@@ -16,23 +16,21 @@
         private $products = [];
 
         public function __construct(
-            $id,
+            $id = 0,
             $name,
             $contact,
             $nAddress,
             $nCity,
-            //$nPostalCode = "",
             $nCountry,
             $nPhone,
             $nEmail,
-            $nProducts = null
+            $nProducts = []
         ){
-            $this->shipperId    = $id;
-            $this->shipperName  = $name;
+            $this->supplierId    = $id;
+            $this->supplierName  = $name;
             $this->contactName  = $contact;
             $this->address      = $nAddress;
             $this->city         = $nCity;
-            //$this->postalCode   = $nPostalCode;
             $this->country      = $nCountry;
             $this->phone        = $nPhone;
             $this->email        = $nEmail;
@@ -124,16 +122,28 @@
         }
 
         public function setProducts($nProducts){
-            $errorMessage = "";
 
-            for($i = 0; $i < count($nProducts); $i++){
+            try{
 
-                if(get_class($nProducts[$i]) == "ProductSupplier"){
-                    array_push($this->products,$nProducts[$i]);
+                if(is_array($nProducts)){
+
+                    for($i = 0; $i < count($nProducts); $i++){
+
+                        if(get_class($nProducts[$i]) == "ProductSupplier"){
+                            array_push($this->products,$nProducts[$i]);
+                        } else {
+                            throw new Exception(
+                                "Product position $i it is not a ProductSupplier object\n"
+                            );
+                        }
+                        
+                    }
                 } else {
-                    $errorMessage .= "Product position $i it is not a ProductSupplier object\n";
+                    array_push($this->products,$nProducts);
                 }
                 
+            } catch(Exception $errorMessage){
+                echo $errorMessage->getMessage();
             }
         }
     }

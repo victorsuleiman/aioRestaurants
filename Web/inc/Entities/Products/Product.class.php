@@ -3,22 +3,22 @@
     abstract class Product{
         protected $productId;
         protected $productName;
-        protected $unity;
+        protected $unit;
 
-        public function Product($id,$name,$un){
+        public function Product($id = 0,$name,$un){
             $this->productId = $id;
             $this->productName = $name;
-            $this->unity = $un;
+            $this->unit = $un;
         }
 
         public function getProductId(){
             return $this->productId;
         }
-        /*
+        
         public function setProductId($id){
             $this->productId = $id;
         }
-        */
+        
 
         public function getProductName(){
             return $this->productName;
@@ -27,10 +27,10 @@
             $this->productName = $name;
         }
 
-        public function getUnity(){
-            return $this->unity;
+        public function getUnit(){
+            return $this->unit;
         }
-        public function setUnity($un){
-            $this->unity = $un;
+        public function setUnit($un){
+            $this->unit = $un;
         }
     }
