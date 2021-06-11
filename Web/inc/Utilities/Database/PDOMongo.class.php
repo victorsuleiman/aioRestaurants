@@ -380,7 +380,7 @@ Executar a query e setar a coleção
                     self::$counter
                 ),true
             )[self::$currentCollection];
-            
+            $autoIncrementId++;
             return $autoIncrementId;
         }
 
@@ -393,29 +393,27 @@ Executar a query e setar a coleção
             
             $newId = $newEntry[self::$currentCollection];
             $newId++;
-            
-            $newEntry[self::$currentCollection] = $newId;
+
 
             $bulkCounter = new BulkWrite();
-                $bulkCounter->update(
-                    ["_id" => $newEntry->_id],
-                    ['$set' => json_decode(
-                            json_encode(
-                                $newEntry        
-                            )
-                        )
-                    ],
-                    ['multi' => false, 'upsert' => false]
-                );
+            $bulkCounter->update(
+                [self::$currentCollection => $newEntry[self::$currentCollection]],
+                ['$set' => 
+                    [
+                        self::$currentCollection => $newId
+                    ]
+                ],
+                ['multi' => false, 'upsert' => false]
+            );
 
-                $mongoManager = new Manager(self::$mongoUrl);
+            $mongoManagerCounter = new Manager(self::$mongoUrl);
 
-                $cursorUpdate = $mongoManager->executeBulkWrite(
-                    self::$mongoName.".counter",
-                    $bulkCounter
-                );
+            $cursorCounter = $mongoManagerCounter->executeBulkWrite(
+                self::$mongoName.".counter",
+                $bulkCounter
+            );
 
-                return $cursorUpdate->getInsertedCount();
+            return $cursorCounter->getInsertedCount();
 
         }
     }
