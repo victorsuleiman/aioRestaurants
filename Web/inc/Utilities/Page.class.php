@@ -26,6 +26,15 @@
                     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
                     <![endif]-->
 
+                    <!-- JS -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                    <script src="js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
+                    <script src="js/jquery-migrate-1.2.1.min.js"></script> <!--  jQuery Migrate Plugin -->
+                    <script src="https://www.google.com/jsapi"></script> <!-- Google Chart -->
+                
+                    <script type="text/javascript" src="js/script.js"></script>
                 </head>
                 <body>
             ';
@@ -61,10 +70,10 @@
                         <nav class="priori-left-nav">          
                         <ul>
                             <li><a href="#" class="active"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
-                            <li><a href="data-visualization.html"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
+                            <li><a href="?page=charts"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
                             <li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>
                             <!--<li><a href="maps.html"><i class="fa fa-map-marker fa-fw"></i>Maps</a></li>-->
-                            <li><a href="manage-users.html"><i class="fa fa-users fa-fw"></i>Manage Users</a></li>
+                            <li><a href="?page=tables"><i class="fa fa-users fa-fw"></i>Tables</a></li>
                             <li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>
                             <li><a href="login.html"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
                         </ul>  
@@ -84,7 +93,7 @@
                     <nav class="priori-top-nav col-lg-12 col-md-12">
                     <ul class="text-uppercase">
                         <li>Dashboard</li>
-                    </ul>  
+                    </ul>
                     </nav> 
                 </div>
                 </div>
@@ -94,25 +103,21 @@
 
         
         //This function will add any HTML content
-        public static function pageContent($htmlContent){
+        public static function pageContentTop(){
             //Attach the top title from the page content
             echo self::pageTopRightContent();
 
             //Start the main content
-            $mainContent = '<div class="priori-content-container">';
-
-            /* HERE ANY CONTENT WILL BE ADDED*/
-            if(is_array($htmlContent)){
-                for($i = 0; $i < count($htmlContent); $i++){
-                    $mainContent .= $htmlContent[$i];
-                }
-            } else {
-                $mainContent .= $htmlContent;
-            }
+            $mainContent = '<div class="priori-content-container">
             
-            //Ends the main content
-            $mainContent .= '</div>
             ';
+            echo $mainContent;
+            
+        }
+
+        public static function pageContentBottom(){
+            //Ends the main content
+            $mainContent = '</div>';
 
             //The div from the whole right content is closed;
             $mainContent .= "</div><!-- Here the div right content is closed -->";
@@ -122,14 +127,18 @@
         //#673AB7
         //#512DA8
         private static function pageJavaScript(){
-            $script = '
+            /*$script = '
                 <!-- JS -->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                 <script src="js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
                 <script src="js/jquery-migrate-1.2.1.min.js"></script> <!--  jQuery Migrate Plugin -->
                 <script src="https://www.google.com/jsapi"></script> <!-- Google Chart -->
-                <script>
-            ';
-            $script .= "
+                
+            ';*/
+            $script = "
+            <script>
                 /* Google Chart 
                 -------------------------------------------------------------------*/
                 // Load the Visualization API and the piechart package.
@@ -148,11 +157,14 @@
                     data.addColumn('string', 'Topping');
                     data.addColumn('number', 'Slices');
                     data.addRows([
-                        ['Mushrooms', 3],
-                        ['Onions', 1],
-                        ['Olives', 1],
-                        ['Zucchini', 1],
-                        ['Pepperoni', 2]
+                        ['Orange - Blood',99],
+                        ['Pasta - Agnolotti - Butternut',265],
+                        ['Oil - Cooking Spray',101],
+                        ['Crab Meat Claw Pasteurise',200],
+                        ['Wine - Cave Springs Dry Riesling',83],
+                        ['Prunes - Pitted',36],
+                        ['Cookie Choc',28],
+                        ['Vinegar - Cider',145]
                     ]);
 
                     // Set chart options
@@ -187,7 +199,7 @@
                 
                 </script>
             ";
-            $script .= '<script type="text/javascript" src="js/script.js"></script>';
+            //$script .= '<script type="text/javascript" src="js/script.js"></script>';
             
             echo $script;
         }
@@ -203,4 +215,51 @@
             echo $footer;
         }
 
+        public static function toastAdded(){
+            $toast = '
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                    <div class="mt-2 pt-2 border-top">
+                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
+                            Data added successfully!
+                        </button>
+                    </div>
+                </div>
+            </div>
+            ';
+            echo $toast;
+        }
+
+        public static function toastUpdate(){
+            $toast = '
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                    <div class="mt-2 pt-2 border-top">
+                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
+                            Data updated successfully!
+                        </button>
+                    </div>
+                </div>
+            </div>
+            ';
+            echo $toast;
+        }
+
+        public static function toastDeleted(){
+            $toast = '
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                    <div class="mt-2 pt-2 border-top">
+                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
+                            Data deleted successfully!
+                        </button>
+                    </div>
+                </div>
+            </div>
+            ';
+            echo $toast;
+        }
     }
