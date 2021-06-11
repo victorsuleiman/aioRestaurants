@@ -8,7 +8,7 @@
             self::$connection = new Database("Shipper",$database);
         }
 
-        public static function insert(Shipper $newShipper) : int{
+        public static function insert(Shipper $newShipper){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 
@@ -51,7 +51,7 @@
             }
         }
 
-        public static function update(Shipper $newShipper) : int{
+        public static function update(Shipper $newShipper){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 return self::$connection->getDataBase()->updateData(

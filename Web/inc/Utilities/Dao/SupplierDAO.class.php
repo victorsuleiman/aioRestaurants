@@ -9,7 +9,7 @@
             self::$connection = new Database("Supplier",$database);
         }
 
-        public static function insert(Supplier $newSupplier) : int{
+        public static function insert(Supplier $newSupplier){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 
@@ -52,7 +52,7 @@
             }
         }
 
-        public static function update(Supplier $newSupplier) : int{
+        public static function update(Supplier $newSupplier){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 return self::$connection->getDataBase()->updateData(

@@ -3,13 +3,13 @@
 
     class OrderDAO{
         
-        private static $connection;
+        public static $connection;
 
         public static function startDb($database = "mongo"){
             self::$connection = new Database("Order",$database);
         }
 
-        public static function insert(Order $newOrder) : int{
+        public static function insert(Order $newOrder){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 
@@ -49,7 +49,7 @@
             }
         }
 
-        public static function update(Order $newOrder) : int{
+        public static function update(Order $newOrder){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 return self::$connection->getDataBase()->updateData(

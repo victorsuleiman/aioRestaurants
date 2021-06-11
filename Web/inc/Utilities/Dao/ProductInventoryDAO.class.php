@@ -7,7 +7,7 @@
             self::$connection = new Database("ProductInventory",$database);
         }
 
-        public static function insert(ProductInventory $newProduct) : int{
+        public static function insert(ProductInventory $newProduct){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
 
@@ -49,7 +49,7 @@
             }
         }
 
-        public static function update(ProductInventory $newProduct) : int{
+        public static function update(ProductInventory $newProduct){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 return self::$connection->getDataBase()->updateData(

@@ -5,18 +5,18 @@
 
     class EmployeeDAO {
 
-        private static $connection;
+        public static $connection;
 
         public static function startDb($dataBase = "mongo"){
             self::$connection = new Database("Employee",$dataBase);
         }
 
-        public static function insert(Employee $newEmployee) : int {
+        public static function insert(Employee $newEmployee){
             
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
 
                 $id = self::$connection->getDatabase()->getCounter();
-                $newEmployee->setEmployeeId($id++);
+                $newEmployee->setEmployeeId($id);
 
                 return self::$connection->getDataBase()->insertData(
                     EmployeeConverter::convertToStdClass($newEmployee)
@@ -62,7 +62,7 @@
             
         }
 
-        public static function update(Employee $newEmployee) : int {
+        public static function update(Employee $newEmployee){
 
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
                 return self::$connection->getDataBase()->updateData(
@@ -161,7 +161,7 @@
             
         }
 
-        public static function getMultiEmployee($limit=0) : Array {
+        public static function getMultipleEmployee($limit=0) : Array {
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
 
                 $employeeArray = EmployeeConverter::convertFromStdClass(
