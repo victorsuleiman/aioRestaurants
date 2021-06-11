@@ -1,17 +1,29 @@
 <?php
 
+/*
 $login = "admin";
 $pass = "admin";
 $db = "mock_restaurant";
 $cluster = "@cluster0.lz00r.mongodb.net";
+*/
+$login = "admin";
+$pass = "admin";
+$db = "aioRestaurants";
+$cluster = "@cluster0.usuw1.mongodb.net";
 
 define("MONGO_DB_USER","admin");
 define("MONGO_DB_PASS","admin");
-define("MONGO_DB_NAME","mock_restaurant");
-define("MONGO_DB_HOST","@cluster0.lz00r.mongodb.net/");
+define("MONGO_DB_NAME","aioRestaurants");
+define("MONGO_DB_HOST","@cluster0.usuw1.mongodb.net");
 
-define('DEFAULT_URL',"mongodb+srv://$login:$pass$cluster/$db?retryWrites=true&w=majority");
+define('DEFAULT_URL',"mongodb+srv://$login:$pass$cluster$db?retryWrites=true&w=majority");
 
+
+//Old
+/*
+//define("MONGO_DB_NAME","mock_restaurant");
+//define("MONGO_DB_HOST","@cluster0.lz00r.mongodb.net/");
+*/
 
 define('DB_HOST','localhost');
 define('DB_USER','root');
