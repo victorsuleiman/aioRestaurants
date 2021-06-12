@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import com.csis4495.aiorestaurants.db.JsonReaderAio
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -26,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         });
 
         mSocket?.on("notification",onNotification)
+
+        mSocket?.on("onUpdatePosDatabase",onUpdatePosDatabase)
+
+        mSocket?.emit("updatePosDatabase")
 
         val btnCashier: Button = findViewById(R.id.btn_cahsier)
         btnCashier.setOnClickListener {
@@ -67,5 +72,11 @@ class MainActivity : AppCompatActivity() {
     var onNotification = Emitter.Listener {
         val message = it[0] as String
         Log.d("Notification",message)
+    }
+
+    var onUpdatePosDatabase = Emitter.Listener {
+        val data = it[0] as String
+        val dishListJson = JsonReaderAio.readGoals(data)
+        Log.d("Got data", dishListJson.toString())
     }
 }

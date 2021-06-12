@@ -19,6 +19,19 @@ socketio = SocketIO(app)
 def init():                            
     return '<h1> {} </h1>'.format(__name__)
 
+def getDishes():
+    return mongo.db.dish.find({})
+
+@socketio.on('updatePosDatabase')
+def updatePosDatabase():
+    dishes = list(mongo.db.dish.find({}))
+    employees = list(mongo.db.employee.find({}))
+    restaurants = list(mongo.db.restaurant.find({}))
+    userCategories = list(mongo.db.userCategory.find({}))
+    goals = list(mongo.db.goal.find({}))
+    json_dishes = dumps(goals)
+    emit('onUpdatePosDatabase',json_dishes)
+
 @socketio.on('authenticateUser')
 def fetchUsername(data):
     username = data['username']
@@ -33,18 +46,6 @@ def fetchUsername(data):
         # json_data = dumps(usernameToFind)
         # emit('usernameSearchForLogin', json_data)
 
-def getProducts():
-    products = list()
-
-    productQuery = mongo.db.productInventory.find({})
-
-    for p in productQuery:
-        products.append(p['productName'])
-
-    return products
-
-def getDishes():
-    return mongo.db.dish.find({}).limit(1)
 
 @socketio.on('submitReceipt')
 def submitReceipt(data):
