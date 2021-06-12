@@ -10,6 +10,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
+app.config['DEBUG'] = True
 mongo = PyMongo(app)
 
 socketio = SocketIO(app)
@@ -18,7 +19,7 @@ socketio = SocketIO(app)
 def init():                            
     return '<h1> {} </h1>'.format(__name__)
 
-# @socketio.on('authenticateUser')
+@socketio.on('authenticateUser')
 def fetchUsername(data):
     username = data['username']
     print("Looking for username {} to login".format(username))
@@ -45,7 +46,7 @@ def getProducts():
 def getDishes():
     return mongo.db.dish.find({}).limit(1)
 
-# @socketio.on('submitReceipt')
+@socketio.on('submitReceipt')
 def submitReceipt(data):
     server = data['server']
     employeeId = data['employeeId']
@@ -81,14 +82,11 @@ def updateInventory(dishes):
     print("done.")
 
 
-f = open('mockReceipt.json')
-data = json.load(f)
-submitReceipt(data)
-
-    
+# f = open('mockReceipt.json')
+# data = json.load(f)
+# submitReceipt(data)
 
 
-
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0',debug=True)
+if __name__ == '__main__':
+    socketio.run(app,host = '0.0.0.0')
 
