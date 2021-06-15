@@ -43,14 +43,15 @@
           
       ';
       echo $leftMenu;
-  }
+    }
 
     public static function employeeTableContent(Array $employeeArray){
+
       $employeeTable = '
       <div class="row">
       <div class="panel panel-default priori-content-widget white-bg no-padding priori-overflow-hidden">
           <div class="panel-heading priori-position-relative">
-            <h2 class="text-uppercase">Employee Table</h2>
+            <h2 class="text-uppercase">Employee Table</h2>   
           </div>
           <div class="table-responsive">
             <table class="table table-striped table-bordered priori-user-table">
@@ -89,13 +90,17 @@
                   <td>'.$employeeArray[$i]->getFirstName()." ".$employeeArray[$i]->getLastName().'</td>
                   <td>'.$employeeArray[$i]->getUserCategory().'</td>
                   <td>'.$employeeArray[$i]->getUsername().'</td>
-                  <td>'.
-                    FormHtml::editEmployee($employeeArray[$i])
-                  .'</td>
+                  <td>'.FormHtml::editEmployee($employeeArray[$i]).'</td>
                 </tr> 
                 ';
-              }      
-        $employeeTable .= '</tbody>
+              }
+        $employeeTable .= '
+                  <tr>
+                    <td colspan="5" align="right">'.
+                      FormHtml::addEmployee()
+                    .'</td>
+                  </tr>
+                </tbody>
               </table>    
             </div>                          
           </div>
@@ -132,7 +137,13 @@
                 </tr> 
                 ';
               }       
-        $shipperTable .= '</tbody>
+        $shipperTable .= '
+                  <tr>
+                    <td colspan="5" align="right">'.
+                      FormHtml::addShipper()
+                    .'</td>
+                  </tr>
+                </tbody>
               </table>    
             </div>                          
           </div>
@@ -189,21 +200,17 @@
                         '.$supplierArray[$i]->getProducts()[$j]->getProductName().'
                         </a><br>';
                       }
-                      
 
                     }
-
                   $supplierTable .= '
                     </div>
                   </div>
-                  ';
-
-                    $supplierTable .= '
                   </td>
                 </tr> 
                 ';
               }       
-        $supplierTable .= '</tbody>
+        $supplierTable .= '
+                </tbody>
               </table>    
             </div>                          
           </div>
@@ -261,26 +268,23 @@
                         '.$orderArray[$i]->getProducts()[$j]->getProductName().'
                         </a><br>';
                       }
-                      
-
                     }
 
                   $orderTable .= '
                     </div>
                   </div>
-                  ';
-
-                    $orderTable .= '
                   </td>
-                  <td>
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                      Edit
-                    </a>
-                  </td>
+                  <td>'.FormHtml::editOrder($orderArray[$i]).'</td>
                 </tr> 
                 ';
               }       
-        $orderTable .= '</tbody>
+        $orderTable .= '
+                    <tr>
+                    <td colspan="6" align="right">'.
+                      FormHtml::addOrder()
+                    .'</td>
+                  </tr>
+                </tbody>
               </table>    
             </div>                          
           </div>
@@ -288,174 +292,68 @@
 
         echo $orderTable;
     }
+
+    public static function productsTableContent(Array $productsArray){
+      $productsTable = '
+      <div class="row">
+      <div class="panel panel-default priori-content-widget white-bg no-padding priori-overflow-hidden">
+          <div class="panel-heading priori-position-relative">
+            <h2 class="text-uppercase">Product Table</h2>   
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered priori-user-table">
+              <thead>
+                <tr>
+                  <td>
+                    <a href="#" class="white-text priori-sort-by">
+                      #Id <span class="caret"></span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="white-text priori-sort-by">
+                      Product<span class="caret"></span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="white-text priori-sort-by">
+                      Category <span class="caret"></span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="" class="white-text priori-sort-by">
+                      Quantity <span class="caret"></span>
+                    </a>
+                  </td>
+                  <td>
+                    Edit Data
+                  </td>
+                </tr>
+              </thead>
+              <tbody>';
+              for($i = 0; $i < count($productsArray); $i++){
+                $productsTable .= '
+                <tr>
+                  <td>'.$productsArray[$i]->getProductId().'</td>
+                  <td>'.$productsArray[$i]->getProductName().'</td>
+                  <td>'.$productsArray[$i]->getCategory().'</td>
+                  <td>'.$productsArray[$i]->getQuantity().'</td>
+                  <td>'.FormHtml::editProductInventory($productsArray[$i]).'</td>
+                </tr> 
+                ';
+              }
+        $productsTable .= '
+                  <tr>
+                    <td colspan="5" align="right">'.
+                      FormHtml::addProductInventory()
+                    .'</td>
+                  </tr>
+                </tbody>
+              </table>    
+            </div>                          
+          </div>
+        </div>
+      ';
+      echo $productsTable;
+    }
     
   }
-
-  
-
-
-  /*
-  <div class="table-responsive">
-                <h4 class="margin-bottom-15">New Users Table</h4>
-                <table class="table table-striped table-hover table-bordered">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Username</th>
-                      <th>Email</th>
-                      <th>Edit</th>
-                      <th>Action</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>John</td>
-                      <td>Smith</td>
-                      <td>@js</td>
-                      <td>a@company.com</td>
-                      <td><a href="#" class="btn btn-default">Edit</a></td>                    
-                      <td>
-                        <!-- Split button -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-info">Action</button>
-                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Bootstrap</a></li>
-                            <li><a href="#">Font Awesome</a></li>
-                            <li><a href="#">jQuery</a></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td><a href="#" class="btn btn-link">Delete</a></td>
-                    </tr>
-                    <tr class="success">
-                      <td>2</td>
-                      <td>Bill</td>
-                      <td>Digital</td>
-                      <td>@bd</td>
-                      <td>bd@company.com</td>
-                      <td><a href="#" class="btn btn-default">Edit</a></td>
-                      <td>
-                        <!-- Split button -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-info">Action</button>
-                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Bootstrap</a></li>
-                            <li><a href="#">Font Awesome</a></li>
-                            <li><a href="#">jQuery</a></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td><a href="#" class="btn btn-link">Delete</a></td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Marry</td>
-                      <td>James</td>
-                      <td>@mj</td>
-                      <td>mj@company.com</td>
-                      <td><a href="#" class="btn btn-default">Edit</a></td>
-                      <td>
-                        <!-- Split button -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-info">Action</button>
-                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Bootstrap</a></li>
-                            <li><a href="#">Font Awesome</a></li>
-                            <li><a href="#">jQuery</a></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td><a href="#" class="btn btn-link">Delete</a></td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Carry</td>
-                      <td>Land</td>
-                      <td>@cl</td>
-                      <td>cl@company.com</td>
-                      <td><a href="#" class="btn btn-default">Edit</a></td>
-                      <td>
-                        <!-- Split button -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-info">Action</button>
-                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Bootstrap</a></li>
-                            <li><a href="#">Font Awesome</a></li>
-                            <li><a href="#">jQuery</a></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td><a href="#" class="btn btn-link">Delete</a></td>
-                    </tr>
-                    <tr class="success">
-                      <td>5</td>
-                      <td>New</td>
-                      <td>Caroline</td>
-                      <td>@nc</td>
-                      <td>nc@company.com</td>
-                      <td><a href="#" class="btn btn-default">Edit</a></td>
-                      <td>
-                        <!-- Split button -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-info">Action</button>
-                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Bootstrap</a></li>
-                            <li><a href="#">Font Awesome</a></li>
-                            <li><a href="#">jQuery</a></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td><a href="#" class="btn btn-link">Delete</a></td>
-                    </tr>
-                    <tr class="danger">
-                      <td>6</td>
-                      <td>Martin</td>
-                      <td>East</td>
-                      <td>@me</td>
-                      <td>me@company.com</td>
-                      <td><a href="#" class="btn btn-default">Edit</a></td>
-                      <td>
-                        <!-- Split button -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-info">Action</button>
-                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Bootstrap</a></li>
-                            <li><a href="#">Font Awesome</a></li>
-                            <li><a href="#">jQuery</a></li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td><a href="#" class="btn btn-link">Delete</a></td>
-                    </tr>                    
-                  </tbody>
-                </table>
-              </div>
-  */

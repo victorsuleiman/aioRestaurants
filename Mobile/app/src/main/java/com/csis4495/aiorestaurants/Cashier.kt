@@ -45,9 +45,5 @@ class Cashier : AppCompatActivity() {
         btnDesserts.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDesserts).commit()
         }
-
-
-
-
     }
 }

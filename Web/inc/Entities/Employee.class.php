@@ -20,16 +20,15 @@
         private $password;
 
         public function __construct(
-            $id,
+            $id = 0,
             $fName,
             $lName,
             $nBDate,
             $nAddress,
             $nCity,
-            //$nPostalCode = "",
             $nPhone,
             $nEmail,
-            $nPicture,
+            $nPicture = "",
             $nNotes,
             $nUserCategory,
             $nUsername,
@@ -41,7 +40,6 @@
             $this->bDate        = $nBDate;
             $this->address      = $nAddress;
             $this->city         = $nCity;
-            //$this->postalCode   = $nPostalCode;
             $this->phone        = $nPhone;
             $this->email        = $nEmail;
             $this->picture      = $nPicture;

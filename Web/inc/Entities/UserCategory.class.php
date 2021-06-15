@@ -6,7 +6,7 @@
         private $categoryName;
         private $notes;
 
-        public function UserCategory($id,$desc,$notes=""){
+        public function UserCategory($id = 0,$desc,$notes=""){
             $this->categoryId   = $id;
             $this->categoryName = $desc;
             $this->notes        = $notes;

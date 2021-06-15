@@ -1,5 +1,6 @@
 <?php
 
+    require_once("inc/Entities/Products/ProductOrder.class.php");
     class OrderConverter{
 
         public static function convertFromStdClass($data){
@@ -37,7 +38,7 @@
             }
         }
 
-        public static function convertToStd($data){
+        public static function convertToStdClass($data){
             try{
                 if(is_array($data)){
 
@@ -73,24 +74,36 @@
         private static function parseToOrder($stdClass) : Order {
             $productsArray = [];
 
-            for($j = 0; $j < count($stdClass->products); $j++){
+            if(is_array($stdClass->product)) {
+                for($j = 0; $j < count($stdClass->product); $j++){
 
+                    $newProduct = new ProductOrder(
+                        $stdClass->product[$j]->productId,
+                        $stdClass->product[$j]->productName,
+                        $stdClass->product[$j]->unity,
+                        $stdClass->product[$j]->price,
+                        $stdClass->product[$j]->qty
+                    );
+    
+                    array_push($productsArray,$newProduct);
+                }
+            } else {
                 $newProduct = new ProductOrder(
-                    $stdClass->products[$j]->productId,
-                    $stdClass->products[$j]->productName,
-                    $stdClass->products[$j]->unity,
-                    $stdClass->products[$j]->price,
-                    $stdClass->products[$j]->qty
+                    $stdClass->products->productId,
+                    $stdClass->products->productName,
+                    $stdClass->products->unity,
+                    $stdClass->products->price,
+                    $stdClass->products->qty
                 );
 
                 array_push($productsArray,$newProduct);
             }
 
-            $newOrder = new Order(
+            $newOrder = new Order (
                 $stdClass->orderId,
                 $stdClass->supplierId,
                 $stdClass->orderDate,
-                $stdClass->estimateDeliveryDate,
+                $stdClass->estimateDelivery,
                 $stdClass->employeeId,
                 $stdClass->shipperId
             );
@@ -125,7 +138,7 @@
             $stdOrder->orderId = $nOrder->getOrderId();
             $stdOrder->supplierId = $nOrder->getSupplierId();
             $stdOrder->orderDate = $nOrder->getOrderDate();
-            $stdOrder->estimateDeliveryDate = $nOrder->getEstimateDeliveryDate();
+            $stdOrder->estimateDelivery = $nOrder->getEstimateDeliveryDate();
             $stdOrder->employeeId = $nOrder->getEmployeeId();
             $stdOrder->shipperId = $nOrder->getShipperId();
             $stdOrder->products = $productsArray;
