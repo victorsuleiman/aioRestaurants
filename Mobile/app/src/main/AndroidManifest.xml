@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AioRestaurants"
         android:usesCleartextTraffic="true">
+        <activity android:name=".LoginActivity"></activity>
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="landscape">
