@@ -28,7 +28,15 @@ class MainActivity : AppCompatActivity() {
 
         mSocket?.on("notification",onNotification)
 
-        mSocket?.on("onUpdatePosDatabase",onUpdatePosDatabase)
+        mSocket?.on("onGetDishes",onGetDishes)
+
+        mSocket?.on("onGetEmployees",onGetEmployees)
+
+        mSocket?.on("onGetRestaurants",onGetRestaurants)
+
+        mSocket?.on("onGetUserCategories",onGetUserCategories)
+
+        mSocket?.on("onGetGoals",onGetGoals)
 
         mSocket?.emit("updatePosDatabase")
 
@@ -74,9 +82,33 @@ class MainActivity : AppCompatActivity() {
         Log.d("Notification",message)
     }
 
-    var onUpdatePosDatabase = Emitter.Listener {
+    var onGetDishes = Emitter.Listener {
         val data = it[0] as String
-        val dishListJson = JsonReaderAio.readGoals(data)
+        val dishListJson = JsonReaderAio.readDishes(data)
         Log.d("Got data", dishListJson.toString())
+    }
+
+    var onGetEmployees = Emitter.Listener {
+        val data = it[0] as String
+        val employeeListJson = JsonReaderAio.readEmployees(data)
+        Log.d("Got data", employeeListJson.toString())
+    }
+
+    var onGetRestaurants = Emitter.Listener {
+        val data = it[0] as String
+        val restaurantListJson = JsonReaderAio.readRestaurants(data)
+        Log.d("Got data", restaurantListJson.toString())
+    }
+
+    var onGetUserCategories = Emitter.Listener {
+        val data = it[0] as String
+        val userCategoryListJson = JsonReaderAio.readUserCategories(data)
+        Log.d("Got data", userCategoryListJson.toString())
+    }
+
+    var onGetGoals = Emitter.Listener {
+        val data = it[0] as String
+        val goalListJson = JsonReaderAio.readGoals(data)
+        Log.d("Got data", goalListJson.toString())
     }
 }

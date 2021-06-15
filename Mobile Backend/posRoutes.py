@@ -29,8 +29,18 @@ def updatePosDatabase():
     restaurants = list(mongo.db.restaurant.find({}))
     userCategories = list(mongo.db.userCategory.find({}))
     goals = list(mongo.db.goal.find({}))
-    json_dishes = dumps(goals)
-    emit('onUpdatePosDatabase',json_dishes)
+
+    json_dishes = dumps(dishes)
+    json_employees = dumps(employees)
+    json_restaurants = dumps(restaurants)
+    json_userCategories = dumps(userCategories)
+    json_goals = dumps(goals)
+    
+    emit('onGetDishes',json_dishes)
+    emit('onGetEmployees',json_employees)
+    emit('onGetRestaurants',json_restaurants)
+    emit('onGetUserCategories',json_userCategories)
+    emit('onGetGoals',json_goals)
 
 @socketio.on('authenticateUser')
 def fetchUsername(data):
