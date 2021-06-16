@@ -42,46 +42,47 @@ class Cashier : AppCompatActivity() {
         }
 
         btnPizza.setBackgroundResource(R.drawable.custom_input_green) //setting pizza button layout
+        btnSides.setBackgroundResource(R.drawable.custom_input_yellow)
+        btnDrinks.setBackgroundResource(R.drawable.custom_input_red)
+        btnDesserts.setBackgroundResource(R.drawable.custom_input_blue)
 
         //changing fragment to pizza menu
         val fragmentMenuPizza = FragmentMenuPizza()
         btnPizza.setOnClickListener {
-            changeBtnLayout()
-            btnPizza.setBackgroundResource(R.drawable.custom_input_green)
+           // changeBtnLayout()
+            //btnPizza.setBackgroundResource(R.drawable.custom_input_green)
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuPizza).commit()
         }
 
         //changing fragment to sides menu
         val fragmentMenuSides = FragmentMenuSides()
         btnSides.setOnClickListener {
-            changeBtnLayout()
-            btnSides.setBackgroundResource(R.drawable.custom_input_yellow)
+           // changeBtnLayout()
+            //btnSides.setBackgroundResource(R.drawable.custom_input_yellow)
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuSides).commit()
         }
 
         //changing fragment to drinks menu
         val fragmentMenuDrinks = FragmentMenuDrinks()
         btnDrinks.setOnClickListener {
-            changeBtnLayout()
-            btnDrinks.setBackgroundResource(R.drawable.custom_input_red)
+            //changeBtnLayout()
+            //btnDrinks.setBackgroundResource(R.drawable.custom_input_red)
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDrinks).commit()
-            btnPizza.setBackgroundResource(R.drawable.custom_input)
         }
 
         //changing fragment to desserts menu
         val fragmentMenuDesserts = FragmentMenuDesserts()
         btnDesserts.setOnClickListener {
-            changeBtnLayout()
-            btnDesserts.setBackgroundResource(R.drawable.custom_input_blue)
+            //changeBtnLayout()
+            //btnDesserts.setBackgroundResource(R.drawable.custom_input_blue)
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDesserts).commit()
-            btnPizza.setBackgroundResource(R.drawable.custom_input)
         }
     }
 
-    fun changeBtnLayout(){
-        btnPizza.setBackgroundResource(R.drawable.custom_input)
-        btnSides.setBackgroundResource(R.drawable.custom_input)
-        btnDrinks.setBackgroundResource(R.drawable.custom_input)
-        btnDesserts.setBackgroundResource(R.drawable.custom_input)
-    }
+//    fun changeBtnLayout(){
+//        btnPizza.setBackgroundResource(R.drawable.custom_input)
+//        btnSides.setBackgroundResource(R.drawable.custom_input)
+//        btnDrinks.setBackgroundResource(R.drawable.custom_input)
+//        btnDesserts.setBackgroundResource(R.drawable.custom_input)
+//    }
 }
