@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:padding="8dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".Cashier">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +49,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/button_dark_green"
+                android:background="@drawable/custom_input_green"
                 android:text="@string/pizzas"
                 android:textColor="#C4C4C4"
                 android:textSize="20sp"
@@ -66,7 +68,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/button_dark_yellow"
+                android:background="@drawable/custom_input_yellow"
                 android:text="@string/sides"
                 android:textColor="#C4C4C4"
                 android:textSize="20sp"
@@ -86,7 +88,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/button_dark_red"
+                android:background="@drawable/custom_input_red"
                 android:text="@string/soft_drinks"
                 android:textColor="#C4C4C4"
                 android:textSize="20sp"
@@ -105,7 +107,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/button_dark_blue"
+                android:background="@drawable/custom_input_blue"
                 android:text="@string/desserts"
                 android:textColor="#C4C4C4"
                 android:textSize="20sp"
@@ -337,6 +339,7 @@
         android:layout_marginRight="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
+        app:srcCompat="@drawable/ic_home"
+        tools:ignore="VectorDrawableCompat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.csis4495.aiorestaurants
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 import android.util.Log
 import android.widget.Button
 import com.csis4495.aiorestaurants.db.JsonReaderAio
@@ -12,13 +13,25 @@ import io.socket.emitter.Emitter
 import java.io.InputStream
 import java.net.URISyntaxException
 
+import android.view.WindowManager
+
+import android.widget.ImageView
+
+
 class MainActivity : AppCompatActivity() {
 
     var mSocket: Socket? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //hiding status bar
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+        //end hiding status bar
         setContentView(R.layout.activity_main)
+
 
         connectToBackend()
 
@@ -40,10 +53,22 @@ class MainActivity : AppCompatActivity() {
 
         mSocket?.emit("updatePosDatabase")
 
+        //image that logs the user out - goes to logout activity
+        val imgLogout: ImageView = findViewById(R.id.imageViewLogout)
+        imgLogout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
+
+        //button that goes to cashier activity
+
         val btnCashier: Button = findViewById(R.id.btn_cahsier)
         btnCashier.setOnClickListener {
             val intent = Intent(this, Cashier::class.java)
-            startActivity(intent);
+            startActivity(intent)
         }
 
     }
