@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -51,7 +53,7 @@
         android:paddingEnd="12dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/ic_password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:hint="@string/password"
         android:textColorHint="#c4c4c4"
         android:textColor="#c4c4c4"
