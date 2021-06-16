@@ -84,31 +84,31 @@ class MainActivity : AppCompatActivity() {
 
     var onGetDishes = Emitter.Listener {
         val data = it[0] as String
-        val dishListJson = JsonReaderAio.readDishes(data)
-        Log.d("Got data", dishListJson.toString())
+        val dishList = JsonReaderAio.readDishes(data)
+        Log.d("Got data", dishList.toString())
     }
 
     var onGetEmployees = Emitter.Listener {
         val data = it[0] as String
-        val employeeListJson = JsonReaderAio.readEmployees(data)
-        Log.d("Got data", employeeListJson.toString())
+        val employeeList = JsonReaderAio.readEmployees(data)
+        Log.d("Got data", employeeList.toString())
     }
 
     var onGetRestaurants = Emitter.Listener {
         val data = it[0] as String
-        val restaurantListJson = JsonReaderAio.readRestaurants(data)
-        Log.d("Got data", restaurantListJson.toString())
+        val restaurantList = JsonReaderAio.readRestaurants(data)
+        Log.d("Got data", restaurantList.toString())
     }
 
     var onGetUserCategories = Emitter.Listener {
         val data = it[0] as String
-        val userCategoryListJson = JsonReaderAio.readUserCategories(data)
-        Log.d("Got data", userCategoryListJson.toString())
+        val userCategoryList = JsonReaderAio.readUserCategories(data)
+        Log.d("Got data", userCategoryList.toString())
     }
 
     var onGetGoals = Emitter.Listener {
         val data = it[0] as String
-        val goalListJson = JsonReaderAio.readGoals(data)
-        Log.d("Got data", goalListJson.toString())
+        val goalList = JsonReaderAio.readGoals(data)
+        Log.d("Got data", goalList.toString())
     }
 }

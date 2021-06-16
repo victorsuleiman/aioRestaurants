@@ -11,5 +11,5 @@ data class DishEntity (
     var name: String = "",
     var category: String = "",
     var price: Double = 0.0,
-    var ingredients: String
+    var ingredients: String = ""
 )
