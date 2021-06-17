@@ -10,6 +10,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
+app.config['DEBUG'] = True
 mongo = PyMongo(app)
 
 socketio = SocketIO(app)
@@ -18,7 +19,30 @@ socketio = SocketIO(app)
 def init():                            
     return '<h1> {} </h1>'.format(__name__)
 
-# @socketio.on('authenticateUser')
+def getDishes():
+    return mongo.db.dish.find({})
+
+@socketio.on('updatePosDatabase')
+def updatePosDatabase():
+    dishes = list(mongo.db.dish.find({}))
+    employees = list(mongo.db.employee.find({}))
+    restaurants = list(mongo.db.restaurant.find({}))
+    userCategories = list(mongo.db.userCategory.find({}))
+    goals = list(mongo.db.goal.find({}))
+
+    json_dishes = dumps(dishes)
+    json_employees = dumps(employees)
+    json_restaurants = dumps(restaurants)
+    json_userCategories = dumps(userCategories)
+    json_goals = dumps(goals)
+    
+    emit('onGetDishes',json_dishes)
+    emit('onGetEmployees',json_employees)
+    emit('onGetRestaurants',json_restaurants)
+    emit('onGetUserCategories',json_userCategories)
+    emit('onGetGoals',json_goals)
+
+@socketio.on('authenticateUser')
 def fetchUsername(data):
     username = data['username']
     print("Looking for username {} to login".format(username))
@@ -32,20 +56,8 @@ def fetchUsername(data):
         # json_data = dumps(usernameToFind)
         # emit('usernameSearchForLogin', json_data)
 
-def getProducts():
-    products = list()
 
-    productQuery = mongo.db.productInventory.find({})
-
-    for p in productQuery:
-        products.append(p['productName'])
-
-    return products
-
-def getDishes():
-    return mongo.db.dish.find({}).limit(1)
-
-# @socketio.on('submitReceipt')
+@socketio.on('submitReceipt')
 def submitReceipt(data):
     server = data['server']
     employeeId = data['employeeId']
@@ -81,14 +93,11 @@ def updateInventory(dishes):
     print("done.")
 
 
-f = open('mockReceipt.json')
-data = json.load(f)
-submitReceipt(data)
-
-    
+# f = open('mockReceipt.json')
+# data = json.load(f)
+# submitReceipt(data)
 
 
-
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0',debug=True)
+if __name__ == '__main__':
+    socketio.run(app,host = '0.0.0.0')
 

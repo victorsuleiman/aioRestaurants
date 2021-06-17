@@ -11,7 +11,7 @@ data class EmployeeJson (
 )
 
 data class GoalJson(
-    var day: String, //TODO: Try to test Date format as well.
+    var date: String, //TODO: Try to test Date format as well.
     var goal: Double,
     var sales: Double
 )
@@ -22,7 +22,7 @@ data class RestaurantJson(
 )
 
 data class UserCategoryJson(
-    var categoryId: Double,
+    var categoryId: Int,
     var category: String
 )
 
@@ -31,11 +31,11 @@ data class DishJson(
     var name: String,
     var category: String,
     var price: Double,
-    var ingredients: List<IngredientMoshi>
+    var ingredients: List<IngredientJson>
 
 )
 
-data class IngredientMoshi(
+data class IngredientJson(
     var name: String,
     var qty: Double
 )
