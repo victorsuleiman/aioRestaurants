@@ -22,7 +22,7 @@ data class RestaurantJson(
 )
 
 data class UserCategoryJson(
-    var categoryId: Double,
+    var categoryId: Int,
     var category: String
 )
 

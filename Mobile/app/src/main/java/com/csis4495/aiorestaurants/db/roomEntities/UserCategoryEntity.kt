@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "userCategory")
 data class UserCategoryEntity (
     @PrimaryKey
-    var categoryId: Double,
+    var categoryId: Int,
     var category: String = ""
         )
