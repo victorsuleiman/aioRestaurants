@@ -12,23 +12,23 @@ interface AioDao {
 
     //InsertAll queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllDishes(dishList : List<DishEntity>)
+    fun insertAllDishes(dishList : List<DishEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllEmployees(employeeList : List<EmployeeEntity>)
+    fun insertAllEmployees(employeeList : List<EmployeeEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllGoals(goalList : List<GoalEntity>)
+    fun insertAllGoals(goalList : List<GoalEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllRestaurants(restaurantList : List<RestaurantEntity>)
+    fun insertAllRestaurants(restaurantList : List<RestaurantEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllUserCategories(userCategoryList : List<UserCategoryEntity>)
+    fun insertAllUserCategories(userCategoryList : List<UserCategoryEntity>)
 
     //Insert single value queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGoal(newGoal : GoalEntity)
+    fun insertGoal(newGoal : GoalEntity)
 
     //GetAll queries
     @Query("SELECT * FROM dish")
@@ -38,26 +38,26 @@ interface AioDao {
     fun getAllEmployees() : LiveData<List<EmployeeEntity>>
 
     @Query("SELECT * FROM goal")
-    fun getAllGoals() : LiveData<List<DishEntity>>
+    fun getAllGoals() : LiveData<List<GoalEntity>>
 
     @Query("SELECT * FROM restaurant")
     fun getAllRestaurants() : LiveData<List<RestaurantEntity>>
 
-    @Query("SELECT * FROM dish")
+    @Query("SELECT * FROM userCategory")
     fun getAllUserCategories() : LiveData<List<UserCategoryEntity>>
 
     //GetByAtt queries
     @Query("SELECT * FROM dish WHERE name = :name")
-    suspend fun getDishByName(name : String) : DishEntity
+    fun getDishByName(name : String) : DishEntity
 
     @Query("SELECT * FROM employee WHERE username = :username")
-    suspend fun getEmployeeByUsername(username : String) : EmployeeEntity
+    fun getEmployeeByUsername(username : String) : EmployeeEntity
 
     @Query("SELECT * FROM goal WHERE date = :date")
-    suspend fun getGoalByDate(date : String) : GoalEntity
+    fun getGoalByDate(date : String) : GoalEntity
 
     @Query("SELECT * FROM userCategory WHERE categoryId = :id")
-    suspend fun getUserCategoryById(id : Int) : UserCategoryEntity
+    fun getUserCategoryById(id : Int) : UserCategoryEntity
 
 
 

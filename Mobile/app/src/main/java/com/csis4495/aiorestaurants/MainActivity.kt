@@ -16,11 +16,14 @@ import java.net.URISyntaxException
 import android.view.WindowManager
 
 import android.widget.ImageView
+import androidx.lifecycle.ViewModelProvider
+import com.csis4495.aiorestaurants.db.AioViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
     var mSocket: Socket? = null
+    private lateinit var viewModel: AioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         //end hiding status bar
         setContentView(R.layout.activity_main)
 
+        viewModel = ViewModelProvider(this).get(AioViewModel::class.java)
 
         connectToBackend()
 
@@ -59,9 +63,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-
-
-
 
         //button that goes to cashier activity
 
@@ -110,30 +111,55 @@ class MainActivity : AppCompatActivity() {
     var onGetDishes = Emitter.Listener {
         val data = it[0] as String
         val dishList = JsonReaderAio.readDishes(data)
-        Log.d("Got data", dishList.toString())
+
+        if (dishList != null) {
+            viewModel.insertAllDishes(dishList)
+        }
+
+        Log.d("Got data", "Added dishList successfully.")
     }
 
     var onGetEmployees = Emitter.Listener {
         val data = it[0] as String
         val employeeList = JsonReaderAio.readEmployees(data)
-        Log.d("Got data", employeeList.toString())
+
+        if (employeeList != null) {
+            viewModel.insertAllEmployees(employeeList)
+        }
+
+        Log.d("Got data", "Added employeeList successfully.")
     }
 
     var onGetRestaurants = Emitter.Listener {
         val data = it[0] as String
         val restaurantList = JsonReaderAio.readRestaurants(data)
-        Log.d("Got data", restaurantList.toString())
+
+        if (restaurantList != null) {
+            viewModel.insertAllRestaurants(restaurantList)
+        }
+
+        Log.d("Got data", "Added restaurantList successfully.")
     }
 
     var onGetUserCategories = Emitter.Listener {
         val data = it[0] as String
         val userCategoryList = JsonReaderAio.readUserCategories(data)
-        Log.d("Got data", userCategoryList.toString())
+
+        if (userCategoryList != null) {
+            viewModel.insertAllUserCategories(userCategoryList)
+        }
+
+        Log.d("Got data", "Added userCategoryList successfully.")
     }
 
     var onGetGoals = Emitter.Listener {
         val data = it[0] as String
         val goalList = JsonReaderAio.readGoals(data)
-        Log.d("Got data", goalList.toString())
+
+        if (goalList != null) {
+            viewModel.insertAllGoals(goalList)
+        }
+
+        Log.d("Got data", "Added goalList successfully.")
     }
 }
