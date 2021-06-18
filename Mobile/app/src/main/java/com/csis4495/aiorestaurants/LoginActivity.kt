@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.csis4495.aiorestaurants.db.AioViewModel
 import com.csis4495.aiorestaurants.db.JsonReaderAio
 import io.socket.client.IO
@@ -21,6 +23,8 @@ class LoginActivity : AppCompatActivity() {
 
     var mSocket: Socket? = null
     private lateinit var viewModel: AioViewModel
+    var username = ""
+    var password = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,15 +59,23 @@ class LoginActivity : AppCompatActivity() {
         //button to navigate from login to main activity
         val btnLogin: Button = findViewById(R.id.btnLogin)
         btnLogin.setOnClickListener {
-            val username = editTextUserName.text.toString()
-            val password = editTextPassword.text.toString()
+            username = editTextUserName.text.toString()
+            password = editTextPassword.text.toString()
 
             if (username == "" || password == "") Toast.makeText(applicationContext,"Please enter something",
                 Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent);
+            else viewModel.getEmployeeByUsername(username)
         }
+
+        viewModel.employee.observe(this, Observer {
+            if (it.username == "") Toast.makeText(applicationContext,"Username not found",Toast.LENGTH_SHORT).show()
+            else if (it.password == password) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(applicationContext,"Invalid username or password.",Toast.LENGTH_SHORT).show()
+            }
+        })
 
     }
 

@@ -2,6 +2,7 @@ package com.csis4495.aiorestaurants.db
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.csis4495.aiorestaurants.db.roomEntities.*
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +11,7 @@ import kotlinx.coroutines.withContext
 
 class AioViewModel (app: Application) : AndroidViewModel(app){
     private val database = AioDatabase.getDatabase(app)
+    var employee = MutableLiveData<EmployeeEntity>()
 
     fun insertAllDishes (dishList : List<DishEntity>) {
         viewModelScope.launch {
@@ -47,6 +49,19 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 database?.dao()?.insertAllUserCategories(userCategoryList)
+            }
+        }
+    }
+
+    fun getEmployeeByUsername(username : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val userFetched = database?.dao()?.getEmployeeByUsername(username)
+                if (userFetched != null) {
+                    employee.postValue(userFetched!!)
+                } else {
+                    employee.postValue(EmployeeEntity(0,"",0.0,"",""))
+                }
             }
         }
     }
