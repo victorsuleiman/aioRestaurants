@@ -45,18 +45,6 @@ class MainActivity : AppCompatActivity() {
 
         mSocket?.on("notification",onNotification)
 
-        mSocket?.on("onGetDishes",onGetDishes)
-
-        mSocket?.on("onGetEmployees",onGetEmployees)
-
-        mSocket?.on("onGetRestaurants",onGetRestaurants)
-
-        mSocket?.on("onGetUserCategories",onGetUserCategories)
-
-        mSocket?.on("onGetGoals",onGetGoals)
-
-        mSocket?.emit("updatePosDatabase")
-
         //image that logs the user out - goes to logout activity
         val imgLogout: ImageView = findViewById(R.id.imageViewLogout)
         imgLogout.setOnClickListener {
@@ -108,58 +96,4 @@ class MainActivity : AppCompatActivity() {
         Log.d("Notification",message)
     }
 
-    var onGetDishes = Emitter.Listener {
-        val data = it[0] as String
-        val dishList = JsonReaderAio.readDishes(data)
-
-        if (dishList != null) {
-            viewModel.insertAllDishes(dishList)
-        }
-
-        Log.d("Got data", "Added dishList successfully.")
-    }
-
-    var onGetEmployees = Emitter.Listener {
-        val data = it[0] as String
-        val employeeList = JsonReaderAio.readEmployees(data)
-
-        if (employeeList != null) {
-            viewModel.insertAllEmployees(employeeList)
-        }
-
-        Log.d("Got data", "Added employeeList successfully.")
-    }
-
-    var onGetRestaurants = Emitter.Listener {
-        val data = it[0] as String
-        val restaurantList = JsonReaderAio.readRestaurants(data)
-
-        if (restaurantList != null) {
-            viewModel.insertAllRestaurants(restaurantList)
-        }
-
-        Log.d("Got data", "Added restaurantList successfully.")
-    }
-
-    var onGetUserCategories = Emitter.Listener {
-        val data = it[0] as String
-        val userCategoryList = JsonReaderAio.readUserCategories(data)
-
-        if (userCategoryList != null) {
-            viewModel.insertAllUserCategories(userCategoryList)
-        }
-
-        Log.d("Got data", "Added userCategoryList successfully.")
-    }
-
-    var onGetGoals = Emitter.Listener {
-        val data = it[0] as String
-        val goalList = JsonReaderAio.readGoals(data)
-
-        if (goalList != null) {
-            viewModel.insertAllGoals(goalList)
-        }
-
-        Log.d("Got data", "Added goalList successfully.")
-    }
 }
