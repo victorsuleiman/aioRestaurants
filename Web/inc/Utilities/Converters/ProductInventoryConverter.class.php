@@ -63,6 +63,7 @@
                 $stdClass->productId,
                 $stdClass->productName,
                 $stdClass->unity,
+                $stdClass->supplierId,
                 $stdClass->qty,
                 $stdClass->price,
                 $stdClass->category,
@@ -80,7 +81,7 @@
             $newProduct = new stdClass();
             $newProduct->productId      = $nProduct->getProductId();
             $newProduct->productName    = $nProduct->getProductName();
-            $newProduct->unity          = $nProduct->getUnity();
+            $newProduct->unity          = $nProduct->getUnit();
             $newProduct->qty            = $nProduct->getQuantity();
             $newProduct->price          = $nProduct->getPrice();
             $newProduct->category       = $nProduct->getCategory();

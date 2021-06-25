@@ -39,15 +39,12 @@
         }
 
         public static function convertToStdClass($data){
-            
             try{
 
                 if(is_array($data)){
-
                     $employeeArray = [];
 
                     for($i = 0; $i < count($data); $i++){
-
                         if( get_class($data[$i]) == "Employee" ) {
                             array_push(
                                 $employeeArray,
@@ -59,11 +56,9 @@
                         }
                         
                     }
-
                     return $employeeArray;
 
                 } else if(get_class($data) == "Employee"){
-                    
                     return self::parseToStd($data);
                     
                 } else {
@@ -99,25 +94,27 @@
             return $stdClass;
         }
 
-        private static function parseToEmployee(stdClass $stdClass) : Employee{
+        private static function parseToEmployee(stdClass $stdEmployee) : Employee{
+
             $newEmployee = new Employee(
-                $stdClass->employeeId,
-                $stdClass->firstName,
-                $stdClass->lastName,
-                $stdClass->bDate,
-                $stdClass->address,
-                $stdClass->city,
-                $stdClass->phone,
-                $stdClass->email,
-                $stdClass->picture,
-                $stdClass->notes,
-                $stdClass->userCategory,
-                $stdClass->username,
-                $stdClass->password
+                $stdEmployee->employeeId,
+                $stdEmployee->firstName,
+                $stdEmployee->lastName,
+                $stdEmployee->bDate,
+                $stdEmployee->address,
+                $stdEmployee->city,
+                $stdEmployee->phone,
+                $stdEmployee->email,
+                $stdEmployee->picture,
+                $stdEmployee->notes,
+                $stdEmployee->userCategory,
+                $stdEmployee->username,
+                $stdEmployee->password
             );
-            if($stdClass->_id != null){
-                $newEmployee->setId($stdClass->_id);
+            if($stdEmployee->_id != null){
+                $newEmployee->setId($stdEmployee->_id);
             }
+
             return $newEmployee;
         }
     }

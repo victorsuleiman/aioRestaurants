@@ -88,7 +88,8 @@ class ShipperConverter{
             $stdClass->city,
             $stdClass->country,
             $stdClass->phone,
-            $stdClass->email,
+            $stdClass->email
+            //$stdClass->price
         );
 
         if($stdClass->_id != null){

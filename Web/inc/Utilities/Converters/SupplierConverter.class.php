@@ -1,4 +1,5 @@
 <?php
+    require_once("inc/Entities/Products/ProductSupplier.class.php");
 
     class SupplierConverter{
 
@@ -12,7 +13,7 @@
 
                     for($i = 0; $i < count($data); $i++){
 
-                        if( get_class($data[$i]) == "stdClass"){               
+                        if( get_class($data[$i]) == "stdClass"){          
                             array_push(
                                 $supplierArray,
                                 self::parseToSupplier($data[$i])
@@ -76,18 +77,30 @@
         private static function parseToSupplier(stdClass $stdSupplier) : Supplier{
             $productsArray = [];
 
-            for($j = 0; $j < count($stdSupplier->products); $j++){
+            if(is_array($stdSupplier->products)){
+                for($j = 0; $j < count($stdSupplier->products); $j++){
+
+                    $newProduct = new ProductSupplier(
+                        $stdSupplier->products[$j]->productId,
+                        $stdSupplier->products[$j]->productName,
+                        $stdSupplier->products[$j]->unity,
+                        $stdSupplier->products[$j]->price
+                    );
+                    
+                    array_push($productsArray,$newProduct);
+                }
+                
+            } else {
 
                 $newProduct = new ProductSupplier(
-                    $stdSupplier->products[$j]->productId,
-                    $stdSupplier->products[$j]->productName,
-                    $stdSupplier->products[$j]->unity,
-                    $stdSupplier->products[$j]->price
+                    $stdSupplier->products->productId,
+                    $stdSupplier->products->productName,
+                    $stdSupplier->products->unity,
+                    $stdSupplier->products->price
                 );
-
                 array_push($productsArray,$newProduct);
-                
             }
+            
 
             $newSupplier = new Supplier(
                 $stdSupplier->supplierId,
@@ -105,7 +118,6 @@
             if($stdSupplier->_id != null){
                 $newSupplier->setId($stdSupplier->_id);
             }
-
             return $newSupplier;
 
         }
