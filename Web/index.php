@@ -1,6 +1,8 @@
 <?php
+require_once("inc/Utilities/RestAPI.class.php");
 require_once("inc/Utilities/ParsePostForm.class.php");
-require_once("inc/RestAPI.class.php");
+
+require_once("inc/Utilities/Reports/OrderReport.class.php");
 
 require_once("inc/Utilities/Page.class.php");
 require_once("inc/Utilities/Html/DashboardPage.class.php");
@@ -16,8 +18,14 @@ if(!empty($_GET)){
         Page::pageLeftMenu();
         Page::pageContentTop();
         
+        TablePage::employeeTableContent(
+            RestAPI::getData("employee")
+        );
+
         DashboardPage::divGraphs();
-        DashboardPage::pieChart(OrderReport::getProductsFromOrder());
+        DashboardPage::pieChart(
+            OrderReport::getProductsFromOrder()
+        );
 
         Page::pageContentBottom();
         Page::pageFooter();
@@ -29,54 +37,109 @@ if(!empty($_GET)){
             Page::pageHeader();
             TablePage::pageLeftMenu();
             Page::pageContentTop();
-            
-            TablePage::employeeTableContent(
-                RestAPI::getData("employee")
-            );
-            
-            TablePage::orderTableContent(
-                RestAPI::getData("order")
-            );
-            
-            TablePage::productsTableContent(
-                RestAPI::getData("productinventory")
-            );
+            TablePage::tabs();
+
+            switch($_GET["tab"]){
+
+                case "employee":
+                    TablePage::employeeTableContent(
+                        RestAPI::getData("employee")
+                    );
+                break;
+
+                case "order":
+                    TablePage::orderTableContent(
+                        RestAPI::getData("order")
+                    );
+                break;
+
+                case "product":
+                    TablePage::productsTableContent(
+                        RestAPI::getData("ProductInventory")
+                    );
+                break;
+
+                case "supplier":
+                    TablePage::supplierTableContent(
+                        RestAPI::getData("supplier")
+                    );
+                break;
+
+                case "shipper":
+                    TablePage::shipperTableContent(
+                        RestAPI::getData("shipper")
+                    );
+                break;
+
+                default:
+                    TablePage::employeeTableContent(
+                        RestAPI::getData("employee")
+                    );
+                break;
+            }
 
             Page::pageContentBottom();
             Page::pageFooter();
+
         } else {
+
             Page::pageHeader();
             TablePage::pageLeftMenu();
             Page::pageContentTop();
-
+            
             $action = $_POST["form"];
 
-            if( str_contains($action,"add") ){
-
+            if( strpos($action, "add") !== false ){
                 RestAPI::postData(
                     ParsePostForm::parsePost($_POST)
                 );
                 Page::toastAdded();
-            } else if( str_contains($action,"edit") ){
-
+            } else if( strpos($action, "edit") !== false ){
                 RestAPI::updateData(
                     ParsePostForm::parsePost($_POST)
                 );
                 Page::toastUpdate();
             }
-        
-            TablePage::employeeTableContent(
-                RestAPI::getData("employee")
-            );
             
-            TablePage::orderTableContent(
-                RestAPI::getData("order")
-            );
-            
-            TablePage::productsTableContent(
-                RestAPI::getData("productinventory")
-            );
-        
+            TablePage::tabs();
+            if(isset($_GET["tab"])){
+                switch($_GET["tab"]){
+                    case "employee":
+                        TablePage::employeeTableContent(
+                            RestAPI::getData("employee")
+                        );
+                    break;
+    
+                    case "order":
+                        TablePage::orderTableContent(
+                            RestAPI::getData("order")
+                        );
+                    break;
+    
+                    case "product":
+                        TablePage::productsTableContent(
+                            RestAPI::getData("ProductInventory")
+                        );
+                    break;
+    
+                    case "supplier":
+                        TablePage::supplierTableContent(
+                            RestAPI::getData("supplier")
+                        );
+                    break;
+    
+                    case "shipper":
+                        TablePage::shipperTableContent(
+                            RestAPI::getData("shipper")
+                        );
+                    break;
+                }
+            } else {
+                TablePage::employeeTableContent(
+                    RestAPI::getData("employee")
+                );
+            }
+
             Page::pageContentBottom();
             Page::pageFooter();
         }
@@ -97,124 +160,5 @@ if(!empty($_GET)){
     }
 
 } else {
-    Page::pageHeader();
-    Page::pageLeftMenu();
-    Page::pageContentTop();  
-
-    EmployeeDAO::startDb();
-
-    TablePage::employeeTableContent(
-        EmployeeDAO::getMultipleEmployee(5)
-    );
-
-    Page::pageContentBottom();
-    Page::pageFooter();
+    header("Location: ".$_SERVER['PHP_SELF']."?page=dashboard");
 }
-
-
-
-/*
-$con = new PDOMongo("shipper");
-  
-    //Back to stdClass
-    var_dump(
-        json_decode(
-            json_encode(
-                $con->getCounter()
-            )
-        )
-    );
-
-
-Page::pageHeader();
-Page::pageLeftMenu();
-
-Page::pageContentTop();
-
-//var_dump(Test::getProductsFromOrder($productsArray));
-TableHtml::orderTableContent(
-    OrderConverter::convertFromStdClass(
-        $nDb2->getDataBase()->findData(
-            [],
-            5,
-            "orderId"
-        )
-    )
-);
-
-OrderReport::getOrderFromDb();
-//var_dump();
-
-Page::pageContentBottom();
-Page::pageFooter();
-
-$manager = new Manager(DEFAULT_URL);
-
-$manager = new Manager(DEFAULT_URL);
-$query = new Query([]);
-$cursor = $manager->executeQuery("mock_restaurant.employee",$query);
-//$result = $cursor->toArray();
-
-$filter = [];
-$options = [
-    'sort'=>array('employeeId'=>1),
-    'limit'=>3,
-    'projection' => [
-        "username"=>1,
-        "firstName"=>1
-        ]
-];
-//$options2 = ['sort'=>array('employeeId'=>1),'limit'=>1,'projection' => []];
-$query = new Query([]);
-
-
-MongoConnection::executeQuery(
-    "employee",["employeeId","firstName","lastName","username"],2
-);
-
-$employee = new Employee(
-    222,
-    "Gustavo",
-    "Freitas",
-    "1987-02-22",
-    "3 Loftsgordon Crossing",
-    "Ambato Boeny",
-    "373-712-4612",
-    "ldegiorgis0@dell.com",
-    "https://robohash.org/expeditaaspernaturnon.png?size=50x50&set=set1",
-    "Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis.",
-    4,
-    "ldegiorgis0",
-    "7z7x55DxOV"
-);
-
-
-MongoConnection::insertData(
-    EmployeeConverter::convertToStdClass($employee)
-);
-
-$gustavo = $result[count($result)-1];
-$gustavoObj = EmployeeConverter::convertFromStdClass($gustavo);
-$gustavoObj->setUsername("gbpf");
-
-MongoConnection::updateData(
-    EmployeeConverter::convertToStdClass($gustavoObj)
-);
-
-
-$gustavo = $result[count($result)-1];
-$gustavoObj = EmployeeConverter::convertFromStdClass($gustavo);
-MongoConnection::insertData(
-    EmployeeConverter::convertToStdClass($gustavoObj)
-);
-
-var_dump("Updated");
-
-
-$listDb = new Command(["ping" => 1]);
-
-//DB is the selected database and the $listDb runs the Atlas mongoDB command
-$result = $manager->executeCommand(DB,$listDb);
-
-var_dump($result->toArray()[0]->ok);
-*/
