@@ -13,25 +13,26 @@
 
             switch($collection){
                 
-                case "addEmployee":
+                case "addEmployee" || "editEmployee":
                     return self::parseEmployee($post);
 
-                case "addOrder":
+                case "addOrder" || "editOrder":
                     return self::parseOrder($post);
 
-                case "addShipper":
+                case "addShipper" || "editShipper":
                     return self::parseShipper($post);
 
-                case "addProductInventory":
+                case "addProductInventory" || "editProductInventory":
                     return self::parseProduct($post);
 
-                case "addSupplier":
+                case "addSupplier" || "editSupplier":
                     return self::parseSupplier($post);
 
             }
         }
 
         private static function parseEmployee($post) : Employee{
+
             $newEmployee = new Employee(
                 0,
                 $post["firstName"],
@@ -48,6 +49,12 @@
                 $post["password"]
             );
 
+            if(isset($post["employeeId"])){
+                $newEmployee->setEmployeeId($post["employeeId"]);
+            }
+
+            $newEmployee->setId($post["_id"]);
+            
             return $newEmployee;
         }
 
@@ -61,6 +68,13 @@
                 0,/*$post["shipperId"]*/
                 []/*$nProducts = []*/
             );
+
+            if(isset($post["orderId"])){
+                $newOrder->setOrderId($post["orderId"]);
+            }
+
+            $newOrder->setId($post["_id"]);
+
             return $newOrder;
         }
 
@@ -76,6 +90,13 @@
                 $post["email"],
                 $post["price"]
             );
+
+            $newShipper->setId($post["_id"]);
+
+            if(isset($post["shipperId"])){
+                $newShipper->setShipperId($post["shipperId"]);
+            }
+
             return $newShipper;
         }
 
@@ -90,6 +111,12 @@
                 $post["category"],
                 $post["entryDate"]
             );
+
+            $newProduct->setId($post["_id"]);
+
+            if(isset($post["productId"])){
+                $newProduct->setProductId($post["productId"]);
+            }
 
             return $newProduct;
         }
@@ -107,6 +134,13 @@
                 $post["email"],
                 []
             );
+
+            if(isset($post["supplierId"])){
+                $newSupplier->setSupplierId($post["supplierId"]);
+            }
+
+            $newSupplier->setId($post["_id"]);
+
             return $newSupplier;
         }
     }
