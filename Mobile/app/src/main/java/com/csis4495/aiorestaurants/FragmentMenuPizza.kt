@@ -90,7 +90,7 @@ class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
         var name : String = itemPizza.name.toString()
         var price : String = itemPizza.price.toString()
 
-        dataPasser.onDataPass(name, price)
+        dataPasser.onDataPass("Pizza " + name, price)
 
         adapterReceipt?.notifyDataSetChanged()
 
