@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.csis4495.aiorestaurants.adapters.AdapterReceipt
+import com.csis4495.aiorestaurants.classes.ItemReceipt
 import kotlinx.android.synthetic.main.activity_cashier.*
 
 class CashierActivity : AppCompatActivity() {
@@ -62,6 +65,19 @@ class CashierActivity : AppCompatActivity() {
         btnDesserts.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDesserts).commit()
         }
+
+        //RECIPE RECYCLER VIEW
+
+        var itemReceiptList: ArrayList<ItemReceipt> = ArrayList()
+
+        //itemReceiptList.add(ItemReceipt("Pizza", "$25.53"))
+
+        recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList)
+        recyclerViewReceipt.layoutManager = LinearLayoutManager(this)
+        recyclerViewReceipt.setHasFixedSize(true)
+
+        //END RECIPE RECYCLER VIEW
+
     }
 
 }
