@@ -8,7 +8,7 @@
     android:padding="8dp"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".Cashier">
+    tools:context=".CashierActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutCanvas"

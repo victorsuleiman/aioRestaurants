@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_cashier.*
 
-class Cashier : AppCompatActivity() {
+class CashierActivity : AppCompatActivity() {
 
     //declaring buttons
     private lateinit var btnPizza: Button

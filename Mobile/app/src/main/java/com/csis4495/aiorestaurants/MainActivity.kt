@@ -6,7 +6,6 @@ import android.os.Bundle
 
 import android.util.Log
 import android.widget.Button
-import com.csis4495.aiorestaurants.db.JsonReaderAio
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         val btnCashier: Button = findViewById(R.id.btn_cahsier)
         btnCashier.setOnClickListener {
-            val intent = Intent(this, Cashier::class.java)
+            val intent = Intent(this, CashierActivity::class.java)
             startActivity(intent)
         }
 
