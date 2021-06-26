@@ -11,6 +11,10 @@ import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemReceipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import kotlinx.android.synthetic.main.activity_cashier.*
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CashierActivity : AppCompatActivity(), OnDataPass {
 
@@ -20,6 +24,14 @@ class CashierActivity : AppCompatActivity(), OnDataPass {
     private lateinit var btnDrinks: Button
     private lateinit var btnDesserts: Button
     private var adapterReceipt: AdapterReceipt? = null
+
+    //declaring variables to calculate total and taxes for the receipt
+    private var total : Double = 0.0
+    private var taxes : Double = 0.0
+    private var currTaxes : Double = 0.0
+    private var currPrice : Double = 0.0
+    private var itemPrice : Double = 0.0
+    private var itemPriceStr : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,19 +81,25 @@ class CashierActivity : AppCompatActivity(), OnDataPass {
         }
     }
 
-    var count:Int = -1
-
     var itemReceiptList: ArrayList<ItemReceipt> = ArrayList()
+
 
     //getting data from fragment and passing into recycler view
     override fun onDataPass(item: String, price: String) {
-        count++
-
         itemReceiptList.add(ItemReceipt(item, price))
 
         recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList)
         recyclerViewReceipt.layoutManager = LinearLayoutManager(this)
         recyclerViewReceipt.setHasFixedSize(true)
 
+        itemPriceStr = price.removePrefix("$")
+        itemPrice = itemPriceStr.toDouble()
+        taxes += (itemPrice * 0.05)
+        total += itemPrice + (itemPrice * 0.05)
+
+        textViewTaxes.text = "$" + taxes.round(2).toString()
+        textViewTotal.text = "$" + total.round(2).toString()
     }
+
+    fun Double.round(decimals: Int = 2): Double = "%.${decimals}f".format(this).toDouble()
 }
