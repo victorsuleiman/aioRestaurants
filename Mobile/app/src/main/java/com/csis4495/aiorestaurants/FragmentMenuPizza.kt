@@ -1,5 +1,6 @@
 package com.csis4495.aiorestaurants
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,13 +10,17 @@ import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
 import com.csis4495.aiorestaurants.adapters.AdapterPizza
+import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemPizza
+import com.csis4495.aiorestaurants.interfaces.OnDataPass
+import kotlinx.android.synthetic.main.item_receipt.*
 
 class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
 
     private var gridView: GridView? = null
     private var arrayList: ArrayList<ItemPizza> ? = null
     private var adapterPizza: AdapterPizza? = null
+    private var adapterReceipt: AdapterReceipt? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +85,21 @@ class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         var itemPizza: ItemPizza = arrayList!![position]
-        Toast.makeText(context, itemPizza.name, Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, itemPizza.name, Toast.LENGTH_LONG).show()
+
+        var name : String = itemPizza.name.toString()
+        var price : String = itemPizza.price.toString()
+
+        dataPasser.onDataPass(name, price)
+
+        adapterReceipt?.notifyDataSetChanged()
+
+    }
+
+    lateinit var dataPasser: OnDataPass
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dataPasser = context as OnDataPass
     }
 }
