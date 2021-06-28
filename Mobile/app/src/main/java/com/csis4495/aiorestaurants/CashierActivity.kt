@@ -3,20 +3,20 @@ package com.csis4495.aiorestaurants
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemReceipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import kotlinx.android.synthetic.main.activity_cashier.*
-import java.math.BigDecimal
-import java.text.NumberFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
-class CashierActivity : AppCompatActivity(), OnDataPass {
+class CashierActivity : AppCompatActivity(), OnDataPass, AdapterView.OnItemClickListener {
 
     //declaring buttons
     private lateinit var btnPizza: Button
@@ -99,7 +99,19 @@ class CashierActivity : AppCompatActivity(), OnDataPass {
 
         textViewTaxes.text = "$" + taxes.round(2).toString()
         textViewTotal.text = "$" + total.round(2).toString()
+
+
     }
 
     fun Double.round(decimals: Int = 2): Double = "%.${decimals}f".format(this).toDouble()
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        itemReceiptList.removeAt(position)
+
+        recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList)
+        AdapterReceipt(itemReceiptList)?.notifyItemRemoved(position)
+        Toast.makeText(this, position.toString(), Toast.LENGTH_LONG).show()
+    }
+
+
 }
