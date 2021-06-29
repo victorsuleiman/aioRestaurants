@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/constraintLayoutItem"
+        android:id="@+id/relativeLayoutItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#323435">
@@ -27,11 +28,20 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text=""
-            android:layout_alignParentRight="true"
+
+            android:layout_toLeftOf="@id/imageView2"
             android:textColor="#C4C4C4"
             android:textSize="20sp"
 
             />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/ic_delete"
+            tools:ignore="VectorDrawableCompat" />
     </RelativeLayout>
 
 </RelativeLayout>
