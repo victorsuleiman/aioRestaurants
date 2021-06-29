@@ -16,20 +16,17 @@ import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import kotlinx.android.synthetic.main.activity_cashier.*
 import kotlin.collections.ArrayList
 
-class CashierActivity : AppCompatActivity(), OnDataPass, AdapterView.OnItemClickListener {
+class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemClickListener {
 
     //declaring buttons
     private lateinit var btnPizza: Button
     private lateinit var btnSides: Button
     private lateinit var btnDrinks: Button
     private lateinit var btnDesserts: Button
-    private var adapterReceipt: AdapterReceipt? = null
 
     //declaring variables to calculate total and taxes for the receipt
     private var total : Double = 0.0
     private var taxes : Double = 0.0
-    private var currTaxes : Double = 0.0
-    private var currPrice : Double = 0.0
     private var itemPrice : Double = 0.0
     private var itemPriceStr : String = ""
 
@@ -88,10 +85,7 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterView.OnItemClick
     override fun onDataPass(item: String, price: String) {
         itemReceiptList.add(ItemReceipt(item, price))
 
-        recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList)
-        recyclerViewReceipt.layoutManager = LinearLayoutManager(this)
-        recyclerViewReceipt.setHasFixedSize(true)
-
+        recyclerView()
         itemPriceStr = price.removePrefix("$")
         itemPrice = itemPriceStr.toDouble()
         taxes += (itemPrice * 0.05)
@@ -99,19 +93,35 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterView.OnItemClick
 
         textViewTaxes.text = "$" + taxes.round(2).toString()
         textViewTotal.text = "$" + total.round(2).toString()
-
-
     }
 
-    fun Double.round(decimals: Int = 2): Double = "%.${decimals}f".format(this).toDouble()
+    //click on recycler view item
+    override fun onItemClick(position: Int) {
 
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        itemPriceStr = itemReceiptList.elementAt(position).price!!.removePrefix("$")
+        itemPrice = itemPriceStr.toDouble()
+        total -= itemPrice * 1.05
+        var deletedTax : Double = itemPrice * 0.05
+        taxes -= deletedTax
+
+        textViewTaxes.text = "$" + taxes.round(2).toString()
+        textViewTotal.text = "$" + total.round(2).toString()
+
+        if(textViewTaxes.text == "$-0.0" || textViewTotal.text == "$-0.0"){
+            textViewTaxes.text = "$0.0"
+            textViewTotal.text = "$0.0"
+        }
         itemReceiptList.removeAt(position)
-
-        recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList)
-        AdapterReceipt(itemReceiptList)?.notifyItemRemoved(position)
-        Toast.makeText(this, position.toString(), Toast.LENGTH_LONG).show()
+        recyclerView()
     }
 
+    //recycler view function
+    fun recyclerView(){
+        recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList, this)
+        recyclerViewReceipt.layoutManager = LinearLayoutManager(this)
+        recyclerViewReceipt.setHasFixedSize(true)
+    }
 
+    //function to format values to 2 decimal places
+    fun Double.round(decimals: Int = 2): Double = "%.${decimals}f".format(this).toDouble()
 }
