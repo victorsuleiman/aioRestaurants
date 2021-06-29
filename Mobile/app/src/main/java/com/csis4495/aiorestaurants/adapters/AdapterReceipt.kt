@@ -3,6 +3,7 @@ package com.csis4495.aiorestaurants.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
@@ -17,10 +18,14 @@ class AdapterReceipt(private val itemReceiptList: List<ItemReceipt>, private val
     inner class AdapterReceiptViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val item: TextView = itemView.textViewItem
         val price: TextView = itemView.textViewItemPrice
+        val delete: ImageView = itemView.imageViewDelete
 
         //setting onclicklistener (called view.OnClickListener on the class...)
         init {
-            itemView.setOnClickListener(this)
+            //item view deletes when clicking anywhere in the row, while
+            // delete.set... deletes only when clicking on the delete button
+            //itemView.setOnClickListener(this)
+            delete.setOnClickListener(this)
         }
         override fun onClick(v: View?) {
             val position : Int = adapterPosition
@@ -28,6 +33,7 @@ class AdapterReceipt(private val itemReceiptList: List<ItemReceipt>, private val
                 listener.onItemClick(position)
             }
         }
+
     }
 
     interface OnItemClickListener{
