@@ -21,4 +21,8 @@
     <string name="logIn">Log In</string>
     <string name="total">Total</string>
     <string name="taxesStr">Taxes (GST 5%)</string>
+    <string name="confirm_delete">Confirm Delete</string>
+    <string name="delete_confirmation_message">Are you sure you would like to delete this item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
