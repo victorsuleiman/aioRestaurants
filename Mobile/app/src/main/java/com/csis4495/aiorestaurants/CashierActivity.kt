@@ -1,5 +1,6 @@
 package com.csis4495.aiorestaurants
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,12 +10,14 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemReceipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import kotlinx.android.synthetic.main.activity_cashier.*
 import kotlin.collections.ArrayList
+import android.app.Activity as Activity
 
 class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemClickListener {
 
@@ -98,6 +101,32 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
     //click on recycler view item
     override fun onItemClick(position: Int) {
 
+        var builder = AlertDialog.Builder(this, R.style.Base_Theme_AppCompat_Dialog)
+        builder.setTitle(getString(R.string.confirm_delete))
+        builder.setMessage(getString(R.string.delete_confirmation_message))
+
+        builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, which ->
+            DeleteItem(position)
+            dialog.cancel()
+        })
+        builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, which ->
+            dialog.cancel()
+        })
+        builder.show()
+    }
+
+    //recycler view function
+    private fun recyclerView(){
+        recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList, this)
+        recyclerViewReceipt.layoutManager = LinearLayoutManager(this)
+        recyclerViewReceipt.setHasFixedSize(true)
+    }
+
+    //function to format values to 2 decimal places
+    private fun Double.round(decimals: Int = 2): Double = "%.${decimals}f".format(this).toDouble()
+
+    //fucntion to delete specific item from recycler view on receipt
+    private fun DeleteItem(position: Int){
         itemPriceStr = itemReceiptList.elementAt(position).price!!.removePrefix("$")
         itemPrice = itemPriceStr.toDouble()
         total -= itemPrice * 1.05
@@ -114,14 +143,4 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         itemReceiptList.removeAt(position)
         recyclerView()
     }
-
-    //recycler view function
-    fun recyclerView(){
-        recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList, this)
-        recyclerViewReceipt.layoutManager = LinearLayoutManager(this)
-        recyclerViewReceipt.setHasFixedSize(true)
-    }
-
-    //function to format values to 2 decimal places
-    fun Double.round(decimals: Int = 2): Double = "%.${decimals}f".format(this).toDouble()
 }
