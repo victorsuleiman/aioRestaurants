@@ -17,14 +17,16 @@
             android:name=".SplashActivity"
             android:screenOrientation="landscape">
 
-        </activity>
-        <activity android:name=".CashierActivity" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".CashierActivity" >
+
+
 
         </activity>
         <activity android:name=".MainActivity" />
