@@ -69,10 +69,10 @@ def submitReceipt(data):
 
     updateInventory(data['dishes'])
 
-    receipt = {'server' : server , 'employeeId' : employeeId, 'dishes' : dishes, 'taxes' : taxes, 'total' : total, 
-        'paymentType' : paymentType, 'date' : date}
+    receipt = {'server' : server , 'employeeId' : employeeId, 'dishes' : dishes, 
+    'taxes' : taxes, 'total' : total, 'paymentType' : paymentType, 'date' : date}
     
-    # mongo.db.receipt.insert_one(receipt)
+    mongo.db.receipt.insert_one(receipt)
 
 def updateInventory(dishes):
     print(f"Updating inventory qty's for dishes {dishes} in receipt")

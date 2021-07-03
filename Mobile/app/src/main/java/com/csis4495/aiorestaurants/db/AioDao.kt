@@ -59,6 +59,9 @@ interface AioDao {
     @Query("SELECT * FROM userCategory WHERE categoryId = :id")
     fun getUserCategoryById(id : Int) : UserCategoryEntity
 
+    @Query("SELECT * FROM dish WHERE category = :category")
+    fun getDishByCategory(category : String) : List<DishEntity>
+
 
 
 

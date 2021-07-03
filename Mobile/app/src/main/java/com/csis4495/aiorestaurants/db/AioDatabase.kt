@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.csis4495.aiorestaurants.db.roomEntities.*
 
-@Database(entities = [DishEntity::class, EmployeeEntity::class, RestaurantEntity::class, UserCategoryEntity::class, GoalEntity::class],
-    version = 1, exportSchema = false)
+@Database(entities = [DishEntity::class, EmployeeEntity::class, RestaurantEntity::class,
+    UserCategoryEntity::class, GoalEntity::class], version = 1, exportSchema = false)
 abstract class AioDatabase : RoomDatabase() {
     abstract fun dao() : AioDao
 
