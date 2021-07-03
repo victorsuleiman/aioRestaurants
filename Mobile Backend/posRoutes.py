@@ -70,7 +70,7 @@ def submitReceipt(data):
     updateInventory(data['dishes'])
 
     receipt = {'server' : server , 'employeeId' : employeeId, 'dishes' : dishes, 
-    'taxes' : taxes, 'total' : total, 'paymentType' : paymentType, 'date' : date}
+        'taxes' : taxes, 'total' : total, 'paymentType' : paymentType, 'date' : date}
     
     mongo.db.receipt.insert_one(receipt)
 

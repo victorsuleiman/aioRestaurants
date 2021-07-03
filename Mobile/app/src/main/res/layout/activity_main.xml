@@ -79,4 +79,18 @@
         app:srcCompat="@drawable/ic_logout"
         tools:ignore="VectorDrawableCompat" />
 
+    <TextView
+        android:id="@+id/textViewMainLoggedAs"
+        android:layout_width="256dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="right"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewLogout"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,12 @@
 package com.csis4495.aiorestaurants
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
@@ -16,6 +19,7 @@ import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemReceipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import kotlinx.android.synthetic.main.activity_cashier.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.collections.ArrayList
 import android.app.Activity as Activity
 
@@ -33,6 +37,10 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
     private var itemPrice : Double = 0.0
     private var itemPriceStr : String = ""
 
+    var itemReceiptList: ArrayList<ItemReceipt> = ArrayList()
+
+    lateinit var sp : SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //hiding status bar
@@ -48,6 +56,9 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         btnSides = findViewById(R.id.btnSides)
         btnDrinks = findViewById(R.id.btnSoftDrinks)
         btnDesserts = findViewById(R.id.btnDesserts)
+
+        sp = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+        textViewCashierLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
 
         //going back to home page when clicking on home image
         val imgHome: ImageView = findViewById(R.id.imageViewHome)
@@ -79,10 +90,8 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         btnDesserts.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDesserts).commit()
         }
+
     }
-
-    var itemReceiptList: ArrayList<ItemReceipt> = ArrayList()
-
 
     //getting data from fragment and passing into recycler view
     override fun onDataPass(item: String, price: String) {
@@ -142,5 +151,10 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         }
         itemReceiptList.removeAt(position)
         recyclerView()
+    }
+
+    //Build a Receipt Object
+    private fun buildReceipt () {
+
     }
 }
