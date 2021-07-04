@@ -4,24 +4,25 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemReceipt
+import com.csis4495.aiorestaurants.classes.Receipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import kotlinx.android.synthetic.main.activity_cashier.*
-import kotlinx.android.synthetic.main.activity_main.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
-import android.app.Activity as Activity
 
 class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemClickListener {
 
@@ -41,6 +42,7 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
     lateinit var sp : SharedPreferences
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //hiding status bar
@@ -89,6 +91,18 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         val fragmentMenuDesserts = FragmentMenuDesserts()
         btnDesserts.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDesserts).commit()
+        }
+
+        btnCash.setOnClickListener {
+            onPaymentClick("cash")
+        }
+
+        btnDebit.setOnClickListener {
+            onPaymentClick("debit")
+        }
+
+        btnCredit.setOnClickListener {
+            onPaymentClick("credit")
         }
 
     }
@@ -154,7 +168,45 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
     }
 
     //Build a Receipt Object
-    private fun buildReceipt () {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun buildReceipt(paymentType: String): Receipt {
+        val server = sp.getString("firstName", "")
+        val employeeId = sp.getInt("employeeId", 0)
 
+        //dish list
+        val dishList = mutableListOf<String>()
+        for (dish in itemReceiptList) {
+            dish.item?.let { dishList.add(it) }
+        }
+
+        val taxes = taxes
+        val total = total
+
+        val dateDate = LocalDateTime.now()
+        val date = dateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+        return Receipt(server, employeeId, dishList, taxes, total, paymentType, date)
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun onPaymentClick (paymentType : String) {
+        var builder = AlertDialog.Builder(this, R.style.Base_Theme_AppCompat_Dialog)
+        builder.setTitle(getString(R.string.confirmPayment))
+        builder.setMessage("Start payment by $paymentType and submit receipt?")
+
+        builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, which ->
+            if (itemReceiptList.isNotEmpty()) {
+                val receipt = buildReceipt(paymentType)
+                Log.d("Receipt Test","Receipt built.")
+            } else {
+                Toast.makeText(applicationContext,"No product selected.",Toast.LENGTH_SHORT).show()
+            }
+            dialog.cancel()
+        })
+        builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, which ->
+            dialog.cancel()
+        })
+        builder.show()
     }
 }
