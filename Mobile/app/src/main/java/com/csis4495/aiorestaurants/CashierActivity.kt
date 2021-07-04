@@ -19,7 +19,13 @@ import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemReceipt
 import com.csis4495.aiorestaurants.classes.Receipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
+import io.socket.client.IO
+import io.socket.client.Socket
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_cashier.*
+import org.json.JSONObject
+import java.io.InputStream
+import java.net.URISyntaxException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
@@ -42,6 +48,8 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
     lateinit var sp : SharedPreferences
 
+    var mSocket: Socket? = null
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +66,12 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         btnSides = findViewById(R.id.btnSides)
         btnDrinks = findViewById(R.id.btnSoftDrinks)
         btnDesserts = findViewById(R.id.btnDesserts)
+
+        connectToBackend()
+
+        mSocket?.on(Socket.EVENT_CONNECT, Emitter.Listener {
+            Log.d("Connection to backend","sending")
+        });
 
         sp = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
         textViewCashierLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
@@ -198,9 +212,10 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, which ->
             if (itemReceiptList.isNotEmpty()) {
                 val receipt = buildReceipt(paymentType)
+                submitReceipt(receipt)
                 Log.d("Receipt Test","Receipt built.")
             } else {
-                Toast.makeText(applicationContext,"No product selected.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext,"Cart is empty.",Toast.LENGTH_SHORT).show()
             }
             dialog.cancel()
         })
@@ -208,5 +223,59 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
             dialog.cancel()
         })
         builder.show()
+    }
+
+    private fun submitReceipt (receipt : Receipt) {
+        var dishes = ""
+        for (dish in receipt.dishes) {
+            dishes += if (dish != receipt.dishes.last()) {
+                "'$dish', "
+            } else {
+                "'$dish'"
+            }
+        }
+
+        val jsonString = "{'server' : '${receipt.server}', 'employeeId' : '${receipt.employeeId}', " +
+                "'dishes' : [${dishes}], 'taxes' : ${receipt.taxes.round(2)}, 'total' : ${receipt.total.round(2)}, " +
+                "'paymentType' : '${receipt.paymentType}', 'date' : '${receipt.date}'}"
+
+        mSocket?.emit("submitReceipt",JSONObject(jsonString))
+
+        //Clear cart
+        for (item in 1..itemReceiptList.size) {
+            DeleteItem(0)
+        }
+
+        Toast.makeText(applicationContext,"Receipt submitted successfully.",Toast.LENGTH_LONG).show()
+    }
+
+    private fun connectToBackend() {
+        var string: String? = ""
+        try {
+            val inputStream: InputStream = assets.open("source.txt")
+            val size: Int = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            string = String(buffer)
+            Log.d("Read IP from txt", "Successfully read $string from txt")
+        } catch (e: Exception) {
+            Log.d("Read IP from txt", "Error: ${e.message.toString()}")
+        }
+
+        val ipAddress = string
+        try {
+            mSocket = IO.socket(ipAddress)
+
+        } catch (e: URISyntaxException) {
+            Log.d("URI error", e.message.toString())
+        }
+
+        try {
+            mSocket?.connect()
+            Log.d("Connection to Backend", "connected to $ipAddress, status: ${mSocket?.connected()}")
+
+        } catch (e: Exception) {
+            Log.d("Connection to Backend", "Failed to connect.")
+        }
     }
 }

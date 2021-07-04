@@ -73,6 +73,7 @@ def submitReceipt(data):
         'taxes' : taxes, 'total' : total, 'paymentType' : paymentType, 'date' : date}
     
     mongo.db.receipt.insert_one(receipt)
+    print("receipt successfully inserted.")
 
 def updateInventory(dishes):
     print(f"Updating inventory qty's for dishes {dishes} in receipt")
