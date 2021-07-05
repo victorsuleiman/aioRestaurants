@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 class AioViewModel (app: Application) : AndroidViewModel(app){
     private val database = AioDatabase.getDatabase(app)
     var employee = MutableLiveData<EmployeeEntity>()
+    var dishList = MutableLiveData<List<DishEntity>>()
 
     fun insertAllDishes (dishList : List<DishEntity>) {
         viewModelScope.launch {
@@ -62,6 +63,15 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
                 } else {
                     employee.postValue(EmployeeEntity(0,"",0.0,"",""))
                 }
+            }
+        }
+    }
+
+    fun getDishByCategory (category : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val dishListFromDB = database?.dao()?.getDishByCategory(category)
+                dishList.postValue((dishListFromDB))
             }
         }
     }

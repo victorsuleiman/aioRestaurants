@@ -1,23 +1,34 @@
 package com.csis4495.aiorestaurants
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.view.WindowManager
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemReceipt
+import com.csis4495.aiorestaurants.classes.Receipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
+import io.socket.client.IO
+import io.socket.client.Socket
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_cashier.*
+import org.json.JSONObject
+import java.io.InputStream
+import java.net.URISyntaxException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
-import android.app.Activity as Activity
 
 class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemClickListener {
 
@@ -33,6 +44,13 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
     private var itemPrice : Double = 0.0
     private var itemPriceStr : String = ""
 
+    var itemReceiptList: ArrayList<ItemReceipt> = ArrayList()
+
+    lateinit var sp : SharedPreferences
+
+    var mSocket: Socket? = null
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //hiding status bar
@@ -48,6 +66,15 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         btnSides = findViewById(R.id.btnSides)
         btnDrinks = findViewById(R.id.btnSoftDrinks)
         btnDesserts = findViewById(R.id.btnDesserts)
+
+        connectToBackend()
+
+        mSocket?.on(Socket.EVENT_CONNECT, Emitter.Listener {
+            Log.d("Connection to backend","sending")
+        });
+
+        sp = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+        textViewCashierLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
 
         //going back to home page when clicking on home image
         val imgHome: ImageView = findViewById(R.id.imageViewHome)
@@ -79,10 +106,20 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         btnDesserts.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragmentMenuDesserts).commit()
         }
+
+        btnCash.setOnClickListener {
+            onPaymentClick("cash")
+        }
+
+        btnDebit.setOnClickListener {
+            onPaymentClick("debit")
+        }
+
+        btnCredit.setOnClickListener {
+            onPaymentClick("credit")
+        }
+
     }
-
-    var itemReceiptList: ArrayList<ItemReceipt> = ArrayList()
-
 
     //getting data from fragment and passing into recycler view
     override fun onDataPass(item: String, price: String) {
@@ -142,5 +179,103 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         }
         itemReceiptList.removeAt(position)
         recyclerView()
+    }
+
+    //Build a Receipt Object
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun buildReceipt(paymentType: String): Receipt {
+        val server = sp.getString("firstName", "")
+        val employeeId = sp.getInt("employeeId", 0)
+
+        //dish list
+        val dishList = mutableListOf<String>()
+        for (dish in itemReceiptList) {
+            dish.item?.let { dishList.add(it) }
+        }
+
+        val taxes = taxes
+        val total = total
+
+        val dateDate = LocalDateTime.now()
+        val date = dateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+        return Receipt(server, employeeId, dishList, taxes, total, paymentType, date)
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun onPaymentClick (paymentType : String) {
+        var builder = AlertDialog.Builder(this, R.style.Base_Theme_AppCompat_Dialog)
+        builder.setTitle(getString(R.string.confirmPayment))
+        builder.setMessage("Start payment by $paymentType and submit receipt?")
+
+        builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, which ->
+            if (itemReceiptList.isNotEmpty()) {
+                val receipt = buildReceipt(paymentType)
+                submitReceipt(receipt)
+                Log.d("Receipt Test","Receipt built.")
+            } else {
+                Toast.makeText(applicationContext,"Cart is empty.",Toast.LENGTH_SHORT).show()
+            }
+            dialog.cancel()
+        })
+        builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, which ->
+            dialog.cancel()
+        })
+        builder.show()
+    }
+
+    private fun submitReceipt (receipt : Receipt) {
+        var dishes = ""
+        for (dish in receipt.dishes) {
+            dishes += if (dish != receipt.dishes.last()) {
+                "'$dish', "
+            } else {
+                "'$dish'"
+            }
+        }
+
+        val jsonString = "{'server' : '${receipt.server}', 'employeeId' : '${receipt.employeeId}', " +
+                "'dishes' : [${dishes}], 'taxes' : ${receipt.taxes.round(2)}, 'total' : ${receipt.total.round(2)}, " +
+                "'paymentType' : '${receipt.paymentType}', 'date' : '${receipt.date}'}"
+
+        mSocket?.emit("submitReceipt",JSONObject(jsonString))
+
+        //Clear cart
+        for (item in 1..itemReceiptList.size) {
+            DeleteItem(0)
+        }
+
+        Toast.makeText(applicationContext,"Receipt submitted successfully.",Toast.LENGTH_LONG).show()
+    }
+
+    private fun connectToBackend() {
+        var string: String? = ""
+        try {
+            val inputStream: InputStream = assets.open("source.txt")
+            val size: Int = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            string = String(buffer)
+            Log.d("Read IP from txt", "Successfully read $string from txt")
+        } catch (e: Exception) {
+            Log.d("Read IP from txt", "Error: ${e.message.toString()}")
+        }
+
+        val ipAddress = string
+        try {
+            mSocket = IO.socket(ipAddress)
+
+        } catch (e: URISyntaxException) {
+            Log.d("URI error", e.message.toString())
+        }
+
+        try {
+            mSocket?.connect()
+            Log.d("Connection to Backend", "connected to $ipAddress, status: ${mSocket?.connected()}")
+
+        } catch (e: Exception) {
+            Log.d("Connection to Backend", "Failed to connect.")
+        }
     }
 }

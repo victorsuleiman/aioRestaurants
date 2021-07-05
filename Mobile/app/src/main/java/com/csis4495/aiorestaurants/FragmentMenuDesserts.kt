@@ -9,9 +9,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.csis4495.aiorestaurants.adapters.AdapterDesserts
+import com.csis4495.aiorestaurants.adapters.AdapterDrinks
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemDesserts
+import com.csis4495.aiorestaurants.classes.ItemDrinks
+import com.csis4495.aiorestaurants.db.AioViewModel
+import com.csis4495.aiorestaurants.db.roomEntities.DishEntity
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 
 
@@ -21,6 +27,8 @@ class FragmentMenuDesserts : Fragment(), AdapterView.OnItemClickListener {
     private var arrayList: ArrayList<ItemDesserts> ? = null
     private var adapterDesserts: AdapterDesserts? = null
     private var adapterReceipt: AdapterReceipt? = null
+    private lateinit var viewModel: AioViewModel
+    private var dishListFromDB : List<DishEntity> ? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,21 +48,37 @@ class FragmentMenuDesserts : Fragment(), AdapterView.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var gridView:GridView ? = view.findViewById(R.id.gvDesserts)
-        arrayList = ArrayList()
-        arrayList = setDataList()
-        adapterDesserts = context?.let { AdapterDesserts(it, arrayList!!) }
-        gridView?.adapter = adapterDesserts
-        gridView?.onItemClickListener = this
+        viewModel = ViewModelProvider(this).get(AioViewModel::class.java)
+
+        viewModel.dishList.observe(viewLifecycleOwner, Observer {
+            dishListFromDB = it
+
+            if (dishListFromDB != null) {
+                var gridView:GridView ? = view.findViewById(R.id.gvDesserts)
+                arrayList = ArrayList()
+                arrayList = setDataList()
+                adapterDesserts = context?.let { AdapterDesserts(it, arrayList!!) }
+                gridView?.adapter = adapterDesserts
+                gridView?.onItemClickListener = this
+            }
+
+        })
+
+        viewModel.getDishByCategory("Dessert")
+
     }
 
     private fun setDataList() : ArrayList<ItemDesserts> {
 
         var arrayList: ArrayList<ItemDesserts> = ArrayList()
 
-        arrayList.add(ItemDesserts("Cinnamon Rolls", "$4.99"))
-        arrayList.add(ItemDesserts("Brownie", "$1.99"))
-        arrayList.add(ItemDesserts("Cookies", "$1.49"))
+        for (dish in dishListFromDB!!) {
+            arrayList.add(ItemDesserts(dish.name,"$${dish.price}"))
+        }
+
+//        arrayList.add(ItemDesserts("Cinnamon Rolls", "$4.99"))
+//        arrayList.add(ItemDesserts("Brownie", "$1.99"))
+//        arrayList.add(ItemDesserts("Cookies", "$1.49"))
 
         return arrayList
     }

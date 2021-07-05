@@ -1,7 +1,4 @@
 {
-    "_id": {
-        "$oid": "60c2426c40cf9d885f4647f5"
-    },
     "server": "Wallace",
     "employeeId": {
         "$numberInt": "3"

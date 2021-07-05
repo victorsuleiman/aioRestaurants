@@ -1,6 +1,8 @@
 package com.csis4495.aiorestaurants
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -70,6 +72,18 @@ class LoginActivity : AppCompatActivity() {
         viewModel.employee.observe(this, Observer {
             if (it.username == "") Toast.makeText(applicationContext,"Username not found",Toast.LENGTH_SHORT).show()
             else if (it.password == password) {
+
+                //Write employee data into shared preferences to be used in other activities
+                val sp : SharedPreferences = getSharedPreferences("sharedPreferences",Context.MODE_PRIVATE)
+                val editor : SharedPreferences.Editor = sp.edit()
+                editor.clear()
+                editor.putInt("employeeId",it.employeeId)
+                editor.putString("firstName",it.firstName)
+                editor.putInt("userCategory",it.userCategory.toInt())
+                editor.putString("username",it.username)
+                editor.apply()
+
+                //Authenticate.
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {

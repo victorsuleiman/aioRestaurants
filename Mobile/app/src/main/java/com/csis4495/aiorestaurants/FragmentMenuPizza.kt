@@ -2,6 +2,7 @@ package com.csis4495.aiorestaurants
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.csis4495.aiorestaurants.adapters.AdapterPizza
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.ItemPizza
+import com.csis4495.aiorestaurants.db.AioViewModel
+import com.csis4495.aiorestaurants.db.roomEntities.DishEntity
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import kotlinx.android.synthetic.main.item_receipt.*
 
@@ -19,11 +24,14 @@ class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
 
     private var gridView: GridView? = null
     private var arrayList: ArrayList<ItemPizza> ? = null
+    private var dishListFromDB : List<DishEntity> ? = null
     private var adapterPizza: AdapterPizza? = null
     private var adapterReceipt: AdapterReceipt? = null
+    private lateinit var viewModel: AioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
 
         }
@@ -40,46 +48,33 @@ class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var gridView:GridView ? = view.findViewById(R.id.gvPizza)
-        arrayList = ArrayList()
-        arrayList = setDataList()
-        adapterPizza = context?.let { AdapterPizza(it, arrayList!!) }
-        gridView?.adapter = adapterPizza
-        gridView?.onItemClickListener = this
+        viewModel = ViewModelProvider(this).get(AioViewModel::class.java)
+
+        viewModel.dishList.observe(viewLifecycleOwner, Observer {
+            dishListFromDB = it
+
+            if (dishListFromDB != null) {
+                var gridView:GridView ? = view.findViewById(R.id.gvPizza)
+                arrayList = ArrayList()
+                arrayList = setDataList()
+                adapterPizza = context?.let { AdapterPizza(it, arrayList!!) }
+                gridView?.adapter = adapterPizza
+                gridView?.onItemClickListener = this
+            }
+
+        })
+
+        viewModel.getDishByCategory("Pizza")
+
     }
 
     private fun setDataList() : ArrayList<ItemPizza> {
 
         var arrayList: ArrayList<ItemPizza> = ArrayList()
 
-        arrayList.add(ItemPizza("Cheese - S", "$10.99"))
-        arrayList.add(ItemPizza("Cheese - M", "$12.99"))
-        arrayList.add(ItemPizza("Cheese - L", "$15.99"))
-        arrayList.add(ItemPizza("Pepperoni - S", "$11.49"))
-        arrayList.add(ItemPizza("Pepperoni - M", "$13.99"))
-        arrayList.add(ItemPizza("Pepperoni - L", "$16.99"))
-        arrayList.add(ItemPizza("Sausage - S", "$11.49"))
-        arrayList.add(ItemPizza("Sausage - M", "$13.99"))
-        arrayList.add(ItemPizza("Sausage - L", "$16.99"))
-        arrayList.add(ItemPizza("All In - S", "$12.49"))
-        arrayList.add(ItemPizza("All In - M", "$14.99"))
-        arrayList.add(ItemPizza("All In - L", "$17.99"))
-        arrayList.add(ItemPizza("Meat Lovers - S", "$11.49"))
-        arrayList.add(ItemPizza("Meat Lovers - M", "$13.99"))
-        arrayList.add(ItemPizza("Meat Lovers - L", "$16.99"))
-        arrayList.add(ItemPizza("Hawaiian - S", "$11.49"))
-        arrayList.add(ItemPizza("Hawaiian - M", "$13.99"))
-        arrayList.add(ItemPizza("Hawaiian - L", "$16.99"))
-        arrayList.add(ItemPizza("Chicken - S", "$11.49"))
-        arrayList.add(ItemPizza("Chicken - M", "$13.99"))
-        arrayList.add(ItemPizza("Chicken - L", "$16.99"))
-        arrayList.add(ItemPizza("Chicken & Bacon - S", "$11.99"))
-        arrayList.add(ItemPizza("Chicken & Bacon - M", "$14.49"))
-        arrayList.add(ItemPizza("Chicken & Bacon - L", "$17.49"))
-        arrayList.add(ItemPizza("Canadian - S", "$11.99"))
-        arrayList.add(ItemPizza("Canadian - M", "$14.49"))
-        arrayList.add(ItemPizza("Canadian - L", "$17.49"))
-
+        for (dish in dishListFromDB!!) {
+            arrayList.add(ItemPizza(dish.name,"$${dish.price}"))
+        }
         return arrayList
     }
 
@@ -90,7 +85,7 @@ class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
         var name : String = itemPizza.name.toString()
         var price : String = itemPizza.price.toString()
 
-        dataPasser.onDataPass("Pizza " + name, price)
+        dataPasser.onDataPass(name, price)
 
         adapterReceipt?.notifyDataSetChanged()
 

@@ -40,8 +40,8 @@ class JsonReaderAio {
 
             if (employeeListJson != null) {
                 for (employee in employeeListJson) {
-                    val newEmployee = EmployeeEntity(employee.employeeId,employee.firstName,employee.userCategory,employee.username,
-                        employee.password)
+                    val newEmployee = EmployeeEntity(employee.employeeId,employee.firstName,
+                        employee.userCategory,employee.username, employee.password)
                     employeeList.add(newEmployee)
                 }
             }

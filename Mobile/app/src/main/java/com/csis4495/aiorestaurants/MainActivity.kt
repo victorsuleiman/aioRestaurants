@@ -1,6 +1,8 @@
 package com.csis4495.aiorestaurants
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -17,6 +19,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.csis4495.aiorestaurants.db.AioViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,6 +61,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CashierActivity::class.java)
             startActivity(intent)
         }
+
+        val sp : SharedPreferences = getSharedPreferences("sharedPreferences",Context.MODE_PRIVATE)
+        textViewMainLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
 
     }
 
