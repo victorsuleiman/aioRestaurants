@@ -1,9 +1,10 @@
-from dotenv import load_dotenv
+
 import os
 from flask import Flask, render_template,  request, escape
 from flask_pymongo import PyMongo
 from flask_socketio import SocketIO, emit
 from bson.json_util import dumps, loads 
+from dotenv import load_dotenv
 import json
 
 load_dotenv()
