@@ -5,45 +5,51 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayoutItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#323435"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp">
 
         <TextView
             android:id="@+id/textViewItem"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center|clip_vertical|center_horizontal"
-            android:text=""
             android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:text=""
             android:textColor="#C4C4C4"
             android:textSize="20sp"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewItemPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewItemPrice"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/imageViewDelete"
             android:gravity="center_horizontal"
             android:text=""
-
-            android:layout_toLeftOf="@id/imageViewDelete"
             android:textColor="#C4C4C4"
             android:textSize="20sp"
-
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewDelete"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageViewDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete"
-            android:layout_marginTop="2dp"
             tools:ignore="VectorDrawableCompat" />
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
