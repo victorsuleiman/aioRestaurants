@@ -28,6 +28,7 @@ import java.io.InputStream
 import java.net.URISyntaxException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.collections.ArrayList
 
 class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemClickListener {
@@ -126,14 +127,12 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
         var quantity: Int? = 1
 
-
-        for (i in itemReceiptList!!.indices){
+        for (i in 0..(itemReceiptList.size - 1)){
             if(itemReceiptList[i] != null){
                 if(itemReceiptList[i].item.equals(item)){
                     quantity = itemReceiptList[i].quantity?.plus(1)
-                    //itemReceiptList.drop(i)
                     DeleteItem(i)
-                    //recyclerView()
+                    break
                 }
                 else{
                     quantity = 1
@@ -141,12 +140,13 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
             }
         }
 
-
         itemReceiptList.add(ItemReceipt(quantity, item, price))
+
+        val quantity2: Int = quantity!!.toInt()
 
         recyclerView()
         itemPriceStr = price.removePrefix("$")
-        itemPrice = itemPriceStr.toDouble()
+        itemPrice = itemPriceStr.toDouble() * quantity2
         taxes += (itemPrice * 0.05)
         total += itemPrice + (itemPrice * 0.05)
 
@@ -173,6 +173,7 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
     //recycler view function
     private fun recyclerView(){
+        itemReceiptList.sortBy { it.item }
         recyclerViewReceipt.adapter = AdapterReceipt(itemReceiptList, this)
         recyclerViewReceipt.layoutManager = LinearLayoutManager(this)
         recyclerViewReceipt.setHasFixedSize(true)
@@ -183,9 +184,13 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
     //fucntion to delete specific item from recycler view on receipt
     private fun DeleteItem(position: Int){
+
+        var quantity: Int = itemReceiptList.elementAt(position).quantity!!
+
         itemPriceStr = itemReceiptList.elementAt(position).price!!.removePrefix("$")
-        itemPrice = itemPriceStr.toDouble()
+        itemPrice = itemPriceStr.toDouble() * quantity
         total -= itemPrice * 1.05
+
         var deletedTax : Double = itemPrice * 0.05
         taxes -= deletedTax
 
