@@ -80,7 +80,7 @@ def updateInventory(dishes):
     print(f"Updating inventory qty's for dishes {dishes} in receipt")
 
     for dish in dishes:
-        ingredients = mongo.db.dish.find_one({'name' : dish})['ingredients']
+        ingredients = mongo.db.dish.find_one({'name' : dish['name']})['ingredients']
         for ingredient in ingredients:
             name = ingredient['name']
             qty = ingredient['qty']
@@ -95,11 +95,11 @@ def updateInventory(dishes):
     print("done.")
 
 
-# f = open('mockReceipt.json')
-# data = json.load(f)
-# submitReceipt(data)
+f = open('mockReceipt.json')
+data = json.load(f)
+submitReceipt(data)
 
 
-if __name__ == '__main__':
-    socketio.run(app,host = '0.0.0.0')
+# if __name__ == '__main__':
+#     socketio.run(app,host = '0.0.0.0')
 

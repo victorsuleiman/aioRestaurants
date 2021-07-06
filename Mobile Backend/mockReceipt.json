@@ -1,15 +1,25 @@
 {
-    "server": "Wallace",
-    "employeeId": {
-        "$numberInt": "3"
-    },
-    "dishes": ["Hawaiian Pizza - Large", "Canadian Pizza - Small"],
-    "taxes": {
-        "$numberDouble": "1.45"
-    },
-    "total": {
-        "$numberDouble": "30.43"
-    },
+    "server": "Constance",
+    "employeeId": 11,
+    "dishes" : [
+        {
+            "name" : "Cheese Pizza - Small",
+            "price" : 10.99,
+            "qty" : 1
+        },
+        {
+            "name" : "Cookie",
+            "price" : 1.49,
+            "qty" : 1
+        },
+        {
+            "name" : "Sprite",
+            "price" : 1.99,
+            "qty" : 1
+        }
+    ],
+    "taxes": 0.72,
+    "total": 15.19,
     "paymentType": "Credit Card",
-    "date": "2020-10-11"
+    "date": "2020-07-06"
 }
