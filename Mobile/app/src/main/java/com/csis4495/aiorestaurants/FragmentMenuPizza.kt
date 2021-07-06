@@ -84,6 +84,13 @@ class FragmentMenuPizza : Fragment(), AdapterView.OnItemClickListener {
 
         var name : String = itemPizza.name.toString()
         var price : String = itemPizza.price.toString()
+        //var quantity : String
+
+//        for(i in itemPizza.name?.indices!!){
+//            if(name == itemPizza.name!!){
+//                quantity =
+//            }
+      //  }
 
         dataPasser.onDataPass(name, price)
 

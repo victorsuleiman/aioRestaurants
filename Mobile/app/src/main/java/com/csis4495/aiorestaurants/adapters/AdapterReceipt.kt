@@ -16,6 +16,7 @@ class AdapterReceipt(private val itemReceiptList: List<ItemReceipt>, private val
     : RecyclerView.Adapter<AdapterReceipt.AdapterReceiptViewHolder>() {
 
     inner class AdapterReceiptViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        val quantity: TextView = itemView.textViewQuantity
         val item: TextView = itemView.textViewItem
         val price: TextView = itemView.textViewItemPrice
         val delete: ImageView = itemView.imageViewDelete
@@ -50,6 +51,7 @@ class AdapterReceipt(private val itemReceiptList: List<ItemReceipt>, private val
     override fun onBindViewHolder(holder: AdapterReceiptViewHolder, position: Int) {
         val currentItem = itemReceiptList[position]
 
+        holder.quantity.text = currentItem.quantity.toString()
         holder.item.text = currentItem.item
         holder.price.text = currentItem.price
     }

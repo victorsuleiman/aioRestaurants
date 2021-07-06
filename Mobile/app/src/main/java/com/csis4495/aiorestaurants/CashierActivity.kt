@@ -123,7 +123,26 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
     //getting data from fragment and passing into recycler view
     override fun onDataPass(item: String, price: String) {
-        itemReceiptList.add(ItemReceipt(item, price))
+
+        var quantity: Int? = 1
+
+
+        for (i in itemReceiptList!!.indices){
+            if(itemReceiptList[i] != null){
+                if(itemReceiptList[i].item.equals(item)){
+                    quantity = itemReceiptList[i].quantity?.plus(1)
+                    //itemReceiptList.drop(i)
+                    DeleteItem(i)
+                    //recyclerView()
+                }
+                else{
+                    quantity = 1
+                }
+            }
+        }
+
+
+        itemReceiptList.add(ItemReceipt(quantity, item, price))
 
         recyclerView()
         itemPriceStr = price.removePrefix("$")
