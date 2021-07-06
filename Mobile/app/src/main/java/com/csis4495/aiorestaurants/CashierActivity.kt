@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
+import com.csis4495.aiorestaurants.classes.Dish
 import com.csis4495.aiorestaurants.classes.ItemReceipt
 import com.csis4495.aiorestaurants.classes.Receipt
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
@@ -212,9 +213,10 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         val employeeId = sp.getInt("employeeId", 0)
 
         //dish list
-        val dishList = mutableListOf<String>()
+        val dishList = mutableListOf<Dish>()
         for (dish in itemReceiptList) {
-            dish.item?.let { dishList.add(it) }
+            dish.item?.let { dishList.add(Dish(dish.item!!,dish.price!!.removePrefix("$").toDouble(),
+                dish.quantity ?: 0)) }
         }
 
         val taxes = taxes
@@ -250,16 +252,35 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
     }
 
     private fun submitReceipt (receipt : Receipt) {
+
+        /*"dishes" : [
+        {
+            "name" : "Cheese Pizza - Small",
+            "price" : 10.99,
+            "qty" : 1
+        },
+        {
+            "name" : "Cookie",
+            "price" : 1.49,
+            "qty" : 1
+        },
+        {
+            "name" : "Sprite",
+            "price" : 1.99,
+            "qty" : 1
+        }
+    ]*/
+
         var dishes = ""
         for (dish in receipt.dishes) {
             dishes += if (dish != receipt.dishes.last()) {
-                "'$dish', "
+                "{'name' : '${dish.name}','price' : ${dish.price},'qty' : ${dish.qty}}, "
             } else {
-                "'$dish'"
+                "{'name' : '${dish.name}','price' : ${dish.price},'qty' : ${dish.qty}}"
             }
         }
 
-        val jsonString = "{'server' : '${receipt.server}', 'employeeId' : '${receipt.employeeId}', " +
+        val jsonString = "{'server' : '${receipt.server}', 'employeeId' : ${receipt.employeeId}, " +
                 "'dishes' : [${dishes}], 'taxes' : ${receipt.taxes.round(2)}, 'total' : ${receipt.total.round(2)}, " +
                 "'paymentType' : '${receipt.paymentType}', 'date' : '${receipt.date}'}"
 
