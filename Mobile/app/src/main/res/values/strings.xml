@@ -26,4 +26,10 @@
     <string name="confirmPayment">Confirm Payment</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="first_name">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="bdate">Birth date:</string>
+    <string name="phone">Phone:</string>
+    <string name="email">Email:</string>
+    <string name="employee_id">Employee ID:</string>
 </resources>

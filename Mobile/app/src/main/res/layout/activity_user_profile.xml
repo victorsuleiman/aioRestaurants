@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:padding="8dp"
+    tools:context=".UserProfileActivity">
+
+    <ImageView
+        android:id="@+id/imageViewAio"
+        android:layout_width="107dp"
+        android:layout_height="74dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/aiologo" />
+
+    <ImageView
+        android:id="@+id/imageViewUserProfileHome"
+        android:layout_width="57dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_home"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/textViewUserProfileHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/berlinsansfb"
+        android:text="@string/profile"
+        android:textColor="#c4c4c4"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/custom_input"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAio">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewEmployeeId1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/employee_id"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewFirstName1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/first_name"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewLastName1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/last_name"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewBDate1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/bdate"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewPhone1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/phone"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/email"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewEmployeeId2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="7"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewFirstName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="Eduardo"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewLastName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="Geisel Peres"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewBDate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="09/16/1985"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewPhone2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="778-668-1609"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewEmail2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="eduardogeisel@hotmail.com"
+                android:textColor="#c4c4c4"
+                android:textSize="24sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
