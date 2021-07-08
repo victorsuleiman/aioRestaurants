@@ -132,15 +132,24 @@
             <p class="blankBackground">';
                 $fileList = glob("inc/data/*.csv");
                         if(!empty($fileList)){
-
-                            for($i = count($fileList)-1; $i > count($fileList)-5; $i--){
-                                //Directory string inc/data/file.php
-                                //$path = array("inc","dat","filename");
-                                $path = explode("/",$fileList[$i]);
-                                //count($path)-1 = The filename, no matter the directory is;
-                                echo '<h3><a href="'.$fileList[$i].'">'.$path[count($path)-1].'</a></h3><br>';
-
+                            if(count($fileList) < 5){
+                                for($i = 0; $i < count($fileList); $i++){
+                                    //Directory string inc/data/file.php
+                                    //$path = array("inc","dat","filename");
+                                    $path = explode("/",$fileList[$i]);
+                                    //count($path)-1 = The filename, no matter the directory is;
+                                    echo '<h3><a href="'.$fileList[$i].'">'.$path[count($path)-1].'</a></h3><br>';
+                                }    
+                            } else {
+                                for($i = count($fileList)-1; $i > count($fileList)-5; $i--){
+                                    //Directory string inc/data/file.php
+                                    //$path = array("inc","dat","filename");
+                                    $path = explode("/",$fileList[$i]);
+                                    //count($path)-1 = The filename, no matter the directory is;
+                                    echo '<h3><a href="'.$fileList[$i].'">'.$path[count($path)-1].'</a></h3><br>';
+                                }
                             }
+                            
                         } else {
                             echo '<h3>There are no available reports!</h3>';
                         }
