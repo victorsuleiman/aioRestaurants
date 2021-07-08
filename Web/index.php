@@ -1,8 +1,12 @@
 <?php
+
+date_default_timezone_set('America/Vancouver');
+
+
 require_once("inc/Utilities/RestAPI.class.php");
-require_once("inc/Utilities/ParsePostForm.class.php");
 
 require_once("inc/Utilities/Reports/OrderReport.class.php");
+require_once("inc/Utilities/FilesHandler/FileAgent.class.php");
 
 require_once("inc/Utilities/Page.class.php");
 require_once("inc/Utilities/Html/DashboardPage.class.php");
@@ -10,11 +14,19 @@ require_once("inc/Utilities/Html/TablePage.class.php");
 require_once("inc/Utilities/Html/FormHtml.class.php");
 require_once("inc/Utilities/Html/ChartPage.class.php");
 
+Page::pageHeader();
+
+if( date("H") == "02") {
+
+    FileAgent::createFile(
+        RestAPI::getData("productInventory",0)
+    );
+}
+
 if(!empty($_GET)){
 
     if($_GET["page"] == "dashboard"){
 
-        Page::pageHeader();
         Page::pageLeftMenu();
         Page::pageContentTop();
         
@@ -27,14 +39,10 @@ if(!empty($_GET)){
             OrderReport::getProductsFromOrder()
         );
 
-        Page::pageContentBottom();
-        Page::pageFooter();
-
     } else if($_GET["page"] == "tables") {
 
         if(empty($_POST)){
             
-            Page::pageHeader();
             TablePage::pageLeftMenu();
             Page::pageContentTop();
             TablePage::tabs();
@@ -78,26 +86,19 @@ if(!empty($_GET)){
                 break;
             }
 
-            Page::pageContentBottom();
-            Page::pageFooter();
-
         } else {
 
-            Page::pageHeader();
             TablePage::pageLeftMenu();
             Page::pageContentTop();
             
             $action = $_POST["form"];
 
             if( strpos($action, "add") !== false ){
-                RestAPI::postData(
-                    ParsePostForm::parsePost($_POST)
-                );
+                RestAPI::postData($_POST);
                 Page::toastAdded();
+
             } else if( strpos($action, "edit") !== false ){
-                RestAPI::updateData(
-                    ParsePostForm::parsePost($_POST)
-                );
+                RestAPI::updateData($_POST);
                 Page::toastUpdate();
             }
             
@@ -140,25 +141,28 @@ if(!empty($_GET)){
                 );
             }
 
-            Page::pageContentBottom();
-            Page::pageFooter();
         }
         
     } else if($_GET["page"] == "charts"){
 
-        Page::pageHeader();
         ChartPage::pageLeftMenu();
         Page::pageContentTop();
-    
+
+        ChartPage::divGraphs();
+
         DashboardPage::divGraphs();
         DashboardPage::pieChart(
             OrderReport::getProductsFromOrder()
         );
-    
-        Page::pageContentBottom();
-        Page::pageFooter();
+
+        
+     
     }
 
 } else {
     header("Location: ".$_SERVER['PHP_SELF']."?page=dashboard");
+
 }
+
+Page::pageContentBottom();
+Page::pageFooter();
