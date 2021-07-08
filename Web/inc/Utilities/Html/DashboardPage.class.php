@@ -50,8 +50,8 @@
         public static function divGraphs(){
             echo '
             <div class="row">
-            <div id="pie_chart_div" class="priori-chart"></div>
-            <div id="bar_chart_div" class="priori-chart"></div>
+                <div id="pie_chart_div" class="priori-chart"></div>
+                <div id="bar_chart_div" class="priori-chart"></div>
             </div>
             ';
         }
