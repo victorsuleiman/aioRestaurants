@@ -225,7 +225,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/berlinsansfb"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/employee_id"
                 android:textColor="#c4c4c4"
                 android:textSize="30sp" />
@@ -237,7 +237,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/berlinsansfb"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/first_name"
                 android:textColor="#c4c4c4"
                 android:textSize="30sp" />
@@ -249,7 +249,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/berlinsansfb"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/last_name"
                 android:textColor="#c4c4c4"
                 android:textSize="30sp" />
@@ -261,7 +261,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/berlinsansfb"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/userCategory"
                 android:textColor="#c4c4c4"
                 android:textSize="30sp" />
