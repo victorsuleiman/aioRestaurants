@@ -62,7 +62,7 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
                 if (userFetched != null) {
                     employee.postValue(userFetched!!)
                 } else {
-                    employee.postValue(EmployeeEntity(0,"",0.0,"",""))
+                    employee.postValue(EmployeeEntity(0,"","",0.0,"",""))
                 }
             }
         }
