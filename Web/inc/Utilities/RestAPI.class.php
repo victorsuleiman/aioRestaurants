@@ -3,12 +3,6 @@
 require_once("inc/config.inc.php");
 require_once("inc/Database/Database.class.php");
 
-// require_once("inc/Entities/Order.class.php");
-// require_once("inc/Entities/Employee.class.php");
-// require_once("inc/Entities/Supplier.class.php");
-// require_once("inc/Entities/Shipper.class.php");
-// require_once("inc/Entities/Products/ProductInventory.class.php");
-
 require_once("inc/Utilities/Converters/EmloyeeConverter.class.php");
 require_once("inc/Utilities/Converters/SupplierConverter.class.php");
 require_once("inc/Utilities/Converters/OrderConverter.class.php");
@@ -20,6 +14,8 @@ require_once("inc/Utilities/Dao/SupplierDAO.class.php");
 require_once("inc/Utilities/Dao/OrderDAO.class.php");
 require_once("inc/Utilities/Dao/ShipperDAO.class.php");
 require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
+
+require_once("inc/Utilities/ParsePostForm.class.php");
 
     class RestAPI{
         
@@ -49,7 +45,8 @@ require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
             }
         }
 
-        public static function postData($collection){
+        public static function postData($post){
+            $collection = ParsePostForm::parsePost($post);
             $class = get_class($collection);
 
             switch(strtolower($class)){
@@ -80,7 +77,8 @@ require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
             }
         }
 
-        public static function deleteData($collection){
+        public static function deleteData($post){
+            $collection = ParsePostForm::parsePost($post);
             $class = get_class($collection);
 
             switch(strtolower($class)){
@@ -111,7 +109,8 @@ require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
             }
         }
 
-        public static function updateData($collection){
+        public static function updateData($post){
+            $collection = ParsePostForm::parsePost($post);
             $class = get_class($collection);
 
             switch(strtolower($class)){
@@ -140,5 +139,11 @@ require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
                     SupplierDAO::update($collection);
                     break;
             }
+        }
+
+        //Return a stdClass with ->_id and ->email
+        public static function getEmail(){
+            EmployeeDAO::startDb();
+            return EmployeeDAO::existEmail("colliffea@instagram.com");
         }
     }

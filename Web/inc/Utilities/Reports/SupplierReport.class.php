@@ -4,7 +4,7 @@
         private static $supplierArray;
 
         public static function getOrderFromDb(){
-            $cursor = new Database("supplier");
+            $cursor = new Database("Supplier","mongo");
 
             self::$supplierArray = SupplierConverter::convertFromStdClass($cursor->getDataBase()->findData(
                 [],

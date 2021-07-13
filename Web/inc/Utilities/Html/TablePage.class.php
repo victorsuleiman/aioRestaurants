@@ -17,32 +17,71 @@
                   <div class="profile-photo-container">
                   <img src="images/profile-photo.jpg" alt="Profile Photo" class="img-responsive">  
                   <div class="profile-photo-overlay"></div>
-                  </div>      
+                  </div>
+                      
                   <!-- Search box -->
+                  <!--
                   <form class="priori-search-form" role="search">
                   <div class="input-group">
                       <button type="submit" class="fa fa-search"></button>
                       <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">           
                   </div>
                   </form>
+                  -->
                   <div class="mobile-menu-icon">
                       <i class="fa fa-bars"></i>
                   </div>
                   <nav class="priori-left-nav">          
                   <ul>
-                      <li><a href="?page=dashboard"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
-                      <li><a href="?page=charts"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
-                      <li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>
-                      <!--<li><a href="maps.html"><i class="fa fa-map-marker fa-fw"></i>Maps</a></li>-->
-                      <li><a href="?page=tables" class="active"><i class="fa fa-users fa-fw"></i>Tables</a></li>
-                      <li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>
-                      <li><a href="login.html"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
+                    <li><a href="?page=dashboard"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
+                    <li><a href="?page=charts"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
+                    <!--<li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>-->
+                    <!--<li><a href="maps.html"><i class="fa fa-map-marker fa-fw"></i>Maps</a></li>-->
+                    <li><a class="active" href="?page=tables&tab=employee">
+                      <i class="fa fa-users fa-fw"></i>Tables
+                    </a></li>
+                    <!--<li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>-->
+                    <li><a href="login.html"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
                   </ul>  
                   </nav>
               </div>
           
       ';
       echo $leftMenu;
+    }
+
+    public static function tabs(){
+      $tabs = '
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="?page=tables&tab=employee">
+            Employee
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?page=tables&tab=product">
+            Inventory
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?page=tables&tab=order">
+            Order
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?page=tables&tab=shipper">
+            Shipper
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?page=tables&tab=supplier">
+            Supplier
+          </a>
+        </li>
+      </ul>
+      ';
+
+      echo $tabs;
     }
 
     public static function employeeTableContent(Array $employeeArray){
@@ -279,18 +318,13 @@
                 ';
               }       
         $orderTable .= '
-                    <tr>
-                    <td colspan="6" align="right">'.
-                      FormHtml::addOrder()
-                    .'</td>
-                  </tr>
                 </tbody>
               </table>    
             </div>                          
           </div>
         </div>';
+      echo $orderTable;
 
-        echo $orderTable;
     }
 
     public static function productsTableContent(Array $productsArray){
@@ -354,6 +388,10 @@
         </div>
       ';
       echo $productsTable;
+    }
+
+    private static function orderForm(){
+      
     }
     
   }

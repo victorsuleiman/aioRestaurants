@@ -1,8 +1,5 @@
 <?php
 
-    require_once("PDOMongo.class.php");
-    require_once("PDOAgent.class.php");
-
     class Database{
 
         private $connection;
@@ -16,6 +13,7 @@
                 try{
     
                     if(!empty($collection)){
+                        require_once("PDOAgent.class.php");
                         $this->connection = new PDOAgent($collection);
                     } else {
                         throw new Exception("Please, select a class to work with!");
@@ -30,9 +28,24 @@
                 try{
 
                     if(!empty($collection)){
-                        $this->connection = new PDOMongo(
-                            strtolower($collection)
-                        );
+                        require_once("PDOMongo.class.php");
+                        
+                        if($collection == "ProductInventory"){
+                            $collection = "productInventory";
+                            $this->connection = new PDOMongo(
+                                $collection
+                            );
+                        } else if($collection == "UserCategory"){
+                            $collection = "userCategory";
+                            $this->connection = new PDOMongo(
+                                $collection
+                            );                   
+                        } else {
+                            $this->connection = new PDOMongo(
+                                strtolower($collection)
+                            );
+                        }
+                        
                     } else {
                         throw new Exception("Please, set a collection to work with!");
                     }

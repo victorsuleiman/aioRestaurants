@@ -36,7 +36,8 @@
                 
                     <script type="text/javascript" src="js/script.js"></script>
                 </head>
-                <body>
+                <body onload="startTime()">
+                <div id="clock"></div>
             ';
 
             echo $header;
@@ -58,23 +59,25 @@
                         <div class="profile-photo-overlay"></div>
                         </div>      
                         <!-- Search box -->
+                        <!-- 
                         <form class="priori-search-form" role="search">
                         <div class="input-group">
                             <button type="submit" class="fa fa-search"></button>
                             <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">           
                         </div>
                         </form>
+                        -->
                         <div class="mobile-menu-icon">
                             <i class="fa fa-bars"></i>
                         </div>
                         <nav class="priori-left-nav">          
                         <ul>
-                            <li><a href="#" class="active"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
+                            <li><a href="?page=dashboard" class="active"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
                             <li><a href="?page=charts"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
-                            <li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>
+                            <!--<li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>-->
                             <!--<li><a href="maps.html"><i class="fa fa-map-marker fa-fw"></i>Maps</a></li>-->
-                            <li><a href="?page=tables"><i class="fa fa-users fa-fw"></i>Tables</a></li>
-                            <li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>
+                            <li><a href="?page=tables&tab=employee"><i class="fa fa-users fa-fw"></i>Tables</a></li>
+                            <!--<li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>-->
                             <li><a href="login.html"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
                         </ul>  
                         </nav>
@@ -207,7 +210,6 @@
         public static function pageFooter(){
             $footer = self::pageJavaScript();
             $footer .= '
-                
             </body>
             </html>
             ';
@@ -217,15 +219,11 @@
 
         public static function toastAdded(){
             $toast = '
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                    <div class="mt-2 pt-2 border-top">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
-                            Data added successfully!
-                        </button>
-                    </div>
-                </div>
+            <div class="alert alert-success" role="alert" id="addAlert">
+                Data Added successfully!
+                <button type="button" class="close" data-dismiss="alert">
+                    ×
+                </button>
             </div>
             ';
             echo $toast;
@@ -233,15 +231,11 @@
 
         public static function toastUpdate(){
             $toast = '
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                    <div class="mt-2 pt-2 border-top">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="toast">
-                            Data updated successfully!
-                        </button>
-                    </div>
-                </div>
+            <div class="alert alert-success" role="alert" id="addAlert">
+                Data updated successfully!
+                <button type="button" class="close" data-dismiss="alert">
+                    ×
+                </button>
             </div>
             ';
             echo $toast;

@@ -5,7 +5,7 @@
 
     class EmployeeDAO {
 
-        public static $connection;
+        private static $connection;
 
         public static function startDb($dataBase = "mongo"){
             self::$connection = new Database("Employee",$dataBase);
@@ -68,6 +68,7 @@
                 return self::$connection->getDataBase()->updateData(
                     EmployeeConverter::convertToStdClass($newEmployee)
                 );
+                var_dump($newEmployee);
 
             } else {
                 $sqlUpdate  = "UPDATE employee SET";
@@ -108,13 +109,11 @@
 
         public static function delete(Employee $newEmployee){
             if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
-
                 return self::$connection->getDataBase()->deleteData(
                     EmployeeConverter::convertToStdClass($newEmployee)
                 );
 
             } else {
-                
                 $deleteQuery = "DELETE FROM employee WHERE employeeId = :id";
 
                 self::$connection->getDatabase()->query(
@@ -124,7 +123,6 @@
                 self::$connection->getDatabase()->bind(
                     ':id', $newEmployee->getEmployeeId()
                 );
-
                 self::$connection->getDatabase()->execute();
 
                 return true;
@@ -167,7 +165,7 @@
                 $employeeArray = EmployeeConverter::convertFromStdClass(
                     self::$connection->getDataBase()::findData([],$limit)
                 );
-    
+                
                 return $employeeArray;
             } else {
                 $sqlSelectAll = "SELECT * FROM employee";
@@ -181,5 +179,19 @@
             }
             
         }
-        
+
+        //Return a stdClass with ->_id and ->email
+        public static function existEmail($email) {
+
+            if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
+
+                self::$connection->getDatabase()->bindElement("email",$email);
+                
+                return self::$connection->getDatabase()::findData(
+                    ["email"],
+                    1
+                )[0];
+            }
+
+        }
     }

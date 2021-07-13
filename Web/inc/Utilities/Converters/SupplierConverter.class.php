@@ -110,7 +110,7 @@
                 $stdSupplier->city,
                 $stdSupplier->country,
                 $stdSupplier->phone,
-                $stdSupplier->email,
+                $stdSupplier->email
             );
 
             $newSupplier->setProducts($productsArray);

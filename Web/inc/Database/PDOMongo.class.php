@@ -22,7 +22,7 @@ Executar a query e setar a coleção
 
         
         //MONGO URL CONNECTION
-        private static $mongoUrl = DEFAULT_URL;
+        private static $mongoUrl;
 
         //Counter
         private static $counter;

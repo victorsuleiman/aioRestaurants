@@ -3,7 +3,7 @@
 
     class OrderDAO{
         
-        public static $connection;
+        private static $connection;
 
         public static function startDb($database = "mongo"){
             self::$connection = new Database("Order",$database);

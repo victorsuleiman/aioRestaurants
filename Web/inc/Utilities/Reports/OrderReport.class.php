@@ -5,7 +5,7 @@
         private static $orderArray;
 
         public static function getOrderFromDb(){
-            $cursor = new Database("order");
+            $cursor = new Database("Order","mongo");
 
             self::$orderArray = OrderConverter::convertFromStdClass($cursor->getDataBase()->findData(
                 [],
