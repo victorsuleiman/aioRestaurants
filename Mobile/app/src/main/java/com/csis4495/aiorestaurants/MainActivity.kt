@@ -55,9 +55,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         //button that goes to cashier activity
-
         val btnCashier: Button = findViewById(R.id.btn_cahsier)
         btnCashier.setOnClickListener {
+            val intent = Intent(this, CashierActivity::class.java)
+            startActivity(intent)
+        }
+
+        val imageViewPointOfSale: ImageView = findViewById(R.id.imageViewPointOfSale)
+        imageViewPointOfSale.setOnClickListener {
             val intent = Intent(this, CashierActivity::class.java)
             startActivity(intent)
         }

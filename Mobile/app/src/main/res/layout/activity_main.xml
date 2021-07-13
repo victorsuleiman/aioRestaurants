@@ -93,4 +93,14 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewLogout"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageViewPointOfSale"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_point_of_sale" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
