@@ -15,8 +15,10 @@ import java.io.InputStream
 import java.net.URISyntaxException
 
 import android.view.WindowManager
+import android.widget.EditText
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.csis4495.aiorestaurants.db.AioViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -61,6 +63,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //sales goal attributes
+        val salesGoalEditText: EditText = findViewById(R.id.editTextSalesGoal)
+        val textViewSalesGoal: TextView = findViewById(R.id.textViewSalesGoal)
+        val buttonSalesGoal: Button = findViewById(R.id.buttonSalesGoal)
+        val textViewUserSales: TextView = findViewById(R.id.textViewUserSales2)
+        val textViewSalesDifference: TextView = findViewById(R.id.textViewSalesDifference2)
+
+        //Shared preferences
         val sp : SharedPreferences = getSharedPreferences("sharedPreferences",Context.MODE_PRIVATE)
         textViewMainLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
 

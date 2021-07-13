@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="808dp"
-        android:layout_marginRight="808dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/aiologo" />
@@ -54,5 +53,292 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_point_of_sale"
         tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/textViewUserProfileHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/berlinsansfb"
+        android:text="@string/profile"
+        android:textColor="#c4c4c4"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/custom_input"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewEmployeeId1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/employee_id"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewFirstName1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/first_name"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewLastName1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/last_name"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewUserCategory1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="right"
+                android:text="@string/userCategory"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewEmployeeId2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="@string/mockId"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewFirstName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="@string/mockFName"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewLastName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="@string/mockLName"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewUserCategory2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/berlinsansfb"
+                android:gravity="left"
+                android:text="@string/mockCategory"
+                android:textColor="#c4c4c4"
+                android:textSize="30sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewSalesGoalHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/berlinsansfb"
+        android:text="@string/salesGoal"
+        android:textColor="#c4c4c4"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toTopOf="@+id/textViewUserProfileHeader" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/custom_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <EditText
+            android:id="@+id/editTextSalesGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:backgroundTint="#c4c4c4"
+            android:ems="10"
+            android:fontFamily="@font/berlinsansfb"
+            android:hint="sales goal value"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="false"
+            android:textColor="#c4c4c4"
+            android:textColorHint="#c4c4c4"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonSalesGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/custom_input_green"
+            android:fontFamily="@font/berlinsansfb"
+            android:text="@string/setSalesGoal"
+            android:textColor="#c4c4c4"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextSalesGoal" />
+
+        <TextView
+            android:id="@+id/textViewSalesGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="@font/berlinsansfb"
+            android:text="@string/salesGoalMock"
+            android:textColor="#c4c4c4"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSalesGoal" />
+
+        <TextView
+            android:id="@+id/textViewUserSales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/berlinsansfb"
+            android:text="@string/salesGoalUserMock"
+            android:textColor="#c4c4c4"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSalesGoal" />
+
+        <TextView
+            android:id="@+id/textViewUserSales2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="@font/berlinsansfb"
+            android:text="@string/salesGoalMock"
+            android:textColor="#c4c4c4"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSalesGoal" />
+
+        <TextView
+            android:id="@+id/textViewSalesDifference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/berlinsansfb"
+            android:text="@string/amountToGoal"
+            android:textColor="#c4c4c4"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserSales" />
+
+        <TextView
+            android:id="@+id/textViewSalesDifference2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/berlinsansfb"
+            android:text="@string/salesGoalMock"
+            android:textColor="#c4c4c4"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserSales2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
