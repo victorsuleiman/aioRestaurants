@@ -127,8 +127,6 @@ def submitGoal(data):
     print("done.")
 
 
-
-
 # f = open('mockReceipt.json')
 # data = json.load(f)
 # submitReceipt(data)
