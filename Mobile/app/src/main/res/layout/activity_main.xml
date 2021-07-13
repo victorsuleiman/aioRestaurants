@@ -18,55 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/aiologo" />
 
-    <Button
-        android:id="@+id/btn_sales"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="137dp"
-        android:layout_marginRight="137dp"
-        android:background="@drawable/custom_input_yellow"
-        android:text="@string/sales"
-        android:textAllCaps="false"
-        android:textColor="#C4C4C4"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/btn_cahsier"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
-        android:layout_marginTop="232dp"
-        android:background="@drawable/custom_input_blue"
-        android:text="@string/cashier"
-        android:textAllCaps="false"
-        android:textColor="#C4C4C4"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/btn_profile"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:background="@drawable/custom_input_green"
-        android:text="@string/profile"
-        android:textAllCaps="false"
-        android:textColor="#C4C4C4"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_sales"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toEndOf="@+id/btn_cahsier"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
     <ImageView
         android:id="@+id/imageViewLogout"
         android:layout_width="57dp"
@@ -101,6 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_point_of_sale" />
+        app:srcCompat="@drawable/ic_point_of_sale"
+        tools:ignore="VectorDrawableCompat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
