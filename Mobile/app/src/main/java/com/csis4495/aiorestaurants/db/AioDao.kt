@@ -63,6 +63,4 @@ interface AioDao {
     fun getDishByCategory(category : String) : List<DishEntity>
 
 
-
-
 }

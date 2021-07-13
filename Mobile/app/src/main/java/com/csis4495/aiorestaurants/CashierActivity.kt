@@ -253,24 +253,6 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
     private fun submitReceipt (receipt : Receipt) {
 
-        /*"dishes" : [
-        {
-            "name" : "Cheese Pizza - Small",
-            "price" : 10.99,
-            "qty" : 1
-        },
-        {
-            "name" : "Cookie",
-            "price" : 1.49,
-            "qty" : 1
-        },
-        {
-            "name" : "Sprite",
-            "price" : 1.99,
-            "qty" : 1
-        }
-    ]*/
-
         var dishes = ""
         for (dish in receipt.dishes) {
             dishes += if (dish != receipt.dishes.last()) {
@@ -281,7 +263,8 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         }
 
         val jsonString = "{'server' : '${receipt.server}', 'employeeId' : ${receipt.employeeId}, " +
-                "'dishes' : [${dishes}], 'taxes' : ${receipt.taxes.round(2)}, 'total' : ${receipt.total.round(2)}, " +
+                "'dishes' : [${dishes}], 'taxes' : ${receipt.taxes.round(2)}, " +
+                "'total' : ${receipt.total.round(2)}, " +
                 "'paymentType' : '${receipt.paymentType}', 'date' : '${receipt.date}'}"
 
         mSocket?.emit("submitReceipt",JSONObject(jsonString))

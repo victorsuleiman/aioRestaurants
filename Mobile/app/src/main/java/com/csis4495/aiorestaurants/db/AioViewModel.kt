@@ -13,6 +13,7 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
     private val database = AioDatabase.getDatabase(app)
     var employee = MutableLiveData<EmployeeEntity>()
     var dishList = MutableLiveData<List<DishEntity>>()
+    var currentGoal = MutableLiveData<GoalEntity>()
 
     fun insertAllDishes (dishList : List<DishEntity>) {
         viewModelScope.launch {
@@ -72,6 +73,19 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
             withContext(Dispatchers.IO) {
                 val dishListFromDB = database?.dao()?.getDishByCategory(category)
                 dishList.postValue((dishListFromDB))
+            }
+        }
+    }
+
+    fun getGoalByDate (date : String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val goalFetched = database?.dao()?.getGoalByDate(date)
+                if (goalFetched != null) {
+                    currentGoal.postValue(goalFetched!!)
+                } else {
+                    currentGoal.postValue(GoalEntity("",0.0,0.0))
+                }
             }
         }
     }

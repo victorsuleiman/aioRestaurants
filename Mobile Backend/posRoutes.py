@@ -68,6 +68,9 @@ def submitReceipt(data):
     paymentType = data['paymentType']
     date = data['date']
 
+    #TEST THIS!
+    # updateSales(date,total)
+
     updateInventory(data['dishes'])
 
     receipt = {'server' : server , 'employeeId' : employeeId, 'dishes' : dishes, 
@@ -93,6 +96,37 @@ def updateInventory(dishes):
             )
     
     print("done.")
+
+def updateSales(date, amount):
+    sales = mongo.db.goal.find_one({'date': date})
+    print(f"incrementing sales for date {date}...")
+    if sales == None:
+        print("sales not found for this date.")
+    else:
+        print("sales found for this date. Incrementing...")
+        mongo.db.goal.update_one(
+            {'date' : date},
+            {
+                '$inc' : {'sales' : amount}
+            }
+        )
+        print("done.")
+
+@socketio.on('submitGoal')
+def submitGoal(data):
+    
+    date = data['date']
+    dayGoal = data['goal']
+    sales = data['sales']
+
+    print(f"inserting new goal for date {date}...")
+
+    goal = {'date' : date, 'goal' : dayGoal, 'sales' : sales}
+
+    mongo.db.goal.insert_one(goal)
+    print("done.")
+
+
 
 
 # f = open('mockReceipt.json')
