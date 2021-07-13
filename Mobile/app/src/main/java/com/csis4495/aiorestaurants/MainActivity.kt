@@ -63,6 +63,22 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //Shared preferences
+        val sp : SharedPreferences = getSharedPreferences("sharedPreferences",Context.MODE_PRIVATE)
+        textViewMainLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
+
+        editTextEmployeeId.text = sp.getInt("employeeId",0).toString()
+        editTextFirstName.text = sp.getString("firstName","")
+        editTextLastName.text = sp.getString("lastName","")
+
+        val userCat = sp.getInt("userCategory",0)
+        val userCatString = if (userCat == 1) "Admin"
+            else if (userCat == 2) "Manager"
+            else "Cashier"
+        editTextUserCategory.text = userCatString
+
+
+
         //sales goal attributes
         val salesGoalEditText: EditText = findViewById(R.id.editTextSalesGoal)
         val textViewSalesGoal: TextView = findViewById(R.id.textViewSalesGoal)
@@ -70,9 +86,7 @@ class MainActivity : AppCompatActivity() {
         val textViewUserSales: TextView = findViewById(R.id.textViewUserSales2)
         val textViewSalesDifference: TextView = findViewById(R.id.textViewSalesDifference2)
 
-        //Shared preferences
-        val sp : SharedPreferences = getSharedPreferences("sharedPreferences",Context.MODE_PRIVATE)
-        textViewMainLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
+
 
     }
 

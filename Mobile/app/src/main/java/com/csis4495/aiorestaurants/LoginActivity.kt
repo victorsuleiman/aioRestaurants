@@ -79,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
                 editor.clear()
                 editor.putInt("employeeId",it.employeeId)
                 editor.putString("firstName",it.firstName)
+                editor.putString("lastName",it.lastName)
                 editor.putInt("userCategory",it.userCategory.toInt())
                 editor.putString("username",it.username)
                 editor.apply()

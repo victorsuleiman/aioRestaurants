@@ -276,7 +276,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewEmployeeId2"
+                android:id="@+id/editTextEmployeeId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -288,7 +288,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textViewFirstName2"
+                android:id="@+id/editTextFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -300,7 +300,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textViewLastName2"
+                android:id="@+id/editTextLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -312,7 +312,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textViewUserCategory2"
+                android:id="@+id/editTextUserCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
