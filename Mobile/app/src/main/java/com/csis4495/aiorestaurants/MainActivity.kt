@@ -3,10 +3,13 @@ package com.csis4495.aiorestaurants
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.util.Log
+import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.widget.Button
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     var mSocket: Socket? = null
     private lateinit var viewModel: AioViewModel
+    var userCat : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,20 +75,17 @@ class MainActivity : AppCompatActivity() {
         editTextFirstName.text = sp.getString("firstName","")
         editTextLastName.text = sp.getString("lastName","")
 
-        val userCat = sp.getInt("userCategory",0)
+        userCat = sp.getInt("userCategory",0)
         val userCatString = if (userCat == 1) "Admin"
             else if (userCat == 2) "Manager"
             else "Cashier"
         editTextUserCategory.text = userCatString
 
-
-
-        //sales goal attributes
-        val salesGoalEditText: EditText = findViewById(R.id.editTextSalesGoal)
-        val textViewSalesGoal: TextView = findViewById(R.id.textViewSalesGoal)
-        val buttonSalesGoal: Button = findViewById(R.id.buttonSalesGoal)
-        val textViewUserSales: TextView = findViewById(R.id.textViewUserSales2)
-        val textViewSalesDifference: TextView = findViewById(R.id.textViewSalesDifference2)
+        //If user is not and admin nor a manager, they are not allowed to set a sales goal.
+        if (userCat != 1 && userCat != 2) {
+            editTextSalesGoal.visibility = GONE
+            buttonSalesGoal.visibility = GONE
+        }
 
 
 

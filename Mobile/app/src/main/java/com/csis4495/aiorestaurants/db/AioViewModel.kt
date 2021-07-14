@@ -55,6 +55,14 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
         }
     }
 
+    fun insertGoal (newGoal : GoalEntity) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.insertGoal(newGoal)
+            }
+        }
+    }
+
     fun getEmployeeByUsername(username : String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
