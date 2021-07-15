@@ -39,4 +39,5 @@
     <string name="mockFName">User</string>
     <string name="mockLName">User User</string>
     <string name="mockCategory">1</string>
+    <string name="confirmGoal">Set Goal</string>
 </resources>

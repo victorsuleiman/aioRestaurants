@@ -14,11 +14,13 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csis4495.aiorestaurants.adapters.AdapterReceipt
 import com.csis4495.aiorestaurants.classes.Dish
 import com.csis4495.aiorestaurants.classes.ItemReceipt
 import com.csis4495.aiorestaurants.classes.Receipt
+import com.csis4495.aiorestaurants.db.AioViewModel
 import com.csis4495.aiorestaurants.interfaces.OnDataPass
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -52,6 +54,14 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
     var mSocket: Socket? = null
 
+    private lateinit var viewModel: AioViewModel
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val dateDate = LocalDateTime.now()
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val date = dateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +87,8 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
 
         sp = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
         textViewCashierLoggedAs.text = "Logged in as: ${sp.getString("username","")}"
+
+        viewModel = ViewModelProvider(this).get(AioViewModel::class.java)
 
         //going back to home page when clicking on home image
         val imgHome: ImageView = findViewById(R.id.imageViewHome)
@@ -268,6 +280,9 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
                 "'paymentType' : '${receipt.paymentType}', 'date' : '${receipt.date}'}"
 
         mSocket?.emit("submitReceipt",JSONObject(jsonString))
+
+        //Increment sales for the daily goal object
+        viewModel.updateSales(date, receipt.total)
 
         //Clear cart
         for (item in 1..itemReceiptList.size) {

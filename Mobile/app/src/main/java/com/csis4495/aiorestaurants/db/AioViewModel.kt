@@ -59,6 +59,7 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 database?.dao()?.insertGoal(newGoal)
+                currentGoal.postValue(newGoal)
             }
         }
     }
@@ -97,4 +98,23 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
             }
         }
     }
+
+    fun updateGoal (goal : GoalEntity) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.updateGoal(goal)
+                currentGoal.postValue(goal)
+            }
+        }
+    }
+
+    fun updateSales (date : String, amount : Double) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.updateSales(amount,date)
+            }
+        }
+    }
+
+
 }

@@ -68,8 +68,7 @@ def submitReceipt(data):
     paymentType = data['paymentType']
     date = data['date']
 
-    #TEST THIS!
-    # updateSales(date,total)
+    updateSales(date,total)
 
     updateInventory(data['dishes'])
 
@@ -126,10 +125,19 @@ def submitGoal(data):
     mongo.db.goal.insert_one(goal)
     print("done.")
 
+@socketio.on('updateGoal')
+def updateGoal(data):
+    date = data['date']
+    dayGoal = data['goal']
 
-# f = open('mockReceipt.json')
-# data = json.load(f)
-# submitReceipt(data)
+    print(f"Updating goal for date {date}...")
+
+    mongo.db.goal.update_one(
+            {'date' : date},
+            {
+                '$set' : {'goal' : dayGoal}
+            }
+        )
 
 
 if __name__ == '__main__':

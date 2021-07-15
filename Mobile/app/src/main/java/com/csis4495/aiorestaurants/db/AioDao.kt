@@ -1,10 +1,7 @@
 package com.csis4495.aiorestaurants.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.csis4495.aiorestaurants.db.roomEntities.*
 
 @Dao
@@ -62,5 +59,11 @@ interface AioDao {
     @Query("SELECT * FROM dish WHERE category = :category")
     fun getDishByCategory(category : String) : List<DishEntity>
 
+    //Update Queries
+    @Update
+    fun updateGoal (goal : GoalEntity)
+
+    @Query ("UPDATE goal SET sales = sales + :amount WHERE date = :date")
+    fun updateSales (amount : Double, date : String)
 
 }
