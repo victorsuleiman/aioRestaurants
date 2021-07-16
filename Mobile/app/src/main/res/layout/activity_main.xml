@@ -67,7 +67,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="377dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
@@ -92,11 +92,11 @@
             android:backgroundTint="#c4c4c4"
             android:ems="10"
             android:fontFamily="@font/berlinsansfb"
-            android:hint="sales goal value"
+            android:hint="enter goal here..."
             android:inputType="numberDecimal"
             android:selectAllOnFocus="false"
             android:textColor="#c4c4c4"
-            android:textColorHint="#c4c4c4"
+            android:textColorHint="@color/hintColor"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,39 +131,11 @@
             android:layout_marginRight="16dp"
             android:fontFamily="@font/berlinsansfb"
             android:text="@string/salesGoalMock"
-            android:textColor="#c4c4c4"
+            android:textColor="#FF0000"
             android:textSize="40sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonSalesGoal" />
-
-        <TextView
-            android:id="@+id/textViewUserSales"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/berlinsansfb"
-            android:text="@string/salesGoalUserMock"
-            android:textColor="#c4c4c4"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSalesGoal" />
-
-        <TextView
-            android:id="@+id/textViewUserSales2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:fontFamily="@font/berlinsansfb"
-            android:text="@string/salesGoalMock"
-            android:textColor="#c4c4c4"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSalesGoal" />
 
         <TextView
             android:id="@+id/textViewSalesDifference"
@@ -179,10 +151,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewUserSales" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewSalesGoal" />
 
         <TextView
-            android:id="@+id/textViewSalesDifference2"
+            android:id="@+id/textViewAmountSold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -195,7 +167,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewUserSales2" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewSalesGoal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -276,7 +248,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewEmployeeId2"
+                android:id="@+id/editTextEmployeeId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -288,7 +260,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textViewFirstName2"
+                android:id="@+id/editTextFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -300,7 +272,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textViewLastName2"
+                android:id="@+id/editTextLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -312,7 +284,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textViewUserCategory2"
+                android:id="@+id/editTextUserCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"

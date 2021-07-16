@@ -8,6 +8,7 @@ data class EmployeeEntity (
     @PrimaryKey
     val employeeId : Int,
     val firstName: String = "",
+    val lastName: String = "",
     val userCategory: Double = 0.0,
     val username: String = "",
     val password: String = "",

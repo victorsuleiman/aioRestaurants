@@ -5,6 +5,7 @@ import java.util.*
 data class EmployeeJson (
     var employeeId : Int, //This is double in atlas, test if it has any errors.
     var firstName: String,
+    var lastName:  String,
     var userCategory: Double,
     var username: String,
     var password: String,

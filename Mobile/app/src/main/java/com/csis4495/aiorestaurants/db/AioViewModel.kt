@@ -55,6 +55,15 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
         }
     }
 
+    fun insertGoal (newGoal : GoalEntity) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.insertGoal(newGoal)
+                currentGoal.postValue(newGoal)
+            }
+        }
+    }
+
     fun getEmployeeByUsername(username : String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -62,7 +71,7 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
                 if (userFetched != null) {
                     employee.postValue(userFetched!!)
                 } else {
-                    employee.postValue(EmployeeEntity(0,"",0.0,"",""))
+                    employee.postValue(EmployeeEntity(0,"","",0.0,"",""))
                 }
             }
         }
@@ -89,4 +98,23 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
             }
         }
     }
+
+    fun updateGoal (goal : GoalEntity) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.updateGoal(goal)
+                currentGoal.postValue(goal)
+            }
+        }
+    }
+
+    fun updateSales (date : String, amount : Double) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.updateSales(amount,date)
+            }
+        }
+    }
+
+
 }

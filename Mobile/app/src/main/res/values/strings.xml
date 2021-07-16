@@ -34,9 +34,10 @@
     <string name="setSalesGoal">Set Sales Goal</string>
     <string name="salesGoalMock">$0.00</string>
     <string name="salesGoalUserMock">Users sales:</string>
-    <string name="amountToGoal">Amount to goal:</string>
+    <string name="amountToGoal">Amount sold today:</string>
     <string name="mockId">777</string>
     <string name="mockFName">User</string>
     <string name="mockLName">User User</string>
     <string name="mockCategory">1</string>
+    <string name="confirmGoal">Set Goal</string>
 </resources>
