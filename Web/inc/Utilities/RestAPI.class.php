@@ -3,17 +3,18 @@
 require_once("inc/config.inc.php");
 require_once("inc/Database/Database.class.php");
 
-require_once("inc/Utilities/Converters/EmloyeeConverter.class.php");
-require_once("inc/Utilities/Converters/SupplierConverter.class.php");
-require_once("inc/Utilities/Converters/OrderConverter.class.php");
-require_once("inc/Utilities/Converters/ShipperConverter.class.php");
-require_once("inc/Utilities/Converters/ProductInventoryConverter.class.php");
-
 require_once("inc/Utilities/Dao/EmployeeDAO.class.php");
 require_once("inc/Utilities/Dao/SupplierDAO.class.php");
 require_once("inc/Utilities/Dao/OrderDAO.class.php");
 require_once("inc/Utilities/Dao/ShipperDAO.class.php");
 require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
+
+require_once("inc/Utilities/Converters/EmloyeeConverter.class.php");
+require_once("inc/Utilities/Converters/SupplierConverter.class.php");
+require_once("inc/Utilities/Converters/OrderConverter.class.php");
+require_once("inc/Utilities/Converters/ShipperConverter.class.php");
+require_once("inc/Utilities/Converters/ProductInventoryConverter.class.php");
+require_once("inc/Utilities/Converters/UserSessionConverter.class.php");
 
 require_once("inc/Utilities/ParsePostForm.class.php");
 
@@ -139,6 +140,11 @@ require_once("inc/Utilities/ParsePostForm.class.php");
                     SupplierDAO::update($collection);
                     break;
             }
+        }
+        
+        public static function getUser($username){
+            EmployeeDAO::startDb();
+            return EmployeeDAO::getUser($username);
         }
 
         //Return a stdClass with ->_id and ->email
