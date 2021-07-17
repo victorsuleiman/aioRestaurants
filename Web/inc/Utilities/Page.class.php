@@ -3,6 +3,12 @@
     class Page{
         
         public static function pageHeader(){
+            if( date("H") == "02") {
+
+                FileAgent::createFile(
+                    RestAPI::getData("productInventory",0)
+                );
+            }
             $header = '
             <!DOCTYPE html>
                 <html lang="en">
@@ -58,6 +64,7 @@
                         <img src="images/profile-photo.jpg" alt="Profile Photo" class="img-responsive">  
                         <div class="profile-photo-overlay"></div>
                         </div>      
+
                         <!-- Search box -->
                         <!-- 
                         <form class="priori-search-form" role="search">
@@ -67,6 +74,7 @@
                         </div>
                         </form>
                         -->
+
                         <div class="mobile-menu-icon">
                             <i class="fa fa-bars"></i>
                         </div>
@@ -74,11 +82,8 @@
                         <ul>
                             <li><a href="?page=dashboard" class="active"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
                             <li><a href="?page=charts"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
-                            <!--<li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>-->
-                            <!--<li><a href="maps.html"><i class="fa fa-map-marker fa-fw"></i>Maps</a></li>-->
                             <li><a href="?page=tables&tab=employee"><i class="fa fa-users fa-fw"></i>Tables</a></li>
-                            <!--<li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>-->
-                            <li><a href="login.html"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
+                            <li><a href="login.php"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
                         </ul>  
                         </nav>
                     </div>
@@ -94,9 +99,30 @@
                 <div class="priori-top-nav-container">
                 <div class="row">
                     <nav class="priori-top-nav col-lg-12 col-md-12">
-                    <ul class="text-uppercase">
-                        <li>Dashboard</li>
-                    </ul>
+                    <ul class="text-uppercase">';
+
+                        if(isset($_GET["page"])){
+                            switch($_GET["page"]){
+                                case "dashboard":
+                                    $topRightContent .= '<li>Dashboard</li>';
+                                break;
+    
+                                case "tables":
+                                    $topRightContent .= '<li>Tables</li>';
+                                break;
+    
+                                case "charts":
+                                    $topRightContent .= '<li>Charts</li>';
+                                break;
+    
+                                default:
+                                    $topRightContent .= '<li>Dashboard</li>';
+                                break;
+                            }
+                        } else {
+                            $topRightContent .= '<li>Login</li>';
+                        }
+            $topRightContent .= '</ul>
                     </nav> 
                 </div>
                 </div>
@@ -255,5 +281,119 @@
             </div>
             ';
             echo $toast;
+        }
+
+        public static function loginForm(){
+            
+            $loginForm = '
+            <div class="priori-content-container">
+                <div class="priori-flex-row flex-content-row">
+                    <div class="col-1">
+                        <div class="panel panel-default margin-10">
+                            <div class="panel-heading">
+                                <h2 class="text-uppercase">Login Form</h2>
+                            </div>
+                            <div class="panel-body">
+                                <form method="post" action="'.$_SERVER["PHP_SELF"].'" class="priori-login-form">
+                                    <div class="form-group">
+                                        <label for="inputEmail">Username: </label>
+                                        <input type="text" name="usernameL" class="form-control" id="inputEmail" placeholder="Username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail">Password: </label>
+                                        <input type="password" name="password" id="inputEmail" class="form-control" placeholder="Password">
+                                        </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Login" class="priori-blue-button" data-target="#messageModal">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ';
+
+            echo $loginForm;
+        }
+
+        public static function leftMenuGuest(){
+            $leftMenu = ' 
+                <!-- Left column -->
+                <div class="priori-flex-row" id="page-body">
+                    <div class="priori-sidebar">
+                        <header class="priori-site-header">
+                        <i class="fas fa-money-check"></i>
+                        <img src="images/dashboard-icon.png" width="50" height="50">
+                       
+                        <h1>aioRestaurant</h1>
+                        </header>
+                        <div class="profile-photo-container">
+                        <img src="images/profile-photo.jpg" alt="Profile Photo" class="img-responsive">  
+                        <div class="profile-photo-overlay"></div>
+                        </div>      
+                        <!-- Search box -->
+                        <!-- 
+                        <form class="priori-search-form" role="search">
+                        <div class="input-group">
+                            <button type="submit" class="fa fa-search"></button>
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">           
+                        </div>
+                        </form>
+                        -->
+                        <div class="mobile-menu-icon">
+                            <i class="fa fa-bars"></i>
+                        </div>
+                        <nav class="priori-left-nav">          
+                        <ul>
+                            <li><a href="#"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
+                            <li><a href="#"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
+                            <li><a href="#"><i class="fa fa-users fa-fw"></i>Tables</a></li>
+                            <li><a href="login.php" class="active"><i class="fa fa-eject fa-fw"></i>Login</a></li>
+                        </ul>  
+                        </nav>
+                    </div>
+                
+            ';
+            echo $leftMenu;
+        }
+
+        public static function modalMessage(string $message){
+            $modal = '
+            <!-- Modal -->
+                <div class="modal hide fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"><p>'.
+                        $message
+                    .'</p></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            ';
+
+            $modal .= "
+            <script>
+                $(window).submit(function () {
+                    $('#messageModal').modal('show');
+                });
+            </script>
+            ";
+
+            $modal = '
+            <script>
+                alert("'.$message.'");
+            </script>
+            ';
+
+            echo self::pageHeader().$modal;
         }
     }
