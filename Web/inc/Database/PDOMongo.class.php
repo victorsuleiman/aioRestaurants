@@ -7,9 +7,6 @@
     use MongoDB\Driver\BulkWrite;
     use MongoDB\Driver\Exception\Exception;
 
-/*
-Executar a query e setar a coleção
-*/
     class PDOMongo{
 
         public static $errorLog = [];
