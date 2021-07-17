@@ -19,15 +19,6 @@
                   <div class="profile-photo-overlay"></div>
                   </div>
                       
-                  <!-- Search box -->
-                  <!--
-                  <form class="priori-search-form" role="search">
-                  <div class="input-group">
-                      <button type="submit" class="fa fa-search"></button>
-                      <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">           
-                  </div>
-                  </form>
-                  -->
                   <div class="mobile-menu-icon">
                       <i class="fa fa-bars"></i>
                   </div>
@@ -35,13 +26,10 @@
                   <ul>
                     <li><a href="?page=dashboard"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
                     <li><a href="?page=charts"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
-                    <!--<li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>-->
-                    <!--<li><a href="maps.html"><i class="fa fa-map-marker fa-fw"></i>Maps</a></li>-->
                     <li><a class="active" href="?page=tables&tab=employee">
                       <i class="fa fa-users fa-fw"></i>Tables
                     </a></li>
-                    <!--<li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>-->
-                    <li><a href="login.html"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
+                    <li><a href="login.php"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
                   </ul>  
                   </nav>
               </div>
@@ -52,33 +40,35 @@
 
     public static function tabs(){
       $tabs = '
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="?page=tables&tab=employee">
-            Employee
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="?page=tables&tab=product">
-            Inventory
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="?page=tables&tab=order">
-            Order
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="?page=tables&tab=shipper">
-            Shipper
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="?page=tables&tab=supplier">
-            Supplier
-          </a>
-        </li>
-      </ul>
+      <div class="templatemo-content-widget white-bg">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="?page=tables&tab=employee">
+              Employee
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?page=tables&tab=product">
+              Inventory
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?page=tables&tab=order">
+              Order
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?page=tables&tab=shipper">
+              Shipper
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?page=tables&tab=supplier">
+              Supplier
+            </a>
+          </li>
+        </ul>
+      </div>
       ';
 
       echo $tabs;
@@ -222,7 +212,7 @@
 
                   $supplierTable .= '
                   <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Products
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
@@ -290,7 +280,7 @@
 
                   $orderTable .= '
                   <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Products
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';

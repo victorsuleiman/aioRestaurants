@@ -18,15 +18,6 @@
                         <div class="profile-photo-overlay"></div>
                         </div>      
                         
-                        <!-- Search box -->
-                        <!--
-                        <form class="priori-search-form" role="search">
-                        <div class="input-group">
-                            <button type="submit" class="fa fa-search"></button>
-                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">           
-                        </div>
-                        </form>
-                        -->
                         <div class="mobile-menu-icon">
                             <i class="fa fa-bars"></i>
                         </div>
@@ -34,11 +25,8 @@
                         <ul>
                             <li><a href="?page=dashboard"><i class="fa fa-home fa-fw"></i>Dashboard</a></li>
                             <li><a href="?page=charts" class="active"><i class="fa fa-bar-chart fa-fw"></i>Charts</a></li>
-                            <!--<li><a href="data-visualization.html"><i class="fa fa-database fa-fw"></i>Data Visualization</a></li>-->
-                            <!--<li><a href="maps.html"><i class="fa fa-map-marker fa-fw"></i>Maps</a></li>-->
                             <li><a href="?page=tables&tab=employee"><i class="fa fa-users fa-fw"></i>Tables</a></li>
-                            <!--<li><a href="preferences.html"><i class="fa fa-sliders fa-fw"></i>Preferences</a></li>-->
-                            <li><a href="login.html"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
+                            <li><a href="login.php"><i class="fa fa-eject fa-fw"></i>Sign Out</a></li>
                         </ul>  
                         </nav>
                     </div>
@@ -127,37 +115,61 @@
             <div class="row">
                 <div id="pie_chart_div" class="priori-chart"></div>
                 <div id="bar_chart_div" class="priori-chart"></div>
-                <div class="priori-chart">
-                
-            <p class="blankBackground">';
-                $fileList = glob("inc/data/*.csv");
-                        if(!empty($fileList)){
-                            if(count($fileList) < 5){
-                                for($i = 0; $i < count($fileList); $i++){
-                                    //Directory string inc/data/file.php
-                                    //$path = array("inc","dat","filename");
-                                    $path = explode("/",$fileList[$i]);
-                                    //count($path)-1 = The filename, no matter the directory is;
-                                    echo '<h3><a href="'.$fileList[$i].'">'.$path[count($path)-1].'</a></h3><br>';
-                                }    
-                            } else {
-                                for($i = count($fileList)-1; $i > count($fileList)-5; $i--){
-                                    //Directory string inc/data/file.php
-                                    //$path = array("inc","dat","filename");
-                                    $path = explode("/",$fileList[$i]);
-                                    //count($path)-1 = The filename, no matter the directory is;
-                                    echo '<h3><a href="'.$fileList[$i].'">'.$path[count($path)-1].'</a></h3><br>';
-                                }
-                            }
-                            
-                        } else {
-                            echo '<h3>There are no available reports!</h3>';
-                        }
-                    
-                echo '</p>
-                </div>
             </div>
             ';
+        }
+
+        public static function inventoryReport(){
+            $fileList = glob("inc/data/*.csv");
+
+            $htmlFileList = '
+            <form method="post" action="'.$_SERVER["PHP_SELF"].'?page=charts">
+            <div class="priori-content-container">
+                <div class="priori-flex-row flex-content-row">
+                    <div class="col-1">
+                        <div class="panel panel-default margin-10">
+                            <div class="panel-heading">
+                                <h2 class="text-uppercase">Inventory Reports</h2>
+                            </div>
+                            <div class="panel-body">';
+                            if(!empty($fileList)){
+                                $htmlFileList .= '<select name="reports" class="form-control">';
+                                if(count($fileList) < 5){
+                                    
+                                    for($i = 0; $i < count($fileList); $i++){
+                                        //Directory string inc/data/file.php
+                                        //$path = array("inc","dat","filename");
+                                        $path = explode("/",$fileList[$i]);
+                                        //count($path)-1 = The filename, no matter the directory is;
+                                        $htmlFileList .= '<option value="'.$fileList[$i].'">'.$path[count($path)-1].'</option>';
+                                    }    
+                                } else {
+                                    for($i = count($fileList)-1; $i > count($fileList)-5; $i--){
+                                        //Directory string inc/data/file.php
+                                        //$path = array("inc","dat","filename");
+                                        $path = explode("/",$fileList[$i]);
+                                        //count($path)-1 = The filename, no matter the directory is;
+                                        $htmlFileList .= '<option value="'.$fileList[$i].'">'.$path[count($path)-1].'</option>';
+                                    }
+                                }
+                                $htmlFileList .= '</select>';
+                            } else {
+                                $htmlFileList .= '<h3>There are no available reports!</h3>';
+                            }
+                $htmlFileList .= '
+                <p>
+                        <div class="form-group">
+                            <input type="submit" value="Download" class="priori-blue-button">
+                        </div>
+                </p>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+            ';
+           echo $htmlFileList;
         }
 
         public static function pieChart($productArray){

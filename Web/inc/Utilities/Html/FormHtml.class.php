@@ -37,7 +37,7 @@
 
             $modalForm = '
             <div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$employee->getEmployeeId().'">
+                <button type="button" class="priori-edit-btn" data-toggle="modal" data-target="#myModal'.$employee->getEmployeeId().'">
                     Edit
                 </button>
                 <div class="modal priori-editForm" id="myModal'.$employee->getEmployeeId().'">
@@ -64,12 +64,6 @@
         }
 
         private static function editFormEmployee(Employee $employee){
-            /**** FORM CLEAR BUTTON ****/
-            /*
-            <button type="button" class="btn btn-warning" onclick="clearFields(this.form)">
-                Clear
-            </button>
-            */
 
             $form = '
             <form action="'.$_SERVER['PHP_SELF'].'?page=tables" method="POST" enctype="multipart/form-data" id="employee'.$employee->getEmployeeId().'">
@@ -332,7 +326,7 @@
         public static function editShipper(Shipper $shipper){
             $modalForm = '
             <div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$shipper->getShipperId().'">
+                <button type="button" class="priori-edit-btn" data-toggle="modal" data-target="#myModal'.$shipper->getShipperId().'">
                     Edit
                 </button>
                 <div class="modal priori-editForm" id="myModal'.$shipper->getShipperId().'">
@@ -635,7 +629,7 @@
         public static function editProductInventory(ProductInventory $product){
             $modalForm = '
             <div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal'.$product->getProductId().'">
+                <button type="button" class="priori-edit-btn" data-toggle="modal" data-target="#myModal'.$product->getProductId().'">
                     Edit
                 </button>
                 <div class="modal priori-editForm" id="myModal'.$product->getProductId().'">
