@@ -2,7 +2,7 @@
 
 date_default_timezone_set('America/Vancouver');
 
-
+require_once("inc/Utilities/LoginManager.class.php");
 require_once("inc/Utilities/RestAPI.class.php");
 
 require_once("inc/Utilities/Reports/OrderReport.class.php");
@@ -14,16 +14,13 @@ require_once("inc/Utilities/Html/TablePage.class.php");
 require_once("inc/Utilities/Html/FormHtml.class.php");
 require_once("inc/Utilities/Html/ChartPage.class.php");
 
+
+
 Page::pageHeader();
 
-if( date("H") == "02") {
+if(!empty($_GET["page"])){
 
-    FileAgent::createFile(
-        RestAPI::getData("productInventory",0)
-    );
-}
-
-if(!empty($_GET)){
+    LoginManager::checkLogin();
 
     if($_GET["page"] == "dashboard"){
 
@@ -41,12 +38,12 @@ if(!empty($_GET)){
 
     } else if($_GET["page"] == "tables") {
 
+        TablePage::pageLeftMenu();
+        Page::pageContentTop();
+        TablePage::tabs();
+
         if(empty($_POST)){
             
-            TablePage::pageLeftMenu();
-            Page::pageContentTop();
-            TablePage::tabs();
-
             switch($_GET["tab"]){
 
                 case "employee":
@@ -88,9 +85,6 @@ if(!empty($_GET)){
 
         } else {
 
-            TablePage::pageLeftMenu();
-            Page::pageContentTop();
-            
             $action = $_POST["form"];
 
             if( strpos($action, "add") !== false ){
@@ -101,9 +95,9 @@ if(!empty($_GET)){
                 RestAPI::updateData($_POST);
                 Page::toastUpdate();
             }
-            
-            TablePage::tabs();
+
             if(isset($_GET["tab"])){
+                
                 switch($_GET["tab"]){
                     case "employee":
                         TablePage::employeeTableContent(
@@ -135,34 +129,52 @@ if(!empty($_GET)){
                         );
                     break;
                 }
+
             } else {
                 TablePage::employeeTableContent(
                     RestAPI::getData("employee")
                 );
             }
+            
 
         }
+
+        ChartPage::inventoryReport();
         
     } else if($_GET["page"] == "charts"){
-
+        if(!empty($_POST)){
+            header("Location: ".$_POST["reports"]);
+        }
         ChartPage::pageLeftMenu();
         Page::pageContentTop();
 
         ChartPage::divGraphs();
 
+        /*The graphs have to be always in the bottom*/
         DashboardPage::divGraphs();
         DashboardPage::pieChart(
             OrderReport::getProductsFromOrder()
         );
 
         
-     
     }
 
 } else {
-    header("Location: ".$_SERVER['PHP_SELF']."?page=dashboard");
-
+    header("Location: login.php");
 }
 
 Page::pageContentBottom();
 Page::pageFooter();
+
+/*
+Changes in the Employee class:
+checkPassword function created to validate password.
+
+Login.php page created to ask for credentials
+
+EmployeeDao:
+Function that checks for the username from an user;
+
+
+
+*/
