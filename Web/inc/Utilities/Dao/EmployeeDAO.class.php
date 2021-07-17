@@ -1,7 +1,5 @@
 <?php
 
-//require_once("inc/Database/Database.class.php");
-//require_once("inc/Utilities/Converters/EmloyeeConverter.class.php");
 
     class EmployeeDAO {
 
@@ -193,5 +191,31 @@
                 )[0];
             }
 
+        }
+
+        public static function getUser($username) {
+            if( get_class(self::$connection->getDataBase()) == "PDOMongo"){
+
+                self::$connection->getDatabase()->bindElement("username",$username);
+                
+                $newUser = UserSessionConverter::convertFromStdClass(
+                    self::$connection->getDataBase()::findData(
+                        [],
+                        1
+                    )[0]
+                );
+                
+                return $newUser;
+
+            } else {
+
+                $sqlSelect = "SELECT * FROM employee WHERE username =:username";
+
+                self::$connection->getDatabase()->query($sqlSelect);
+                self::$connection->getDatabase()->bind(':username',$username);
+                self::$connection->getDatabase()->execute();
+
+                return self::$connection->singleResult();
+            }
         }
     }
