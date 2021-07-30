@@ -82,6 +82,7 @@ def updateInventory(dishes):
     print(f"Updating inventory qty's for dishes {dishes} in receipt")
 
     for dish in dishes:
+        dishQty = dish['qty']
         ingredients = mongo.db.dish.find_one({'name' : dish['name']})['ingredients']
         for ingredient in ingredients:
             name = ingredient['name']
@@ -90,7 +91,7 @@ def updateInventory(dishes):
             mongo.db.productInventory.update_one(
                 {'productName':name},
                 {
-                    '$inc' : {'qty' : -qty}
+                    '$inc' : {'qty' : -dishQty * qty}
                 }
             )
     

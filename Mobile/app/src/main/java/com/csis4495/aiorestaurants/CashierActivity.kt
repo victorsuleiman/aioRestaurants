@@ -59,8 +59,10 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
     @RequiresApi(Build.VERSION_CODES.O)
     val dateDate = LocalDateTime.now()
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    val date = dateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    val date = dateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+    val date = ("2021-07-26")
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -235,7 +237,7 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         val total = total
 
         val dateDate = LocalDateTime.now()
-        val date = dateDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val date = ("2021-07-26")
 
         return Receipt(server, employeeId, dishList, taxes, total, paymentType, date)
 

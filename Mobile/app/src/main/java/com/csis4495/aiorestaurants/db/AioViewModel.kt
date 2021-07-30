@@ -55,15 +55,6 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
         }
     }
 
-    fun insertGoal (newGoal : GoalEntity) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                database?.dao()?.insertGoal(newGoal)
-                currentGoal.postValue(newGoal)
-            }
-        }
-    }
-
     fun getEmployeeByUsername(username : String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -82,6 +73,15 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
             withContext(Dispatchers.IO) {
                 val dishListFromDB = database?.dao()?.getDishByCategory(category)
                 dishList.postValue((dishListFromDB))
+            }
+        }
+    }
+
+    fun insertGoal (newGoal : GoalEntity) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.insertGoal(newGoal)
+                currentGoal.postValue(newGoal)
             }
         }
     }
