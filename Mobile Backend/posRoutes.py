@@ -72,6 +72,9 @@ def submitReceipt(data):
 
     updateInventory(data['dishes'])
 
+    if (paymentType == "cash"):
+        updateCashFund(total)
+
     receipt = {'server' : server , 'employeeId' : employeeId, 'dishes' : dishes, 
         'taxes' : taxes, 'total' : total, 'paymentType' : paymentType, 'date' : date}
     
@@ -140,6 +143,14 @@ def updateGoal(data):
             }
         )
 
+def updateCashFund(qty):
+    print("Payment in cash. Updating cash fund...")
+    mongo.db.restaurant.update_one(
+            {'name' : "Franchise 1"},
+            {
+                '$inc' : {'cashFund' : qty}
+            }
+        )
 
 if __name__ == '__main__':
     socketio.run(app,host = '0.0.0.0')

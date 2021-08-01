@@ -284,6 +284,10 @@ class CashierActivity : AppCompatActivity(), OnDataPass, AdapterReceipt.OnItemCl
         //Increment sales for the daily goal object
         viewModel.updateSales(date, receipt.total)
 
+        //if payment is in cash, update cash fund
+        if (receipt.paymentType == "cash")
+            viewModel.updateCashFund("Franchise 1",receipt.total)
+
         //Clear cart
         for (item in 1..itemReceiptList.size) {
             DeleteItem(0)

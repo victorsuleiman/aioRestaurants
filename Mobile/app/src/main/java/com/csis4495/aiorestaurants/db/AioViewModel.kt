@@ -116,5 +116,13 @@ class AioViewModel (app: Application) : AndroidViewModel(app){
         }
     }
 
+    fun updateCashFund (name : String, amount : Double) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.dao()?.updateCashFund(amount,name)
+            }
+        }
+    }
+
 
 }

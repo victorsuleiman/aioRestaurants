@@ -66,4 +66,7 @@ interface AioDao {
     @Query ("UPDATE goal SET sales = sales + :amount WHERE date = :date")
     fun updateSales (amount : Double, date : String)
 
+    @Query ("UPDATE restaurant SET cashFund = cashFund + :amount WHERE name = :name")
+    fun updateCashFund (amount : Double, name : String)
+
 }
