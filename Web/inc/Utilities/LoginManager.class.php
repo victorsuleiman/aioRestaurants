@@ -31,7 +31,7 @@ date_default_timezone_set('America/Vancouver');
                 $_SESSION['username'] = $authUser;
 
                 $time = new DateTime();
-                $time->add(new DateInterval('PT' . 10 . 'M'));
+                $time->add(new DateInterval('PT' . 30 . 'M'));
                 $_SESSION['stamp'] = $time->format('H:i');
 
                 header("Location: index.php?page=dashboard");

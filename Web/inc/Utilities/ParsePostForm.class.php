@@ -5,14 +5,17 @@
     require_once("inc/Entities/Supplier.class.php");
     require_once("inc/Entities/Shipper.class.php");
     require_once("inc/Entities/Products/ProductInventory.class.php");
+    require_once("inc/Entities/UserSession.class.php");
+    require_once("inc/Entities/Dish.class.php");
+    require_once("inc/Entities/Receipt.class.php");
 
-    class ParsePostForm{
+    class ParsePostForm {
 
-        public static function parsePost(Array $post){
+        public static function parsePost(Array $post) {
             $collection = $post["form"];
+            
+            switch($collection) {
 
-            switch($collection){
-                
                 case "addEmployee" || "editEmployee":
                     return self::parseEmployee($post);
 
@@ -28,10 +31,21 @@
                 case "addSupplier" || "editSupplier":
                     return self::parseSupplier($post);
 
+                /*
+                case "dateReport":
+                    var_dump(self::parseDate($post));
+                */
+                default:
+                    break;
+                    
+                /*
+                case "userLogin":
+                    return self::parseUser($post);
+                */
             }
         }
 
-        private static function parseEmployee($post) : Employee{
+        private static function parseEmployee($post) : Employee {
 
             $newEmployee = new Employee(
                 0,
@@ -46,19 +60,21 @@
                 $post["notes"],
                 $post["userCategory"],
                 $post["username"],
-                $post["password"]
+                password_hash($post["password"], PASSWORD_DEFAULT)
             );
 
             if(isset($post["employeeId"])){
                 $newEmployee->setEmployeeId($post["employeeId"]);
             }
 
-            $newEmployee->setId($post["_id"]);
+            if(isset($post["_id"])){
+                $newEmployee->setId($post["_id"]);
+            }
             
             return $newEmployee;
         }
 
-        private static function parseOrder($post) : Order{
+        private static function parseOrder($post) : Order {
             $newOrder = new Order(
                 0,
                 $post["supplierId"],
@@ -78,7 +94,7 @@
             return $newOrder;
         }
 
-        private static function parseShipper($post) : Shipper{
+        private static function parseShipper($post) : Shipper {
             $newShipper = new Shipper(
                 0,
                 $post["shipperName"],
@@ -100,7 +116,7 @@
             return $newShipper;
         }
 
-        private static function parseProduct($post) : Product{
+        private static function parseProduct($post) : Product {
             $newProduct = new ProductInventory(
                 0,
                 $post["productName"],
@@ -142,5 +158,10 @@
             $newSupplier->setId($post["_id"]);
 
             return $newSupplier;
+        }
+
+        public static function parseDate($post){
+            $date = explode("#",$post["weekGoalReport"]);
+            return $date;
         }
     }

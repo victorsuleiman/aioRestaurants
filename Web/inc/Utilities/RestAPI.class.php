@@ -8,6 +8,7 @@ require_once("inc/Utilities/Dao/SupplierDAO.class.php");
 require_once("inc/Utilities/Dao/OrderDAO.class.php");
 require_once("inc/Utilities/Dao/ShipperDAO.class.php");
 require_once("inc/Utilities/Dao/ProductInventoryDAO.class.php");
+require_once("inc/Utilities/Dao/ReceiptDAO.class.php");
 
 require_once("inc/Utilities/Converters/EmloyeeConverter.class.php");
 require_once("inc/Utilities/Converters/SupplierConverter.class.php");
@@ -15,6 +16,7 @@ require_once("inc/Utilities/Converters/OrderConverter.class.php");
 require_once("inc/Utilities/Converters/ShipperConverter.class.php");
 require_once("inc/Utilities/Converters/ProductInventoryConverter.class.php");
 require_once("inc/Utilities/Converters/UserSessionConverter.class.php");
+require_once("inc/Utilities/Converters/ReceiptConverter.class.php");
 
 require_once("inc/Utilities/ParsePostForm.class.php");
 
@@ -43,6 +45,10 @@ require_once("inc/Utilities/ParsePostForm.class.php");
                 case "supplier":
                     SupplierDAO::startDb();
                     return SupplierDAO::getMultipleSupplier($limit);
+                
+                case "receipt":
+                    ReceiptDAO::startDb();
+                    return ReceiptDAO::getMultipleReceipts($limit);
             }
         }
 
@@ -151,5 +157,29 @@ require_once("inc/Utilities/ParsePostForm.class.php");
         public static function getEmail(){
             EmployeeDAO::startDb();
             return EmployeeDAO::existEmail("colliffea@instagram.com");
+        }
+
+        public static function getReciptReport($post,$sort){
+            $dateArray = ParsePostForm::parseDate($post);
+
+            $date = [
+                "gt" => $dateArray[0],
+                "lt" => $dateArray[1]
+            ];
+
+            ReceiptDAO::startDb();
+            return ReceiptDAO::getReciptsWeeklyReport($date,$sort);
+        }
+
+        public static function getGoal($post){
+            $dateArray = ParsePostForm::parseDate($post);
+
+            $date = [
+                "gt" => $dateArray[0],
+                "lt" => $dateArray[1]
+            ];
+
+            ReceiptDAO::startDb();
+            return ReceiptDAO::getDateGoals($date);
         }
     }
