@@ -31,10 +31,17 @@ if(!empty($_GET["page"])){
             RestAPI::getData("employee")
         );
 
+        /*The graphs have to be always in the bottom*/
         DashboardPage::divGraphs();
+
         DashboardPage::pieChart(
             OrderReport::getProductsFromOrder()
         );
+
+        DashboardPage::barChart(
+            OrderReport::getProductsFromOrder()
+        );
+
 
     } else if($_GET["page"] == "tables") {
 
@@ -142,20 +149,43 @@ if(!empty($_GET["page"])){
         ChartPage::inventoryReport();
         
     } else if($_GET["page"] == "charts"){
-        if(!empty($_POST)){
-            header("Location: ".$_POST["reports"]);
-        }
+
         ChartPage::pageLeftMenu();
         Page::pageContentTop();
+        ChartPage::weekReport();
+        
+        $orderReport = OrderReport::getProductsFromOrder();
 
-        ChartPage::divGraphs();
+        ChartPage::pieChartProduct($orderReport);
 
-        /*The graphs have to be always in the bottom*/
-        DashboardPage::divGraphs();
-        DashboardPage::pieChart(
-            OrderReport::getProductsFromOrder()
-        );
+        if(!empty($_POST)){
 
+            $recipt_1 = RestAPI::getReciptReport($_POST,"date");
+            $recipt_2 = RestAPI::getReciptReport($_POST,"server");
+            $recipt_3 = RestAPI::getReciptReport($_POST,"paymentType");
+            
+            $goal = RestAPI::getGoal($_POST);
+            if(!empty($recipt_1)){
+
+                ChartPage::divGraphs();
+                #2
+                ChartPage::areaChartGoals(
+                    $recipt_1,$goal
+                );
+
+                ChartPage::barChartEmployee(
+                    $recipt_2
+                );
+
+                ChartPage::pieChartPaymentType(
+                    $recipt_3
+                );
+                
+            } else {
+                ChartPage::resultNotFound($_POST);
+            }
+            
+        }
         
     }
 
@@ -167,14 +197,14 @@ Page::pageContentBottom();
 Page::pageFooter();
 
 /*
-Changes in the Employee class:
-checkPassword function created to validate password.
 
-Login.php page created to ask for credentials
+(Kinda hard one)
+Qty of dishes sold:
+1 line per dish
+date x aggregate qty for dish
 
-EmployeeDao:
-Function that checks for the username from an user;
-
-
-
+(even harder)
+qty of ingredients sold:
+1 line per ingredient
+date x aggregate qty for ingredient
 */
