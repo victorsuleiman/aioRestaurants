@@ -12,14 +12,3 @@ define('DB_HOST','localhost');
 define('DB_USER','root');
 define('DB_NAME','Lab10');
 define('DB_PASS','');
-
-
-/*
-
-$login = "admin";
-$pass = "admin";
-$db = "aioRestaurants";
-$cluster = "@cluster0.usuw1.mongodb.net";
-
-define('DEFAULT_URL',"mongodb+srv://$login:$pass$cluster$db?retryWrites=true&w=majority");
-*/
