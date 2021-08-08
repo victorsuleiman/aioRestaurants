@@ -160,7 +160,7 @@
         //This method will set the returned fields from the collection
         //Using this method will return selected fields from the collection
         private static function setQueryFields($elements){
-            
+
             try{
                 
                 if(is_array($elements)){
@@ -267,7 +267,6 @@
                 echo $errorMessage->getMessage();
             }
         }
-
 
         //Insert Data into MongoDb
         public function insertData(stdClass $newEntry){
@@ -412,5 +411,49 @@
 
             return $cursorCounter->getInsertedCount();
 
+        }
+
+        public static function getDates($filterDate,$sort){
+            
+            $filter = [
+                'date' => [
+                    '$gte' => $filterDate["gt"],
+                    '$lte' => $filterDate["lt"]
+                ]
+            ];
+
+            $options = [
+                "sort" => [$sort => 1]
+            ];
+
+            $query = new Query($filter,$options);
+            $mongo = new Manager(self::$mongoUrl);
+            $cursor   = $mongo->executeQuery(
+                self::$mongoName.".".self::$currentCollection,
+                $query
+            ); 
+            return $cursor->toArray();
+            
+        }
+
+        public static function getGoals($filterDate){
+            $filter = [
+                'date' => [
+                    '$gte' => $filterDate["gt"],
+                    '$lte' => $filterDate["lt"]
+                ]
+            ];
+
+            $options = [
+                "sort" => ["date" => 1]
+            ];
+
+            $query = new Query($filter,$options);
+            $mongo = new Manager(self::$mongoUrl);
+            $cursor   = $mongo->executeQuery(
+                self::$mongoName.".goal",
+                $query
+            ); 
+            return $cursor->toArray();
         }
     }
