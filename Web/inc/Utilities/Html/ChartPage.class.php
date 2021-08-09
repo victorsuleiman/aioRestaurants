@@ -139,68 +139,6 @@
             echo $script;
         }
 
-        public static function linearChartDishes(Array $recipt){
-            $dish = self::parseIntoDishesSold($recipt);
-            
-            $dataAddColumn = "
-            var data = new google.visualization.DataTable();
-            data.addColumn('number', 'Date');";
-
-            /*
-
-            $script = "
-            google.charts.load('current', {'packages':['line']});
-                google.charts.setOnLoadCallback(drawChart);
-
-                function drawChart() {
-
-                var data = new google.visualization.DataTable();
-                data.addColumn('number', 'Day');
-                data.addColumn('number', 'Guardians of the Galaxy');
-                data.addColumn('number', 'The Avengers');
-                data.addColumn('number', 'Transformers: Age of Extinction');
-
-                
-                
-                data.addRows([
-                    [date,  dish1->qty, dish2->qty, dish->3qty],
-                ]);
-                
-                data.addRows([
-                    [1,  37.8, 80.8, 41.8],
-                    [2,  30.9, 69.5, 32.4],
-                    [3,  25.4,   57, 25.7],
-                    [4,  11.7, 18.8, 10.5],
-                    [5,  11.9, 17.6, 10.4],
-                    [6,   8.8, 13.6,  7.7],
-                    [7,   7.6, 12.3,  9.6],
-                    [8,  12.3, 29.2, 10.6],
-                    [9,  16.9, 42.9, 14.8],
-                    [10, 12.8, 30.9, 11.6],
-                    [11,  5.3,  7.9,  4.7],
-                    [12,  6.6,  8.4,  5.2],
-                    [13,  4.8,  6.3,  3.6],
-                    [14,  4.2,  6.2,  3.4]
-                ]);
-
-
-                var options = {
-                    chart: {
-                    title: 'Box Office Earnings in First Two Weeks of Opening',
-                    subtitle: 'in millions of dollars (USD)'
-                    },
-                    width: 900,
-                    height: 500
-                };
-
-                var chart = new google.charts.Line(document.getElementById('linechart_dish'));
-
-                chart.draw(data, google.charts.Line.convertOptions(options));
-                }
-            ";
-            */
-        }
-
         public static function barChartProduct($productArray){
 
             $dataAddRows = "
@@ -475,7 +413,14 @@
             $fileList = glob("inc/data/*.csv");
 
             $htmlFileList = '
-            <form method="post" action="'.$_SERVER["PHP_SELF"].'?page=charts">
+            <script type="text/javascript">
+            function download(d) {
+                    if (d == "Select document") return;
+                    window.location = d;
+            }
+            </script>
+
+            <form method="post" action="">
             <div class="priori-content-container">
                 <div class="priori-flex-row flex-content-row">
                     <div class="col-1">
@@ -484,7 +429,9 @@
                                 <h2 class="text-uppercase">Weekly Reports</h2>
                             </div>
                             <div class="panel-body">
-                            <select name="reports" class="form-control">';
+                            <select name="reports" class="form-control" onChange="download(this.value)">
+                            <option value="'.$_SERVER["PHP_SELF"].'?page=tables&tab=employee">Select a Date</option>
+                            ';
                             if(!empty($fileList)){
                                 $htmlFileList .= '';
                                 if(count($fileList) < 5){
@@ -494,7 +441,8 @@
                                         //$path = array("inc","dat","filename");
                                         $path = explode("/",$fileList[$i]);
                                         //count($path)-1 = The filename, no matter the directory is;
-                                        $htmlFileList .= '<option value="'.$fileList[$i].'">'.$path[count($path)-1].'</option>';
+                                        $htmlFileList .= '<option value="'.$fileList[$i].'">'.$path[count($path)-1].'</option>
+                                        ';
                                     }    
                                 } else {
                                     for($i = count($fileList)-1; $i > count($fileList)-5; $i--){
@@ -502,7 +450,8 @@
                                         //$path = array("inc","dat","filename");
                                         $path = explode("/",$fileList[$i]);
                                         //count($path)-1 = The filename, no matter the directory is;
-                                        $htmlFileList .= '<option value="'.$fileList[$i].'">'.$path[count($path)-1].'</option>';
+                                        $htmlFileList .= '<option value="'.$fileList[$i].'">'.$path[count($path)-1].'</option>
+                                        ';
                                     }
                                 }
                                 $htmlFileList .= '</select>';
