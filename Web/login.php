@@ -23,7 +23,6 @@ if(!empty($_POST)){
 
 Page::pageHeader();
 Page::leftMenuGuest();
-
 Page::pageContentTop();
 
 Page::loginForm();

@@ -14,8 +14,6 @@ require_once("inc/Utilities/Html/TablePage.class.php");
 require_once("inc/Utilities/Html/FormHtml.class.php");
 require_once("inc/Utilities/Html/ChartPage.class.php");
 
-
-
 Page::pageHeader();
 
 if(!empty($_GET["page"])){
@@ -31,7 +29,6 @@ if(!empty($_GET["page"])){
             RestAPI::getData("employee")
         );
 
-        /*The graphs have to be always in the bottom*/
         DashboardPage::divGraphs();
 
         DashboardPage::pieChart(
@@ -91,8 +88,11 @@ if(!empty($_GET["page"])){
             }
 
         } else {
-
-            $action = $_POST["form"];
+            $action = "";
+            
+            if(isset($_POST["form"])){
+                $action = $_POST["form"];
+            }
 
             if( strpos($action, "add") !== false ){
                 RestAPI::postData($_POST);
@@ -195,16 +195,3 @@ if(!empty($_GET["page"])){
 
 Page::pageContentBottom();
 Page::pageFooter();
-
-/*
-
-(Kinda hard one)
-Qty of dishes sold:
-1 line per dish
-date x aggregate qty for dish
-
-(even harder)
-qty of ingredients sold:
-1 line per ingredient
-date x aggregate qty for ingredient
-*/
