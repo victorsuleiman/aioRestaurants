@@ -40,7 +40,7 @@ date_default_timezone_set('America/Vancouver');
                 Page::modalMessage("Wrong password or username!");
             }
         }
-
+        
         public static function logout(){
             session_start();
             unset($_SESSION["loggedin"]);
