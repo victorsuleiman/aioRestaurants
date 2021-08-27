@@ -43,20 +43,6 @@ def updatePosDatabase():
     emit('onGetUserCategories',json_userCategories)
     emit('onGetGoals',json_goals)
 
-@socketio.on('authenticateUser')
-def fetchUsername(data):
-    username = data['username']
-    print("Looking for username {} to login".format(username))
-    usernameToFind = mongo.db.employee.find_one({'username':username})
-
-    if usernameToFind == None:
-        print("Username not found.")
-        # emit('usernameSearchResult',False)
-    else:
-        print("Username found.")
-        # json_data = dumps(usernameToFind)
-        # emit('usernameSearchForLogin', json_data)
-
 
 @socketio.on('submitReceipt')
 def submitReceipt(data):
@@ -115,6 +101,15 @@ def updateSales(date, amount):
         )
         print("done.")
 
+def updateCashFund(qty):
+    print("Payment in cash. Updating cash fund...")
+    mongo.db.restaurant.update_one(
+            {'name' : "Franchise 1"},
+            {
+                '$inc' : {'cashFund' : qty}
+            }
+        )
+
 @socketio.on('submitGoal')
 def submitGoal(data):
     
@@ -143,14 +138,7 @@ def updateGoal(data):
             }
         )
 
-def updateCashFund(qty):
-    print("Payment in cash. Updating cash fund...")
-    mongo.db.restaurant.update_one(
-            {'name' : "Franchise 1"},
-            {
-                '$inc' : {'cashFund' : qty}
-            }
-        )
+
 
 if __name__ == '__main__':
     socketio.run(app,host = '0.0.0.0')

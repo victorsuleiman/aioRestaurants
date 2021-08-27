@@ -1,1 +1,1 @@
-http://10.0.0.88:5000/
+https://aiorestaurants-backend.herokuapp.com/
