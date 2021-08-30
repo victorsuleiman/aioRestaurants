@@ -7,7 +7,7 @@
 ### Test the app <a href = "https://appetize.io/app/q8b0ur0hh7fa3ryva81uhztfv0?device=nexus9&scale=50&orientation=landscape&osVersion=8.1"> here </a>! Browser emulator, no additional software needed. You can login as admin/admin.
 
 ## Features developed by Victor
-* Python + Flask mobile backend: PyMongo, JSON data parsing and SocketIO
+* Python + Flask mobile backend: PyMongo, JSON data parsing and SocketIO, Gunicorn specification and Heroku hosting
 * Data communication between backend and frontend using SocketIO, Moshi and Room
 * Frontend development: event handlers, LiveData, ViewModel and observers
 
